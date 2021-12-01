@@ -5,11 +5,11 @@
         <div class="px-10 py-12">
           <h1 class="text-center font-bold text-3xl">Benvingut de nou!</h1>
           <div class="mx-auto mt-8 w-24 border-b-2" />
-          <div class="mb-8 mt-8">
+          <div class="mb-8 mt-8 w-max">
             <label class="block text-gray-700 text-sm font-bold mb-2" for="username">Email</label>
             <input v-model="form.email" :error="form.errors.email" class="shadow appearance-none border max-w-full rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="email" autocapitalize="off" />
           </div>
-          <div class="mb-8">
+          <div class="mb-8 w-max">
             <label class="block text-gray-700 text-sm font-bold mb-2" for="password">Contrasenya</label>
             <input v-model="form.password" :error="form.errors.password" class="shadow appearance-none border max-w-full rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" type="password" />
           </div>
