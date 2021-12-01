@@ -2,6 +2,7 @@
   <div style="height: 93.5vh" class="bg-yellow-300 p-6 flex justify-center items-center">
     <div class="w-full max-w-md">
       <form class="bg-white shadow-md rounded px-8" @submit.prevent="login">
+
         <div class="px-10 py-12">
           <h1 class="text-center font-bold text-3xl">Benvingut de nou!</h1>
           <div class="mx-auto mt-8 w-24 border-b-2" />
@@ -26,6 +27,7 @@
             </a>
           </div>
         </div>
+        
       </form>
     </div>
   </div>
