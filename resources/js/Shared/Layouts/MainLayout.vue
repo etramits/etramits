@@ -5,8 +5,8 @@
         <h1 class="text-3xl font-semibold">{{ title }}</h1>
 
         <div class="hidden md:flex">
-          <a href="#" class="text-lg">Accedir</a>
-          <a href="#" class="ml-4 text-lg">Registrar-se</a>
+          <inertia-link class="block px-6 py-2 hover:bg-indigo-500 hover:text-white rounded" :href="route('login')">Accedir</inertia-link>
+          <inertia-link class="block px-6 py-2 hover:bg-indigo-500 hover:text-white rounded" :href="route('login')">Registrar-se</inertia-link>
         </div>
       </div>
     </header>
