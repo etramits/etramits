@@ -7,7 +7,7 @@
         <select v-model="form.role" class="mt-1 w-full form-select">
           <option :value="null" />
           <option value="user">User</option>
-          <option value="owner">Owner</option>
+          <option value="admin">Admin</option>
         </select>
         <label class="mt-4 block text-gray-700">Trashed:</label>
         <select v-model="form.trashed" class="mt-1 w-full form-select">
@@ -43,7 +43,7 @@
           </td>
           <td class="border-t">
             <inertia-link class="px-6 py-4 flex items-center" :href="route('users.edit', user.id)" tabindex="-1">
-              {{ user.owner ? 'Owner' : 'User' }}
+              {{ user.role ? 'Admin' : 'User' }}
             </inertia-link>
           </td>
           <td class="border-t w-px">

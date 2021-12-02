@@ -20,7 +20,7 @@ class OrganizationsTest extends TestCase
             'first_name' => 'John',
             'last_name' => 'Doe',
             'email' => 'johndoe@example.com',
-            'owner' => true,
+            'role' => 2,
         ]);
 
         $this->user->account->organizations()->createMany([

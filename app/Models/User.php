@@ -15,7 +15,7 @@ class User extends Authenticatable
     use SoftDeletes;
 
     protected $casts = [
-        'owner' => 'boolean',
+        'role' => 'boolean',
         'email_verified_at' => 'datetime',
     ];
 
@@ -52,8 +52,8 @@ class User extends Authenticatable
     public function scopeWhereRole($query, $role)
     {
         switch ($role) {
-            case 'user': return $query->where('owner', false);
-            case 'owner': return $query->where('owner', true);
+            case 'user': return $query->where('role', 1);
+            case 'admin': return $query->where('role', 2);
         }
     }
 

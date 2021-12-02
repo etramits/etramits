@@ -20,7 +20,7 @@ class ContactsTest extends TestCase
             'first_name' => 'John',
             'last_name' => 'Doe',
             'email' => 'johndoe@example.com',
-            'owner' => true,
+            'role' => 2,
         ]);
 
         $organization = $this->user->account->organizations()->create(['name' => 'Example Organization Inc.']);

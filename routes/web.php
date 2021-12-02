@@ -43,9 +43,9 @@ Route::delete('logout', [AuthenticatedSessionController::class, 'destroy'])
 
 // Dashboard
 
-// Route::get('/', [DashboardController::class, 'index'])
-//     ->name('dashboard')
-//     ->middleware('auth');
+Route::get('/dashboard', [DashboardController::class, 'index'])
+    ->name('dashboard')
+    ->middleware('auth');
 
 // Users
 
