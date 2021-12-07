@@ -1,5 +1,5 @@
 <template>
-  <app-layout>
+  <Nav />
   <!-- Slogan -->
   <section class="bg-yellow-300	">
     <div class="container flex flex-col md:flex-row items-center justify-between mx-auto px-4 py-10 text-gray-800">
@@ -33,7 +33,6 @@
       </div>
     </div>
   </section>
-  </app-layout>
 </template>
 
 <script>
@@ -42,7 +41,7 @@
     import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
     import { library } from '@fortawesome/fontawesome-svg-core'
     import { fas } from '@fortawesome/free-solid-svg-icons'
-    import AppLayout from '@/Layouts/AppLayout.vue'
+    import Nav from '@/Layouts/Nav.vue'
 
     library.add(fas)
 
@@ -50,7 +49,7 @@
         components: {
             Link,
             FontAwesomeIcon,
-            AppLayout
+            Nav
         },
 
         props: {
