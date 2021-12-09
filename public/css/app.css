@@ -1144,6 +1144,9 @@ select {
 .col-span-6 {
 	grid-column: span 6 / span 6;
 }
+.m-5 {
+	margin: 1.25rem;
+}
 .mx-auto {
 	margin-left: auto;
 	margin-right: auto;
@@ -1151,6 +1154,10 @@ select {
 .my-12 {
 	margin-top: 3rem;
 	margin-bottom: 3rem;
+}
+.-my-2 {
+	margin-top: -0.5rem;
+	margin-bottom: -0.5rem;
 }
 .ml-3 {
 	margin-left: 0.75rem;
@@ -1224,6 +1231,12 @@ select {
 .-mt-px {
 	margin-top: -1px;
 }
+.mb-8 {
+	margin-bottom: 2rem;
+}
+.ml-8 {
+	margin-left: 2rem;
+}
 .block {
 	display: block;
 }
@@ -1232,6 +1245,9 @@ select {
 }
 .inline-flex {
 	display: inline-flex;
+}
+.table {
+	display: table;
 }
 .grid {
 	display: grid;
@@ -1265,6 +1281,9 @@ select {
 }
 .h-20 {
 	height: 5rem;
+}
+.h-3 {
+	height: 0.75rem;
 }
 .min-h-screen {
 	min-height: 100vh;
@@ -1316,6 +1335,15 @@ select {
 }
 .w-4\/5 {
 	width: 80%;
+}
+.w-3 {
+	width: 0.75rem;
+}
+.w-px {
+	width: 1px;
+}
+.w-5\/6 {
+	width: 83.333333%;
 }
 .min-w-0 {
 	min-width: 0px;
@@ -1392,6 +1420,9 @@ select {
 .grid-cols-1 {
 	grid-template-columns: repeat(1, minmax(0, 1fr));
 }
+.flex-row {
+	flex-direction: row;
+}
 .flex-col {
 	flex-direction: column;
 }
@@ -1440,6 +1471,9 @@ select {
 .overflow-hidden {
 	overflow: hidden;
 }
+.overflow-x-auto {
+	overflow-x: auto;
+}
 .overflow-y-auto {
 	overflow-y: auto;
 }
@@ -1484,6 +1518,10 @@ select {
 .rounded-b-none {
 	border-bottom-right-radius: 0px;
 	border-bottom-left-radius: 0px;
+}
+.rounded-t-lg {
+	border-top-left-radius: 0.5rem;
+	border-top-right-radius: 0.5rem;
 }
 .border {
 	border-width: 1px;
@@ -1956,6 +1994,10 @@ select {
 .ease-in {
 	transition-timing-function: cubic-bezier(0.4, 0, 1, 1);
 }
+.focus-within\:bg-gray-100:focus-within {
+	--tw-bg-opacity: 1;
+	background-color: rgba(243, 244, 246, var(--tw-bg-opacity));
+}
 .hover\:border-gray-300:hover {
 	--tw-border-opacity: 1;
 	border-color: rgba(209, 213, 219, var(--tw-border-opacity));
@@ -2081,6 +2123,10 @@ select {
 .focus\:text-gray-900:focus {
 	--tw-text-opacity: 1;
 	color: rgba(17, 24, 39, var(--tw-text-opacity));
+}
+.focus\:text-indigo-500:focus {
+	--tw-text-opacity: 1;
+	color: rgba(99, 102, 241, var(--tw-text-opacity));
 }
 .focus\:outline-none:focus {
 	outline: 2px solid transparent;
@@ -2363,6 +2409,10 @@ select {
 
 	.md\:block {
 		display: block;
+	}
+
+	.md\:inline {
+		display: inline;
 	}
 
 	.md\:flex {
