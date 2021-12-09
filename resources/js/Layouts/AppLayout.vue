@@ -44,7 +44,7 @@
                                                 Gestionar Compte
                                             </div>
 
-                                            <jet-dropdown-link :href="route('dashboard')">
+                                            <jet-dropdown-link :href="route('dashboard')" v-if="$page.props.user.role == 2">
                                                 Panell Control
                                             </jet-dropdown-link>
 

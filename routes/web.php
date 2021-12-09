@@ -19,6 +19,6 @@ use App\Http\Controllers\HomeController;
 
 Route::get('/', [HomeController::class, 'index']);
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
+Route::middleware(['auth:sanctum', 'verified', 'admin'])->get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->name('dashboard');
