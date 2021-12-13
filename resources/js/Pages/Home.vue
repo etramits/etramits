@@ -1,7 +1,7 @@
 <template>
   <AppLayout title="Home">
     <!-- Slogan -->
-    <section class="bg-yellow-300	">
+    <section class="bg-yellow-300	font-sans">
       <div class="container flex flex-col md:flex-row items-center justify-between mx-auto px-4 py-10 text-gray-800">
         <h2 class="text-4xl md:text-8xl font-bold">Consulta tràmits<br>en dos clics</h2>
         <img class="mt-10 w-60 md:h-80 md:w-auto" src="/img/slogan.png">
@@ -10,7 +10,7 @@
 
     <!-- Explore procedures -->
     <section class="container flex flex-col items-center mx-auto my-12 md:my-24 text-gray-800">
-      <h3 class="text-3xl md:text-5xl font-medium">Explorar tràmits</h3>
+      <h3 class="text-3xl md:text-5xl font-semibold">Explorar tràmits</h3>
 
       <!-- Procedure -->
       <div class="grid md:grid-cols-5 gap-10 mt-8 md:mt-14">
@@ -37,50 +37,50 @@
 </template>
 
 <script>
-    import { defineComponent } from 'vue'
-    import { Link } from '@inertiajs/inertia-vue3'
-    import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-    import { library } from '@fortawesome/fontawesome-svg-core'
-    import { fas } from '@fortawesome/free-solid-svg-icons'
-    import AppLayout from '@/Layouts/AppLayout.vue'
+  import { defineComponent } from 'vue'
+  import { Link } from '@inertiajs/inertia-vue3'
+  import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+  import { library } from '@fortawesome/fontawesome-svg-core'
+  import { fas } from '@fortawesome/free-solid-svg-icons'
+  import AppLayout from '@/Layouts/AppLayout.vue'
 
-    library.add(fas)
+  library.add(fas)
 
-    export default defineComponent({
-        components: {
-            Link,
-            FontAwesomeIcon,
-            AppLayout
-        },
+  export default defineComponent({
+    components: {
+      Link,
+      FontAwesomeIcon,
+      AppLayout
+    },
 
-        props: {
-            canLogin: Boolean,
-            canRegister: Boolean,
-            laravelVersion: String,
-            phpVersion: String,
-            categories: Object,
-        },
+    props: {
+      canLogin: Boolean,
+      canRegister: Boolean,
+      laravelVersion: String,
+      phpVersion: String,
+      categories: Object,
+    },
 
-        data() {
-            return {
-                stats: [
-                    {
-                        id: 0,
-                        label: 'Tràmits',
-                        value: 320,
-                    },
-                    {
-                        id: 0,
-                        label: 'Comentaris',
-                        value: 12,
-                    },
-                    {
-                        id: 0,
-                        label: 'Usuaris',
-                        value: 8,
-                    }
-                ]
-            }
-        }
-    })
+    data() {
+      return {
+        stats: [
+          {
+            id: 0,
+            label: 'Tràmits',
+            value: 320,
+          },
+          {
+            id: 0,
+            label: 'Comentaris',
+            value: 12,
+          },
+          {
+            id: 0,
+            label: 'Usuaris',
+            value: 8,
+          }
+        ]
+      }
+    }
+  })
 </script>

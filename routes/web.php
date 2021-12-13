@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\CategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,6 +19,8 @@ use App\Http\Controllers\HomeController;
 */
 
 Route::get('/', [HomeController::class, 'index']);
+
+Route::get('/categoria', [CategoryController::class, 'index']);
 
 Route::middleware(['auth:sanctum', 'verified', 'admin'])->get('/dashboard', function () {
     return Inertia::render('Dashboard');
