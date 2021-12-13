@@ -34,7 +34,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+       
     }
 
     /**
@@ -45,7 +45,18 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Request::validate([
+            'first_name' => ['required', 'max:50'],
+            'last_name' => ['required', 'max:50'],
+            'email' => ['required', 'max:50', 'email', Rule::unique('users')],
+            'password' => ['nullable'],
+            'owner' => ['required', 'boolean'],
+            'photo' => ['nullable', 'image'],
+        ]);
+
+        User::create($request->all());
+
+        return Redirect::route('users')->with('success', 'User created.');
     }
 
     /**

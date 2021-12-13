@@ -1155,10 +1155,6 @@ select {
 	margin-top: 3rem;
 	margin-bottom: 3rem;
 }
-.-my-2 {
-	margin-top: -0.5rem;
-	margin-bottom: -0.5rem;
-}
 .ml-3 {
 	margin-left: 0.75rem;
 }
@@ -1282,9 +1278,6 @@ select {
 .h-20 {
 	height: 5rem;
 }
-.h-3 {
-	height: 0.75rem;
-}
 .min-h-screen {
 	min-height: 100vh;
 }
@@ -1335,12 +1328,6 @@ select {
 }
 .w-4\/5 {
 	width: 80%;
-}
-.w-3 {
-	width: 0.75rem;
-}
-.w-px {
-	width: 1px;
 }
 .w-5\/6 {
 	width: 83.333333%;
@@ -1471,9 +1458,6 @@ select {
 .overflow-hidden {
 	overflow: hidden;
 }
-.overflow-x-auto {
-	overflow-x: auto;
-}
 .overflow-y-auto {
 	overflow-y: auto;
 }
@@ -1567,6 +1551,10 @@ select {
 	--tw-border-opacity: 1;
 	border-color: rgba(156, 163, 175, var(--tw-border-opacity));
 }
+.border-blue-300 {
+	--tw-border-opacity: 1;
+	border-color: rgba(147, 197, 253, var(--tw-border-opacity));
+}
 .bg-white {
 	--tw-bg-opacity: 1;
 	background-color: rgba(255, 255, 255, var(--tw-bg-opacity));
@@ -1625,6 +1613,10 @@ select {
 .bg-yellow-300 {
 	--tw-bg-opacity: 1;
 	background-color: rgba(252, 211, 77, var(--tw-bg-opacity));
+}
+.bg-blue-500 {
+	--tw-bg-opacity: 1;
+	background-color: rgba(59, 130, 246, var(--tw-bg-opacity));
 }
 .bg-opacity-25 {
 	--tw-bg-opacity: 0.25;
@@ -1743,6 +1735,12 @@ select {
 }
 .pt-8 {
 	padding-top: 2rem;
+}
+.pl-5 {
+	padding-left: 1.25rem;
+}
+.pr-5 {
+	padding-right: 1.25rem;
 }
 .text-left {
 	text-align: left;
@@ -1897,6 +1895,10 @@ select {
 	--tw-text-opacity: 1;
 	color: rgba(252, 211, 77, var(--tw-text-opacity));
 }
+.text-gray-100 {
+	--tw-text-opacity: 1;
+	color: rgba(243, 244, 246, var(--tw-text-opacity));
+}
 .underline {
 	text-decoration: underline;
 }
@@ -1994,10 +1996,6 @@ select {
 .ease-in {
 	transition-timing-function: cubic-bezier(0.4, 0, 1, 1);
 }
-.focus-within\:bg-gray-100:focus-within {
-	--tw-bg-opacity: 1;
-	background-color: rgba(243, 244, 246, var(--tw-bg-opacity));
-}
 .hover\:border-gray-300:hover {
 	--tw-border-opacity: 1;
 	border-color: rgba(209, 213, 219, var(--tw-border-opacity));
@@ -2055,6 +2053,9 @@ select {
 }
 .focus\:z-10:focus {
 	z-index: 10;
+}
+.focus\:border-4:focus {
+	border-width: 4px;
 }
 .focus\:border-blue-300:focus {
 	--tw-border-opacity: 1;
@@ -2123,10 +2124,6 @@ select {
 .focus\:text-gray-900:focus {
 	--tw-text-opacity: 1;
 	color: rgba(17, 24, 39, var(--tw-text-opacity));
-}
-.focus\:text-indigo-500:focus {
-	--tw-text-opacity: 1;
-	color: rgba(99, 102, 241, var(--tw-text-opacity));
 }
 .focus\:outline-none:focus {
 	outline: 2px solid transparent;
@@ -2409,10 +2406,6 @@ select {
 
 	.md\:block {
 		display: block;
-	}
-
-	.md\:inline {
-		display: inline;
 	}
 
 	.md\:flex {

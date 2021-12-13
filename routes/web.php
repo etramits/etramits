@@ -24,6 +24,6 @@ Route::middleware(['auth:sanctum', 'verified', 'admin'])->get('/dashboard', func
     return Inertia::render('Dashboard');
 })->name('dashboard');
 
-Route::get('users', [UserController::class, 'index'])
+Route::get('dashboard/users', [UserController::class, 'index'])
     ->name('users')
     ->middleware('auth:sanctum', 'verified', 'admin');
