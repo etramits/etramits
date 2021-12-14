@@ -1227,6 +1227,9 @@ select {
 .-mt-px {
 	margin-top: -1px;
 }
+.mr-4 {
+	margin-right: 1rem;
+}
 .mb-8 {
 	margin-bottom: 2rem;
 }
@@ -1328,6 +1331,9 @@ select {
 }
 .w-4\/5 {
 	width: 80%;
+}
+.w-3\/5 {
+	width: 60%;
 }
 .w-5\/6 {
 	width: 83.333333%;

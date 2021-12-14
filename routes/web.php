@@ -20,10 +20,19 @@ use App\Http\Controllers\UserController;
 
 Route::get('/', [HomeController::class, 'index']);
 
-Route::middleware(['auth:sanctum', 'verified', 'admin'])->get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->name('dashboard');
+Route::middleware(['auth:sanctum', 'verified', 'admin'])->group(function () {
 
-Route::get('dashboard/users', [UserController::class, 'index'])
-    ->name('users')
-    ->middleware('auth:sanctum', 'verified', 'admin');
+    Route::middleware(['auth:sanctum', 'verified', 'admin'])->get('/dashboard', function () {
+        return Inertia::render('Dashboard');
+    })->name('dashboard');
+
+    Route::get('dashboard/users', [UserController::class, 'index'])
+    ->name('users');
+
+    Route::get('dashboard/users/create', [UserController::class, 'create'])
+    ->name('users.create');
+
+    Route::post('dashboard/users', [UserController::class, 'store'])
+    ->name('users.store')
+    ->middleware('auth');
+});

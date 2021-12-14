@@ -2,8 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Facades\URL;
+use Illuminate\Validation\Rule;
 use Inertia\Inertia;
 
 class UserController extends Controller
@@ -34,7 +40,7 @@ class UserController extends Controller
      */
     public function create()
     {
-       
+       return Inertia::render('Users/Create');
     }
 
     /**
@@ -43,18 +49,21 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store()
     {
         Request::validate([
-            'first_name' => ['required', 'max:50'],
-            'last_name' => ['required', 'max:50'],
+            'name' => ['required', 'max:50'],
             'email' => ['required', 'max:50', 'email', Rule::unique('users')],
-            'password' => ['nullable'],
-            'owner' => ['required', 'boolean'],
-            'photo' => ['nullable', 'image'],
+            'password' => ['required','max:50'],
+            'role' => ['required', 'max:1'],
         ]);
 
-        User::create($request->all());
+        Auth::user()->create([
+            'name' => Request::get('name'),
+            'email' => Request::get('email'),
+            'password' => Request::get('password'),
+            'role' => Request::get('role'),
+        ]);
 
         return Redirect::route('users')->with('success', 'User created.');
     }
