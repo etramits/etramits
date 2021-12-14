@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Inertia\Inertia;
 use App\Models\Article;
-
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Facades\URL;
+use Illuminate\Validation\Rule;
+use Inertia\Inertia;
 
 class ArticleController extends Controller
 {
@@ -19,6 +23,7 @@ class ArticleController extends Controller
                 'title' => $article->title,
                 'category_id' => $article->category_id,
                 'author_id' => $article->author_id,
+                'content' => $article->content,
             ])
         ]);
     }
@@ -30,7 +35,8 @@ class ArticleController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('Articles/Create');
+
     }
 
     /**
@@ -39,9 +45,25 @@ class ArticleController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store()
     {
-        //
+        Request::validate([
+            'title' => ['required', 'max:200'],
+            'slug' => ['required', 'max:200'],
+            'category_id' => ['required','integer'],
+            'author_id' => ['required', 'integer'],
+            'content' => ['required'],
+        ]);
+
+        Auth::user()->account->users()->create([
+            'title' => Request::get('title'),
+            'slug' => Request::get('slug'),
+            'category_id' => Request::get('category_id'),
+            'author_id' => Request::get('author_id'),
+            'content' => Request::get('content'),
+        ]);
+
+        return Redirect::route('articles')->with('success', 'Article created.');
     }
 
     /**
@@ -61,9 +83,17 @@ class ArticleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Article $article)
     {
-        //
+        return Inertia::render('Articles/Edit', [
+            'article' => [
+                'id' => $article->id,
+                'title' => $article->title,
+                'category_id' => $article->category_id,
+                'author_id' => $article->author_id,
+                'content' => $article->content,
+            ],
+        ]);
     }
 
     /**
@@ -73,9 +103,19 @@ class ArticleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Article $article)
     {
-        //
+        Request::validate([
+            'title' => ['required', 'max:200'],
+            'slug' => ['required', 'max:200'],
+            'category_id' => ['required','integer'],
+            'author_id' => ['required', 'integer'],
+            'content' => ['required'],
+        ]);
+
+        $article->update(Request::only('title', 'slug', 'category_id', 'author_id','content'));
+        
+        return Redirect::back()->with('success', 'Article updated.');
     }
 
     /**
@@ -84,8 +124,18 @@ class ArticleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Article $article)
     {
-        //
+    
+        $article->delete();
+
+        return Redirect::back()->with('success', 'User deleted.');
+    }
+
+    public function restore(Article $article)
+    {
+        $article->restore();
+
+        return Redirect::back()->with('success', 'Article restored.');
     }
 }

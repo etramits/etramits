@@ -21,10 +21,10 @@ use App\Http\Controllers\ArticleController;
 
 Route::get('/', [HomeController::class, 'index']);
 
-Route::get('articles', [ArticleController::class, 'index'])
-    ->name('articles')
-    ->middleware('auth:sanctum', 'verified', 'admin');
-
 Route::middleware(['auth:sanctum', 'verified', 'admin'])->get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->name('dashboard');
+
+Route::get('dashboard/articles', [ArticleController::class, 'index'])
+    ->name('articles')
+    ->middleware(['auth:sanctum', 'verified', 'admin']);
