@@ -66,10 +66,9 @@
         data() {
             return {
                 form: this.$inertia.form({
+                    _method: 'put',
                     name: this.user.name,
                     email: this.user.email,
-                    password: '',
-                    password_confirmation: '',
                     role: this.user.role,
                 })
             }
@@ -88,9 +87,7 @@
                 }
             },
             submit() {
-                this.form.post(this.route('users.store'), {
-                    onFinish: () => this.form.reset('password', 'password_confirmation'),
-                })
+                this.form.post(this.route('users.update', this.user.id));
             }
         }
     })

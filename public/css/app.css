@@ -1747,14 +1747,14 @@ select {
 .pt-8 {
 	padding-top: 2rem;
 }
+.pr-8 {
+	padding-right: 2rem;
+}
 .pl-5 {
 	padding-left: 1.25rem;
 }
 .pr-5 {
 	padding-right: 1.25rem;
-}
-.pr-8 {
-	padding-right: 2rem;
 }
 .text-left {
 	text-align: left;

@@ -32389,10 +32389,9 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       form: this.$inertia.form({
+        _method: 'put',
         name: this.user.name,
         email: this.user.email,
-        password: '',
-        password_confirmation: '',
         role: this.user.role
       })
     };
@@ -32413,13 +32412,7 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     submit: function submit() {
-      var _this = this;
-
-      this.form.post(this.route('users.store'), {
-        onFinish: function onFinish() {
-          return _this.form.reset('password', 'password_confirmation');
-        }
-      });
+      this.form.post(this.route('users.update', this.user.id));
     }
   }
 }));

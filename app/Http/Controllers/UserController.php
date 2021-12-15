@@ -104,15 +104,21 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $user)
+    public function update(Request $request, User $user)
     {
-        Request::validate([
+        $validator = Request::validate([
             'name' => ['required', 'max:50'],
-            'email' => ['required', 'max:50', 'email', Rule::unique('users')->ignore($user->id)],
+            'email' => ['required', 'max:50', 'email', Rule::unique('users')],
             'role' => ['required', 'integer'],
         ]);
 
+        if ($validator->fails()) {
+            return redirect()->Back()->withInput()->withErrors($validator);
+        }
+
         $user->update(Request::only('name', 'email', 'role'));
+
+        return Redirect::route('users')->with('success', 'User created.');
     }
 
     /**
@@ -125,6 +131,6 @@ class UserController extends Controller
     {
         $user->delete();
 
-        return Redirect::back()->with('success', 'User deleted.');
+        return Redirect::route('users')->with('success', 'User created.');
     }
 }
