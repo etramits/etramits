@@ -32,6 +32,9 @@ Route::middleware(['auth:sanctum', 'verified', 'admin'])->group(function () {
     Route::get('dashboard/users/create', [UserController::class, 'create'])
     ->name('users.create');
 
+    Route::get('dashboard/users/{user}/edit', [UserController::class, 'edit'])
+    ->name('users.edit');
+
     Route::post('dashboard/users', [UserController::class, 'store'])
     ->name('users.store')
     ->middleware('auth');

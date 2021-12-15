@@ -61,7 +61,7 @@ class UserController extends Controller
         Auth::user()->create([
             'name' => Request::get('name'),
             'email' => Request::get('email'),
-            'password' => Request::get('password'),
+            'password' => Hash::make(Request::get('password')),
             'role' => Request::get('role'),
         ]);
 
@@ -85,9 +85,16 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(User $user)
     {
-        //
+        return Inertia::render('Users/Edit', [
+            'user' => [
+                'id' => $user->id,
+                'name' => $user->name,
+                'email' => $user->email,
+                'role' => $user->role
+            ],
+        ]);
     }
 
     /**
@@ -97,9 +104,15 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $user)
     {
-        //
+        Request::validate([
+            'name' => ['required', 'max:50'],
+            'email' => ['required', 'max:50', 'email', Rule::unique('users')->ignore($user->id)],
+            'role' => ['required', 'integer'],
+        ]);
+
+        $user->update(Request::only('name', 'email', 'role'));
     }
 
     /**
@@ -108,8 +121,10 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($user)
     {
-        //
+        $user->delete();
+
+        return Redirect::back()->with('success', 'User deleted.');
     }
 }
