@@ -28,3 +28,11 @@ Route::middleware(['auth:sanctum', 'verified', 'admin'])->get('/dashboard', func
 Route::get('dashboard/articles', [ArticleController::class, 'index'])
     ->name('articles')
     ->middleware(['auth:sanctum', 'verified', 'admin']);
+
+Route::get('dashboard/articles/edit', [ArticleController::class, 'edit'])
+    ->name('articles')
+    ->middleware(['auth:sanctum', 'verified', 'admin']);
+
+Route::get('dashboard/articles/delete', [ArticleController::class, 'destroy'])
+    ->name('articles')
+    ->middleware(['auth:sanctum', 'verified', 'admin']);
