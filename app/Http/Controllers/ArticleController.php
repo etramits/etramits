@@ -22,6 +22,7 @@ class ArticleController extends Controller
                 'id' => $article->id,
                 'title' => $article->title,
                 'category_id' => $article->category_id,
+                'slug' => $article->slug,
                 'author_id' => $article->author_id,
                 'content' => $article->content,
             ])
