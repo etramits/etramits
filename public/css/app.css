@@ -1224,6 +1224,9 @@ select {
 .-mt-px {
 	margin-top: -1px;
 }
+.mb-20 {
+	margin-bottom: 5rem;
+}
 .mr-1 {
 	margin-right: 0.25rem;
 }
@@ -1757,6 +1760,10 @@ select {
 .text-xl {
 	font-size: 1.25rem;
 	line-height: 1.75rem;
+}
+.text-7xl {
+	font-size: 4.5rem;
+	line-height: 1;
 }
 .text-4xl {
 	font-size: 2.25rem;
@@ -2440,6 +2447,11 @@ select {
 		padding-bottom: 0px;
 	}
 
+	.md\:text-2xl {
+		font-size: 1.5rem;
+		line-height: 2rem;
+	}
+
 	.md\:text-8xl {
 		font-size: 6rem;
 		line-height: 1;
@@ -2448,11 +2460,6 @@ select {
 	.md\:text-5xl {
 		font-size: 3rem;
 		line-height: 1;
-	}
-
-	.md\:text-2xl {
-		font-size: 1.5rem;
-		line-height: 2rem;
 	}
 }
 @media (min-width: 1024px) {

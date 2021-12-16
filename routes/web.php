@@ -22,6 +22,8 @@ Route::get('/', [HomeController::class, 'index']);
 
 Route::get('/categoria', [CategoryController::class, 'index']);
 
+Route::get('/{slug}', [CategoryController::class, 'test']);
+
 Route::middleware(['auth:sanctum', 'verified', 'admin'])->get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->name('dashboard');
