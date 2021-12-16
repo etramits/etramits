@@ -8,19 +8,19 @@
       </div>
     </section>
 
-    <!-- Explore procedures -->
-    <section class="container flex flex-col items-center mx-auto my-12 md:my-24 text-gray-800">
-      <h3 class="text-3xl md:text-5xl font-semibold">Explorar tràmits</h3>
+    <div class="py-12 md:py-20 bg-gray-50">
+      <section class="container flex flex-col items-center mx-auto text-gray-800">
+        <h3 class="text-3xl md:text-5xl font-semibold">Explorar tràmits</h3>
 
-      <!-- Procedure -->
-      <div class="grid md:grid-cols-5 gap-10 mt-8 md:mt-14">
-        <div v-for="category in categories" :key="category.id" class="flex flex-col items-center p-6 w-50 bg-gray-100 rounded-md shadow hover:opacity-60 cursor-pointer">
-          <span class="mb-6 text-lg text-gray-400">12 tràmits</span>
-          <font-awesome-icon v-bind:icon="!category.icon ? 'file-alt' : category.icon" size="5x" class="text-yellow-300" />
-          <h4 class="mt-6 max-w-full text-xl md:text-2xl overflow-hidden whitespace-nowrap	overflow-ellipsis">{{ category.name }}</h4>
+        <!-- Procedure -->
+        <div class="grid md:grid-cols-5 gap-10 mt-8 md:mt-14">
+          <div v-for="category in categories" :key="category.id" class="flex flex-col items-center p-6 w-50 bg-white rounded-xl shadow hover:opacity-60 cursor-pointer">
+            <font-awesome-icon v-bind:icon="!category.icon ? 'file-alt' : category.icon" size="5x" class="text-yellow-300" />
+            <h4 class="mt-6 max-w-full text-xl md:text-2xl font-medium overflow-hidden whitespace-nowrap	overflow-ellipsis">{{ category.name }}</h4>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </div>
 
     <!-- Stats -->
     <section class="bg-gray-800 text-white">
