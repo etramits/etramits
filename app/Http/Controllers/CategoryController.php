@@ -7,22 +7,7 @@ use App\Models\Category;
 
 class CategoryController extends Controller
 {
-  public function index()
-  {
-    return Inertia::render('Category', [
-      'categories' => Category::where('active', true)
-        ->whereNotNull('parent')
-        ->orderBy('position')
-        ->get()
-        ->map(fn ($category) => [
-          'id' => $category->id,
-          'name' => $category->name,
-          'icon' => $category->icon,
-        ])
-    ]);
-  }
-
-  public function test($slug)
+  public function index($slug)
   {
     $category = Category::where('slug', $slug)
       ->where('active', true)
@@ -47,17 +32,5 @@ class CategoryController extends Controller
           'icon' => $category->icon,
         ])
     ]);
-
-    // return Inertia::render('Category', [
-    //   'categories' => Category::where('active', true)
-    //     ->whereNotNull('parent')
-    //     ->orderBy('position')
-    //     ->get()
-    //     ->map(fn ($category) => [
-    //       'id' => $category->id,
-    //       'name' => $category->name,
-    //       'icon' => $category->icon,
-    //     ])
-    // ]);
   }
 }
