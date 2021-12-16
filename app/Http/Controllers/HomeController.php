@@ -19,6 +19,7 @@ class HomeController extends Controller
             'id' => $category->id,
             'name' => $category->name,
             'icon' => $category->icon,
+            'slug' => $category->slug,
             ])
         ]);
     }
