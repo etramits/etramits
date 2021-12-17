@@ -104,19 +104,26 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
-    {
+    public function update(Request $request, $id)
+    {   
+
+        $user = User::find($id);
+
         $validator = Request::validate([
             'name' => ['required', 'max:50'],
-            'email' => ['required', 'max:50', 'email', Rule::unique('users')],
-            'role' => ['required', 'integer'],
+            'email' => ['required', 'max:50', 'email', Rule::unique('users')->ignore($user->id)],
+            'role' => ['required'],
         ]);
+        
+        $userRole = Request::get('role');
+        error_log($userRole);
+        error_log(gettype($userRole));
 
-        if ($validator->fails()) {
-            return redirect()->Back()->withInput()->withErrors($validator);
-        }
-
-        $user->update(Request::only('name', 'email', 'role'));
+        $user->update([
+            'name' => Request::get('name'),
+            'email' => Request::get('email'),
+            'role' => Request::get('role'),
+        ]);
 
         return Redirect::route('users')->with('success', 'User created.');
     }
@@ -125,12 +132,14 @@ class UserController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Re  sponse
      */
-    public function destroy($user)
-    {
+    public function destroy(Request $request)
+    {   
+        $user = User::where('id', Request::get('id'))->first();
         $user->delete();
 
-        return Redirect::route('users')->with('success', 'User created.');
+        return Redirect::route('users')->with('success', 'User removed');
+
     }
 }

@@ -17,8 +17,8 @@
                 <td class="px-4 py-3">{{ user.name }}</td>
                 <td class="px-4 py-3">{{ user.email }}</td>
                 <td class="px-4 py-3">{{ selectRole(user.role) }}</td>
-                <td class="px-4 py-3"><Link :href="route('users.delete', user.id)"><font-awesome-icon icon="trash-alt" class="text-red-500" /></Link></td>
                 <td class="px-4 py-3"><Link :href="route('users.edit', user.id)"><font-awesome-icon icon="pencil-alt" class="text-yellow-300" /></Link></td>
+                <td class="px-4 py-3"><button type="button" @click="destroy(user)"><font-awesome-icon icon="trash-alt" class="text-red-500" /></button></td>    
             </tr> 
             <!-- each row -->
         </table>
@@ -59,6 +59,10 @@
                     return "Usuari";
                 }
             },
+            destroy(user) {
+                user._method = 'DELETE';
+                this.$inertia.post('/dashboard/users/' + user.id + '/delete', user);
+            }
         }
     })
 </script>

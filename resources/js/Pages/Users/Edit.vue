@@ -16,15 +16,15 @@
                 
                 <div class="mt-4">
                     <jet-label for="role" value="Rol" />
-                    <select v-model="form.role" class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
-                        <option :selected="form.role == 1" value="1">Usuari</option>
-                        <option :selected="form.role == 2" value="2">Admin</option>
+                    <select v-model="form.role" name='role' class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
+                        <option :selected="form.role == 1" :value="1">Usuari</option>
+                        <option :selected="form.role == 2" :value="2">Admin</option>
                     </select>
                 </div>
 
                 <div class="flex items-center justify-end mt-4">
 
-                    <jet-button class="ml-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
+                    <jet-button type="submit" class="ml-4" :class="{ 'opacity-25': form.processing }" >
                         Save
                     </jet-button>
                 </div>
@@ -66,11 +66,11 @@
         data() {
             return {
                 form: this.$inertia.form({
-                    _method: 'put',
+                    _method: 'PUT',
                     name: this.user.name,
                     email: this.user.email,
                     role: this.user.role,
-                })
+                }),
             }
         },
         methods: {
@@ -87,8 +87,8 @@
                 }
             },
             submit() {
-                this.form.post(this.route('users.update', this.user.id));
-            }
+                this.form.post(this.route('users.update',this.user.id));
+            },
         }
     })
 </script>

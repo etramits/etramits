@@ -35,10 +35,10 @@ Route::middleware(['auth:sanctum', 'verified', 'admin'])->group(function () {
     Route::get('dashboard/users/{user}/edit', [UserController::class, 'edit'])
     ->name('users.edit');
 
-    Route::delete('dashboard/users/{user}/delete', [UserController::class, 'destroy'])
-    ->name('users.delete');
+    Route::delete('dashboard/users/{id}/delete', [UserController::class, 'destroy'])
+    ->name('users.destroy');
 
-    Route::put('dashboard/users/{user}', [UserController::class, 'update'])
+    Route::put('dashboard/users/{id}', [UserController::class, 'update'])
     ->name('users.update');
 
     Route::post('dashboard/users', [UserController::class, 'store'])
