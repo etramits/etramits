@@ -1,11 +1,11 @@
 <?php
 
-use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ArticleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,8 +20,11 @@ use App\Http\Controllers\CategoryController;
 
 Route::get('/', [HomeController::class, 'index']);
 
+Route::get('/article', [ArticleController::class, 'index']);
+
 Route::get('/{slug}', [CategoryController::class, 'index']);
 
+
 Route::middleware(['auth:sanctum', 'verified', 'admin'])->get('/dashboard', function () {
-    return Inertia::render('Dashboard');
+  return Inertia::render('Dashboard');
 })->name('dashboard');
