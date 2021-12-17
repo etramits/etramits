@@ -5,12 +5,8 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 use App\Http\Controllers\HomeController;
-<<<<<<< HEAD
 use App\Http\Controllers\ArticleController;
-
-=======
 use App\Http\Controllers\UserController;
->>>>>>> feature_manageUsers
 
 /*
 |--------------------------------------------------------------------------
@@ -29,10 +25,7 @@ Route::middleware(['auth:sanctum', 'verified', 'admin'])->get('/dashboard', func
     return Inertia::render('Dashboard');
 })->name('dashboard');
 
-Route::get('dashboard/articles', [ArticleController::class, 'index'])
-    ->name('articles')
-    ->middleware(['auth:sanctum', 'verified', 'admin']);
-    
+
 Route::middleware(['auth:sanctum', 'verified', 'admin'])->group(function () {
 
     Route::get('/dashboard', function () {
@@ -56,4 +49,7 @@ Route::middleware(['auth:sanctum', 'verified', 'admin'])->group(function () {
 
     Route::post('dashboard/users', [UserController::class, 'store'])
     ->name('users.store');
+
+    Route::get('dashboard/articles', [ArticleController::class, 'index'])
+    ->name('articles');
 });
