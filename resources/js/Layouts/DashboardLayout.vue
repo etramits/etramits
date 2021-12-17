@@ -129,7 +129,7 @@
             </nav>
 
             <!-- Page Content -->
-            <main>
+            <main class="flex flex-row">
                 <div class="w-1/5">
                     <aside-layout />
                 </div>
