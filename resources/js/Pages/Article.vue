@@ -2,20 +2,12 @@
   <AppLayout title="Categoria">
     <section class="bg-yellow-300">
       <div class="container flex flex-col items-center mx-auto py-16 text-gray-800">
-        <h2 class="text-6xl font-bold">Sol·licitar el certificat COVID-19</h2>
+        <h2 v-text="article.title" class="text-6xl font-bold" />
 
         <div class="mt-3 flex items-center gap-8">
-          <span class="text-xl">
-            <font-awesome-icon icon="book-open" />
-            Lectura de 3 minuts
-          </span>
-          <span class="text-xl">
-            <font-awesome-icon icon="comment" />
-            12 comentaris
-          </span>
-          <span class="text-xl">
-            <font-awesome-icon icon="bookmark" />
-            3 favorits
+          <span v-for="entry in article.stats" :key="entry.id" class="text-xl">
+            <font-awesome-icon :icon="entry.icon" />
+            {{ entry.value }}
           </span>
         </div>
       </div>
@@ -86,53 +78,37 @@
         <span class="text-4xl font-bold">Comentaris</span>
       </header>
 
-      <div class="container flex flex-col gap-8 mx-auto max-w-7xl p-10 bg-white rounded-b-xl shadow">
-        <div class="flex flex-col p-4 gap-4 bg-yellow-50 rounded-xl">
-          <div class="flex items-center gap-4">
-            <img class="h-14 rounded-full" src="https://i.imgur.com/8cDKcKg.jpeg">
-            <div class="flex items-center gap-2">
-              <span class="text-2xl font-bold">Marc Bech</span>
+      <div class="container flex flex-col gap-10 mx-auto max-w-7xl p-10 bg-white rounded-b-xl shadow">
+        <div v-for="comment in comments" :key="comment.id" class="flex flex-col gap-5">
+          <!-- Comment -->
+          <div class="flex flex-col p-4 gap-4 bg-yellow-50 rounded-xl">
+            <div class="flex items-center gap-4">
+              <img class="h-14 rounded-full" :src="comment.user.picture">
+              <div class="flex items-center gap-2">
+                <span v-text="comment.user.name" class="text-2xl font-bold" />
+              </div>
             </div>
+
+            <p v-html="comment.message" class="text-xl leading-7" />
           </div>
 
-          <p class="text-xl leading-7">
-            Bones!<br>
-            Com podría sol·licitar el certificat d'un altre familiar un cop ja he consultat el meu certificat?<br>
-            Moltes gràcies
-          </p>
+          <!-- Replies -->
+          <div v-for="reply in comment.replies" :key="reply.id" class="ml-16 flex flex-col p-4 gap-4 bg-yellow-50 rounded-xl">
+            <div class="flex items-center gap-4">
+              <img class="h-14 rounded-full" :src="reply.user.picture">
+              <div class="flex items-center gap-2">
+                <span v-text="reply.user.name" class="text-2xl font-bold" />
+                <span v-if="reply.user.role" v-text="reply.user.role" class="p-1 text-md font-semibold bg-yellow-300 rounded leading-none" />
+              </div>
+            </div>
+
+            <p class="text-xl leading-7">
+              Bones Marc<br>
+              Per sol·licitar el certificat d'un familiar hauries de sortir del compte actual i accedir amb la del familiar.<br>
+              Salut
+            </p>
+          </div>
         </div>
-
-        <div class="ml-16 flex flex-col p-4 gap-4 bg-yellow-50 rounded-xl">
-          <div class="flex items-center gap-4">
-            <img class="h-14 rounded-full" src="https://i.imgur.com/5rdp61p.jpeg">
-            <div class="flex items-center gap-2">
-              <span class="text-2xl font-bold">Maria Perez</span>
-              <span class="p-1 text-md font-semibold bg-yellow-300 rounded leading-none">ADMIN</span>
-            </div>
-          </div>
-
-          <p class="text-xl leading-7">
-            Bones Marc!<br>
-            Per sol·licitar el certificat d'un familiar hauries de 
-            Com podría sol·licitar el certificat d'un altre familiar un cop ja he consultat el meu certificat?<br>
-            Moltes gràcies
-          </p>
-        </div>
-
-        <div class="flex flex-col p-4 gap-4 bg-yellow-50 rounded-xl">
-          <div class="flex items-center gap-4">
-            <img class="h-14 rounded-full" src="https://i.imgur.com/A0aN9OL.jpeg">
-            <div class="flex items-center gap-2">
-              <span class="text-2xl font-bold">Sara Pons</span>
-            </div>
-          </div>
-
-          <p class="text-xl leading-7">
-            Bon dia!<br>
-            Com podría sol·licitar el certificat d'un altre familiar un cop ja he consultat el meu certificat?<br>
-            Moltes gràcies
-          </p>
-        </div>    
       </div>
     </section>
   </AppLayout>
@@ -154,5 +130,66 @@
       FontAwesomeIcon,
       AppLayout
     },
+
+    data() {
+      return {
+        article: {
+          title: 'Sol·licitar el certificat COVID-19',
+          stats: [
+            {
+              id: 0,
+              icon: 'book-open',
+              value: 'Lectura de 3 minuts'
+            },
+
+            {
+              id: 1,
+              icon: 'comment',
+              value: '12 comentaris'
+            },
+
+            {
+              id: 2,
+              icon: 'bookmark',
+              value: '3 favorits'
+            },
+          ]
+        },
+
+        comments: [
+          {
+            id: 0,
+            message: `Bones!<br>Com podría sol·licitar el certificat d'un altre familiar un cop ja he consultat el meu certificat?<br>Moltes gràcies`,
+            user: {
+              name: 'Marc Bech',
+              picture: 'https://i.imgur.com/8cDKcKg.jpeg',
+              role: null
+            },
+            replies: [
+              {
+                id: 0,
+                message: `Bones Marc<br>Per sol·licitar el certificat d'un familiar hauries de sortir del compte actual i accedir amb la del familiar.<br>Salut`,
+                user: {
+                  name: 'Maria Perez',
+                  picture: 'https://i.imgur.com/5rdp61p.jpeg',
+                  role: 'ADMIN'
+                }
+              }
+            ]
+          },
+
+          {
+            id: 1,
+            message: `Hola!<br>Com puc sol·licitar el certificat de prova COVID-19 negativa?<br>Gràcies`,
+            user: {
+              name: 'Joan Puig',
+              picture: 'https://i.imgur.com/VOW3bzY.jpeg',
+              role: null
+            },
+            replies: []
+          },
+        ]
+      }
+    }
   })
 </script>
