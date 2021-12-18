@@ -23,6 +23,7 @@ class ArticleController extends Controller
                 'title' => $article->title,
                 'category_id' => $article->category_id,
                 'author_id' => $article->author_id,
+                'slug' => $article->slug,
                 'content' => $article->content,
             ])
         ]);
@@ -129,7 +130,7 @@ class ArticleController extends Controller
     
         $article->delete();
 
-        return Redirect::back()->with('success', 'User deleted.');
+        return Redirect::route('articles')->with('success', 'User deleted.');
     }
 
     public function restore(Article $article)
