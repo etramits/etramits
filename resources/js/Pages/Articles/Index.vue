@@ -21,8 +21,8 @@
                 <td class="px-4 py-3">{{ article.category_id }}</td>
                 <td class="px-4 py-3">{{ article.title }}</td>
                 <td class="px-4 py-3">{{ article.slug }}</td>
-                <td class="px-4 py-3"><Link :href="route('articles.delete', article.id)"><font-awesome-icon icon="trash-alt" class="text-red-500" /></Link></td>
                 <td class="px-4 py-3"><Link :href="route('articles.edit', article.id)"><font-awesome-icon icon="pencil-alt" class="text-yellow-300" /></Link></td>
+                <td class="px-4 py-3"><button type="button" @click="destroy(article)"><font-awesome-icon icon="trash-alt" class="text-red-500" /></button></td>   
             </tr> 
             <!-- each row -->
         </table>
@@ -48,5 +48,11 @@
             articles: Object,
             modal: false,
         },
+        methods: {
+             destroy(article) {
+                article._method = 'DELETE';
+                this.$inertia.post('/dashboard/articles/' + article.id + '/delete', article);
+            }
+        }
     })
 </script>

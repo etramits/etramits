@@ -17,7 +17,7 @@ class CreateArticlesTable extends Migration
             $table->id();
             $table->string('title');
             $table->string('slug');
-            $table->string('content');
+            $table->longtext('content');
             $table->integer('category_id');
             $table->integer('author_id');
             $table->boolean('active')->default(false);
