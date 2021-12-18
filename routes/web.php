@@ -6,7 +6,7 @@ use Inertia\Inertia;
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ArticleController;
-
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,3 +37,31 @@ Route::get('dashboard/articles/edit', [ArticleController::class, 'edit'])
 
 Route::get('dashboard/articles/delete', [ArticleController::class, 'destroy'])
     ->name('articles.delete');
+
+Route::middleware(['auth:sanctum', 'verified', 'admin'])->group(function () {
+
+    Route::get('/dashboard', function () {
+        return Inertia::render('Dashboard');
+    })->name('dashboard');
+
+    Route::get('dashboard/users', [UserController::class, 'index'])
+    ->name('users');
+
+    Route::get('dashboard/users/create', [UserController::class, 'create'])
+    ->name('users.create');
+
+    Route::get('dashboard/users/{user}/edit', [UserController::class, 'edit'])
+    ->name('users.edit');
+
+    Route::delete('dashboard/users/{id}/delete', [UserController::class, 'destroy'])
+    ->name('users.destroy');
+
+    Route::put('dashboard/users/{id}', [UserController::class, 'update'])
+    ->name('users.update');
+
+    Route::post('dashboard/users', [UserController::class, 'store'])
+    ->name('users.store');
+
+    Route::get('dashboard/articles', [ArticleController::class, 'index'])
+    ->name('articles');
+});
