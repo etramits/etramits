@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+// Models
 use App\Models\Article;
+use App\Models\Category;
+
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
@@ -29,6 +32,33 @@ class ArticleController extends Controller
                 'content' => $article->content,
             ])
         ]);
+    }
+
+    public function view($category_slug, $article_slug)
+    {
+      $category = Category::where('slug', $category_slug)
+        ->where('active', true)
+        ->get()
+        ->map(fn ($category) => [
+          'id' => $category->id,
+          'name' => $category->name,
+        ])
+        ->first();
+
+      $article = Article::where('slug', $article_slug)
+        ->where('active', true)
+        ->where('category_id', $category['id'])
+        ->get()
+        ->map(fn ($article) => [
+          'id' => $article->id,
+          'title' => $article->title,
+          'content' => $article->content,
+        ])
+        ->first();
+      
+      // return $article;
+      
+      return Inertia::render('Article', [ $article ]);
     }
 
     /**

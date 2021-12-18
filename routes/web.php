@@ -23,7 +23,7 @@ use App\Http\Controllers\UserController;
 
 Route::get('/', [HomeController::class, 'index']);
 
-Route::get('/article', [ArticleController::class, 'index']);
+Route::get('/{category}/{article}', [ArticleController::class, 'view']);
 
 Route::get('/{slug}', [CategoryController::class, 'index']);
 
