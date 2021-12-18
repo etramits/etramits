@@ -7,6 +7,7 @@ use Inertia\Inertia;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\CategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,6 +25,7 @@ use App\Http\Controllers\UserController;
 Route::get('/', [HomeController::class, 'index']);
 
 //  Admin Dashboard    
+Route::get('/{slug}', [CategoryController::class, 'index']);
 
 Route::middleware(['auth:sanctum', 'verified', 'admin'])->group(function () {
 
