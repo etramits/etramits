@@ -26,7 +26,25 @@
 
                 <div class="mt-4">
                     <jet-label for="content" value="Contingut" />
-                    <jet-input id="content" type="text" class="mt-1 block w-full" v-model="form.content" required />
+                    
+                    <editor v-model="form.content" api-key="no-api-key"
+                        :init="{
+                            height: 500,
+                            menubar: false,
+                            plugins: [
+                            'advlist autolink lists link image charmap print preview anchor',
+                            'searchreplace visualblocks code fullscreen',
+                            'insertdatetime media table paste code help wordcount'
+                            ],
+                            toolbar:
+                            'undo redo | formatselect | bold italic backcolor | \
+                            alignleft aligncenter alignright alignjustify | \
+                            bullist numlist outdent indent | removeformat | help'
+                        }" 
+                    />
+
+                    
+                    <jet-input id="content" type="hidden" class="mt-1 block w-full" v-model="form.content" required />
                 </div>
 
                 <div class="flex items-center justify-end mt-4">
@@ -52,6 +70,7 @@
     import JetValidationErrors from '@/Jetstream/ValidationErrors.vue'
     import { Head, Link } from '@inertiajs/inertia-vue3';
     import DashboardLayout from '@/Layouts/DashboardLayout.vue'
+    import Editor from '@tinymce/tinymce-vue'
 
     export default defineComponent({
         components: {
@@ -65,6 +84,7 @@
             JetLabel,
             JetValidationErrors,
             Link,
+            Editor,
         },
         props: {
             article: Object,

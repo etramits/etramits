@@ -20,15 +20,17 @@
                 </div>
 
                 <div class="mt-4">
-                    <jet-label for="author_id" value="Autor" />
                     <jet-input id="author_id" type="text" class="mt-1 block w-full" v-model="form.author_id" required />
                 </div>
 
                 <div class="mt-4">
                     <jet-label for="content" value="Contingut" />
-                    <jet-input id="content" type="text" class="mt-1 block w-full" v-model="form.content" required />
-                </div>
+                    
+                    <editor v-model="form.content" />
 
+                    <jet-input id="content" type="hidden" class="mt-1 block w-full" v-model="form.content" required />
+                    
+                </div>
 
                 <div class="flex items-center justify-end mt-4">
 
@@ -54,6 +56,7 @@
     import JetValidationErrors from '@/Jetstream/ValidationErrors.vue'
     import { Head, Link } from '@inertiajs/inertia-vue3';
     import DashboardLayout from '@/Layouts/DashboardLayout.vue'
+    import Editor from '@tinymce/tinymce-vue'
 
     export default defineComponent({
         components: {
@@ -67,6 +70,7 @@
             JetLabel,
             JetValidationErrors,
             Link,
+            Editor,
         },
 
         props: {
