@@ -107,9 +107,11 @@ class ArticleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Article $article)
+    public function update(Request $request, $id)
     {
-        Request::validate([
+        $article = Article::find($id);
+
+        $validator = Request::validate([
             'title' => ['required', 'max:200'],
             'slug' => ['required', 'max:200'],
             'category_id' => ['required','integer'],
@@ -117,9 +119,16 @@ class ArticleController extends Controller
             'content' => ['required'],
         ]);
 
-        $article->update(Request::only('title', 'slug', 'category_id', 'author_id','content'));
+        $article->update([
+            'title' => Request::get('title'),
+            'slug' => Request::get('slug'),
+            'category_id' => Request::get('category_id'),
+            'author_id' => Request::get('author_id'),
+            'content' => Request::get('content'),
+        ]);
+
         
-        return Redirect::back()->with('success', 'Article updated.');
+        return Redirect::route('articles')->with('success', 'Article updated.');
     }
 
     /**

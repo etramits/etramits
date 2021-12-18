@@ -32,6 +32,7 @@ class Article extends Model
             $article->slug = $article->generateSlug($article->title);
             $article->save();
         });
+
     }
 
     private function generateSlug($title)
@@ -47,7 +48,7 @@ class Article extends Model
         }
 
         return $slug;
-        
+
     } 
 
 }

@@ -59,7 +59,7 @@ Route::middleware(['auth:sanctum', 'verified', 'admin'])->group(function () {
     Route::get('dashboard/articles/create', [ArticleController::class, 'create'])
         ->name('articles.create');
 
-    Route::get('dashboard/articles/{id}/edit', [ArticleController::class, 'edit'])
+    Route::get('dashboard/articles/{article}/edit', [ArticleController::class, 'edit'])
         ->name('articles.edit');
 
     Route::delete('dashboard/articles/{id}/delete', [ArticleController::class, 'destroy'])

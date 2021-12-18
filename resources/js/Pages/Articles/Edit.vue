@@ -67,7 +67,7 @@
             Link,
         },
         props: {
-            articles: Object,
+            article: Object,
         },
         data() {
             return {
