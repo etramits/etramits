@@ -47,6 +47,7 @@ class Article extends Model
         }
 
         return $slug;
+        
     } 
 
 }
