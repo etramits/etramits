@@ -18,10 +18,13 @@
                     <jet-label for="category_id" value="Categoría" />
                     <jet-input id="category_id" type="text" class="mt-1 block w-full" v-model="form.category_id" required />
                 </div>
-
+                
                 <div class="mt-4">
-                    <jet-label for="author_id" value="Autor" />
-                    <jet-input id="author_id" type="text" class="mt-1 block w-full" v-model="form.author_id" required />
+                <jet-label for="category_id" value="Estat de l'article" />
+                <select v-model="form.role" name='role' class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
+                        <option :selected="form.active == 0" :value="0">Publicat</option>
+                        <option :selected="form.active == 1" :value="1">Borrador</option>
+                    </select>
                 </div>
 
                 <div class="mt-4">
@@ -30,11 +33,11 @@
                     <editor v-model="form.content" api-key="no-api-key"
                         :init="{
                             height: 500,
-                            menubar: false,
+                            menubar: true,
                             plugins: [
                             'advlist autolink lists link image charmap print preview anchor',
                             'searchreplace visualblocks code fullscreen',
-                            'insertdatetime media table paste code help wordcount'
+                            'insertdatetime media table paste code help wordcount',
                             ],
                             toolbar:
                             'undo redo | formatselect | bold italic backcolor | \
@@ -96,12 +99,23 @@
                     title: this.article.title,
                     slug: this.article.slug,
                     category_id: this.article.category_id,
-                    author_id: this.article.author_id,
                     content: this.article.content,
                 }),
             }
         },
         methods: {
+            active(roleInt) {
+                switch(roleInt) {
+                case 0:
+                    return "Publicat";
+                    break;
+                case 1:
+                    return "Borrador";
+                    break;
+                default:
+                    return "Publicat";
+                }
+            },
             submit() {
                 this.form.post(this.route('articles.update',this.article.id));
             },

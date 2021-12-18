@@ -20,13 +20,36 @@
                 </div>
 
                 <div class="mt-4">
-                    <jet-input id="author_id" type="text" class="mt-1 block w-full" v-model="form.author_id" required />
+                    <jet-input id="author_id" type="hidden" class="mt-1 block w-full" v-model="form.author_id" value="{{this.user.id}}" required />
                 </div>
+
+                <div class="mt-4">
+                <jet-label for="active" value="Estat de l'article" />
+                <select v-model="form.active" name='active' class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
+                        <option :selected="form.active == 0" :value="0">Publicat</option>
+                        <option :selected="form.active == 1" :value="1">Borrador</option>
+                    </select>
+                </div>
+
 
                 <div class="mt-4">
                     <jet-label for="content" value="Contingut" />
                     
-                    <editor v-model="form.content" />
+                    <editor v-model="form.content" api-key="no-api-key"
+                        :init="{
+                            height: 500,
+                            menubar: false,
+                            plugins: [
+                            'advlist autolink lists link image charmap print preview anchor',
+                            'searchreplace visualblocks code fullscreen',
+                            'insertdatetime media table paste code help wordcount'
+                            ],
+                            toolbar:
+                            'undo redo | formatselect | bold italic backcolor | \
+                            alignleft aligncenter alignright alignjustify | \
+                            bullist numlist outdent indent | removeformat | help'
+                        }" 
+                    />
 
                     <jet-input id="content" type="hidden" class="mt-1 block w-full" v-model="form.content" required />
                     
@@ -76,6 +99,7 @@
         props: {
             articles: Object,
             categories: Object,
+            user: Object,
             modal: false,
         },
         
@@ -85,8 +109,9 @@
                     title: '',
                     slug: '',
                     category_id: '',
-                    author_id: '',
+                    author_id: this.user.id,
                     content: '',
+                    active: true,
                    
                 })
             }

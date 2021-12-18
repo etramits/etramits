@@ -56,6 +56,7 @@ class ArticleController extends Controller
             'category_id' => ['required','integer'],
             'author_id' => ['required', 'integer'],
             'content' => ['required'],
+            'active' => ['required','boolean'],
         ]);
 
         Article::create([
@@ -64,6 +65,7 @@ class ArticleController extends Controller
             'category_id' => Request::get('category_id'),
             'author_id' => Request::get('author_id'),
             'content' => Request::get('content'),
+            'active' => Request::get('active'),
         ]);
 
         return Redirect::route('articles')->with('success', 'Article created.');
@@ -96,6 +98,7 @@ class ArticleController extends Controller
                 'slug' => $article->slug,
                 'author_id' => $article->author_id,
                 'content' => $article->content,
+                'active' => $article->active,
             ],
         ]);
     }
@@ -117,6 +120,7 @@ class ArticleController extends Controller
             'category_id' => ['required','integer'],
             'author_id' => ['required', 'integer'],
             'content' => ['required'],
+            'active' => ['required','boolean'],
         ]);
 
         $article->update([
@@ -125,6 +129,7 @@ class ArticleController extends Controller
             'category_id' => Request::get('category_id'),
             'author_id' => Request::get('author_id'),
             'content' => Request::get('content'),
+            'active' => Request::get('active'),
         ]);
 
         
