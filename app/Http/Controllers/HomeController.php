@@ -16,9 +16,9 @@ class HomeController extends Controller
             ->orderBy('position')
             ->get()
             ->map(fn ($category) => [
-            'id' => $category->id,
-            'name' => $category->name,
-            'icon' => $category->icon,
+                'id' => $category->id,
+                'name' => $category->name,
+                'icon' => $category->icon,
             ])
         ]);
     }

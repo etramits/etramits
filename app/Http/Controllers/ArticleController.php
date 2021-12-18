@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\URL;
 use Illuminate\Validation\Rule;
 use Inertia\Inertia;
 
+
 class ArticleController extends Controller
 {
     public function index()
@@ -24,6 +25,7 @@ class ArticleController extends Controller
                 'category_id' => $article->category_id,
                 'slug' => $article->slug,
                 'author_id' => $article->author_id,
+                'slug' => $article->slug,
                 'content' => $article->content,
             ])
         ]);
@@ -56,7 +58,7 @@ class ArticleController extends Controller
             'content' => ['required'],
         ]);
 
-        Auth::user()->account->users()->create([
+        Article::create([
             'title' => Request::get('title'),
             'slug' => Request::get('slug'),
             'category_id' => Request::get('category_id'),
@@ -128,10 +130,10 @@ class ArticleController extends Controller
      */
     public function destroy(Article $article)
     {
-    
+        $article = Article::where('id', Request::get('id'))->first();
         $article->delete();
 
-        return Redirect::back()->with('success', 'User deleted.');
+        return Redirect::route('articles')->with('success', 'User deleted.');
     }
 
     public function restore(Article $article)
