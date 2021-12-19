@@ -55,7 +55,7 @@ class CategoryController extends Controller
      */
     public function store()
     {
-        $this->validate([
+        Request::validate([
             'name' => ['required'],
             'description' => ['required'],
             'parent' => ['required'],

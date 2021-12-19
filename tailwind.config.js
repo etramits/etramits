@@ -10,5 +10,9 @@ module.exports = {
         './resources/js/**/*.vue',
     ],
 
+    theme: {
+        extend: {},
+    },
+
     plugins: [require('@tailwindcss/forms'), require('@tailwindcss/typography')],
 };
