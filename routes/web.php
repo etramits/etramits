@@ -23,10 +23,6 @@ use App\Http\Controllers\UserController;
 
 Route::get('/', [HomeController::class, 'index']);
 
-Route::get('/{category}/{article}', [ArticleController::class, 'view']);
-
-Route::get('/{slug}', [CategoryController::class, 'index']);
-
 
 Route::middleware(['auth:sanctum', 'verified', 'admin'])->get('/dashboard', function () {
   return Inertia::render('Dashboard');
@@ -73,10 +69,17 @@ Route::middleware(['auth:sanctum', 'verified', 'admin'])->group(function () {
     Route::delete('dashboard/articles/{id}/delete', [ArticleController::class, 'destroy'])
         ->name('articles.destroy');
 
-    Route::put('dashboard/articles/{id}', [ArticleController::class, 'update'])
+    Route::put('dashboard/articles/{id}', [ArticleController::class, 'upload'])
+      ->name('articles.upload');
+
+    Route::put('dashboard/articles/{id}/upload', [ArticleController::class, 'update'])
         ->name('articles.update');
 
     Route::post('dashboard/articles', [ArticleController::class, 'store'])
         ->name('articles.store');
         
 });
+
+Route::get('/{category}/{article}', [ArticleController::class, 'view']);
+
+Route::get('/{slug}', [CategoryController::class, 'index']);

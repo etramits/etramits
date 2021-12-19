@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Request;
+// use Illuminate\Http\Request;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Validation\Rule;
 use Inertia\Inertia;
@@ -41,7 +42,6 @@ class ArticleController extends Controller
         ->get()
         ->map(fn ($category) => [
           'id' => $category->id,
-          'name' => $category->name,
         ])
         ->first();
 
@@ -55,10 +55,10 @@ class ArticleController extends Controller
           'content' => $article->content,
         ])
         ->first();
-      
-      // return $article;
-      
-      return Inertia::render('Article', [ $article ]);
+
+      return Inertia::render('Article', [
+        'article' => $article,
+      ]);
     }
 
     /**
@@ -68,8 +68,18 @@ class ArticleController extends Controller
      */
     public function create()
     {
-        return Inertia::render('Articles/Create');
+      $categories = Category::where('active', true)
+        ->get()
+        ->map(fn ($category) => [
+          'id' => $category->id,
+          'name' => $category->name,
+        ]);
 
+      // return $categories;
+      
+      return Inertia::render('Articles/Create', [
+        'categories' => $categories,
+      ]);
     }
 
     /**
@@ -80,25 +90,22 @@ class ArticleController extends Controller
      */
     public function store()
     {
-        Request::validate([
-            'title' => ['required', 'max:200'],
-            'slug' => ['required', 'max:200'],
-            'category_id' => ['required','integer'],
-            'author_id' => ['required', 'integer'],
-            'content' => ['required'],
-            'active' => ['required','boolean'],
-        ]);
+      Request::validate([
+        'title' => ['required', 'max:200'],
+        // 'slug' => ['required', 'max:200'],
+        'category' => ['required', 'integer'],
+      ]);
 
-        Article::create([
-            'title' => Request::get('title'),
-            'slug' => Request::get('slug'),
-            'category_id' => Request::get('category_id'),
-            'author_id' => Request::get('author_id'),
-            'content' => Request::get('content'),
-            'active' => Request::get('active'),
-        ]);
+      $article = Article::create([
+        'title' => Request::get('title'),
+        'slug' => 'asd',
+        'category_id' => Request::get('category'),
+        'author_id' => 1,
+        'content' => '',
+        'active' => false,
+      ]);
 
-        return Redirect::route('articles')->with('success', 'Article created.');
+      return Redirect::route('articles.edit', [$article['id']])->with('success', 'Article created');
     }
 
     /**
@@ -120,17 +127,83 @@ class ArticleController extends Controller
      */
     public function edit(Article $article)
     {
-        return Inertia::render('Articles/Edit', [
-            'article' => [
-                'id' => $article->id,
-                'title' => $article->title,
-                'category_id' => $article->category_id,
-                'slug' => $article->slug,
-                'author_id' => $article->author_id,
-                'content' => $article->content,
-                'active' => $article->active,
-            ],
+      $categories = Category::where('active', true)
+        ->get()
+        ->map(fn ($category) => [
+          'id' => $category->id,
+          'name' => $category->name,
         ]);
+
+      return Inertia::render('Articles/Edit', [
+        'article' => [
+          'id' => $article->id,
+          'title' => $article->title,
+          'slug' => $article->slug,
+          'category' => $article->category_id,
+          'content' => $article->content,
+          'active' => $article->active,
+        ],
+        'categories' => $categories,
+      ]);
+    }
+
+    public function upload(Request $request, $id)
+    {
+      Request::file('image')->move('images');
+      
+      // if (Request::hasFile('image'))
+      // {
+      //   return 'Yes';
+      // }  
+      // else
+      // {
+      //   return 'No';
+      // }
+
+      // return Request::get('image');
+        
+        // ->move(public_path('images'), 'seo.jpeg');
+        // Request::get('image')->store('images');
+        // $request->file('image')->move(public_path('images'), 'seo.jpeg');
+
+        // $picture = Request::file('image');
+
+        // $picture->move(public_path('images'), 'seo.jpeg');
+
+        // return 'Fet';
+
+        // if ($request->hasFile('image'))
+        // {
+        //   return 'Yes';
+        // }
+        // else
+        // {
+        //   return 'No';
+        // }
+
+        // return Request::get('image');
+
+
+        // $validator = Request::validate([
+        //     'title' => ['required', 'max:200'],
+        //     'slug' => ['required', 'max:200'],
+        //     'category_id' => ['required','integer'],
+        //     'author_id' => ['required', 'integer'],
+        //     'content' => ['required'],
+        //     'active' => ['required','boolean'],
+        // ]);
+
+        // $article->update([
+        //     'title' => Request::get('title'),
+        //     'slug' => Request::get('slug'),
+        //     'category_id' => Request::get('category_id'),
+        //     'author_id' => Request::get('author_id'),
+        //     'content' => Request::get('content'),
+        //     'active' => Request::get('active'),
+        // ]);
+
+        
+        return Redirect::route('articles')->with('success', 'Article updated.');
     }
 
     /**
@@ -143,6 +216,12 @@ class ArticleController extends Controller
     public function update(Request $request, $id)
     {
         $article = Article::find($id);
+
+        // Request::get('image')->move(public_path('images'), 'seo.jpeg');
+        // Request::get('image')->store('images');
+
+        return Request::get('image');
+
 
         $validator = Request::validate([
             'title' => ['required', 'max:200'],

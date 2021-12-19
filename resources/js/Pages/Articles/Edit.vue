@@ -1,65 +1,104 @@
 <template>
-    <dashboard-layout title="Dashboard">
-        
-        <div class="ml-4 mr-4">
-            <h1 class="mb-8 mt-8 ml-8 font-bold text-3xl ">Editar article</h1>
-            <form @submit.prevent="submit" class="w-3/5 ml-8">
-                <div>
-                    <jet-label for="title" value="Títol" />
-                    <jet-input id="title" type="text" class="mt-1 block w-full" v-model="form.title" required autofocus autocomplete="titol" />
-                </div>
+  <dashboard-layout title="Dashboard">
 
-                <div class="mt-4">
-                    <jet-label for="slug" value="Slug" />
-                    <jet-input id="slug" type="text" class="mt-1 block w-full" v-model="form.slug" required />
-                </div>
-                
-                <div class="mt-4">
-                    <jet-label for="category_id" value="Categoría" />
-                    <jet-input id="category_id" type="text" class="mt-1 block w-full" v-model="form.category_id" required />
-                </div>
-                
-                <div class="mt-4">
-                <jet-label for="category_id" value="Estat de l'article" />
-                <select v-model="form.role" name='role' class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
-                        <option :selected="form.active == 0" :value="0">Publicat</option>
-                        <option :selected="form.active == 1" :value="1">Borrador</option>
-                    </select>
-                </div>
+    <div class="m-12">
+      <h1 class="font-bold text-4xl">Editar article</h1>
 
-                <div class="mt-4">
-                    <jet-label for="content" value="Contingut" />
-                    
-                    <editor v-model="form.content" api-key="no-api-key"
-                        :init="{
-                            height: 500,
-                            menubar: true,
-                            plugins: [
-                            'advlist autolink lists link image charmap print preview anchor',
-                            'searchreplace visualblocks code fullscreen',
-                            'insertdatetime media table paste code help wordcount',
-                            ],
-                            toolbar:
-                            'undo redo | formatselect | bold italic backcolor | \
-                            alignleft aligncenter alignright alignjustify | \
-                            bullist numlist outdent indent | removeformat | help'
-                        }" 
-                    />
+      <div class="flex mt-6 p-4 bg-yellow-50 rounded-xl">
+        <p class="text-lg leading-none">Emplena tots el camps especificats a continuació per inciar la creació d'un nou article.</p>
+      </div>
 
-                    
-                    <jet-input id="content" type="hidden" class="mt-1 block w-full" v-model="form.content" required />
-                </div>
 
-                <div class="flex items-center justify-end mt-4">
-
-                    <jet-button type="submit" class="ml-4" :class="{ 'opacity-25': form.processing }" >
-                        Guardar canvis
-                    </jet-button>
-                </div>
-            </form>
+      <form @submit.prevent="submit" class="flex flex-col gap-6 mt-6 w-full">
+        <div>
+          <jet-label for="title" value="Títol" />
+          <jet-input id="title" type="text" class="mt-1 block w-full" v-model="form.title" required autofocus autocomplete="Títol" />
         </div>
 
-    </dashboard-layout>
+        <div class="flex gap-10">
+          <div class="flex flex-col gap-6 w-8/12">
+            <div class="flex gap-6">
+              <div class="w-full">
+                <jet-label for="title" value="Enllaç" />
+                <jet-input v-model="generateSlug" class="mt-1 block w-full" type="text" required disabled />
+              </div>
+
+              <div class="w-full">
+                <jet-label for="category_id" value="Categoría" />
+
+                <select class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm mt-1 block w-full">
+                  <option value="" selected hidden></option>
+                  <option v-for="category in categories" :key="category.id" v-text="category.name" :value="category.id" :selected="form.category == category.id" />
+                </select>
+              </div>
+
+              <div class="w-full">
+                <jet-label for="active" value="Estat" />
+
+                <select v-model="form.active" name="active" class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm mt-1 block w-full">
+                  <option :selected="form.active == 0" :value="0">Publicat</option>
+                  <option :selected="form.active == 1" :value="1">Borrador</option>
+                </select>
+              </div>
+            </div>
+
+            <div>
+              <jet-label for="content" value="Contingut" />
+                      
+              <editor v-model="form.content" api-key="no-api-key"
+                :init="{
+                  language: 'ca',
+                  height: 500,
+                  menubar: true,
+                  plugins: [
+                  'advlist autolink lists link image charmap print preview anchor',
+                  'searchreplace visualblocks code fullscreen',
+                  'insertdatetime media table paste code help wordcount'
+                  ],
+                  toolbar:
+                  'undo redo | formatselect | bold italic backcolor | \
+                  alignleft aligncenter alignright alignjustify | \
+                  bullist numlist outdent indent | removeformat | help',
+
+                  image_list: images
+                }"
+              />
+
+              <jet-input id="content" type="hidden" class="mt-1 block w-full" v-model="form.content" required />
+            </div>
+
+            <div>
+              <jet-button type="submit">
+                Editar
+              </jet-button>
+            </div>
+          </div>
+          <div class="flex flex-col gap-6 w-4/12">
+            <div>
+              <jet-label for="content" value="Imatges" />
+
+              <form @submit.prevent="upload" class="flex justify-between">
+                <jet-input v-model="image.image" type="file" />
+                <jet-button type="submit">Penjar</jet-button>
+              </form>
+            </div>
+
+            <div>
+              <div class="grid grid-cols-2 gap-3">
+                <div v-for="image in images" :key='image.id'>
+                  <img :src="image.value" class="rounded">
+                  <div class="flex justify-between text-sm text-gray-500">
+                    <span v-text="image.title" />
+                    <button>Eliminar</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </dashboard-layout>
 </template>
 
 <script>
@@ -74,6 +113,7 @@
     import { Head, Link } from '@inertiajs/inertia-vue3';
     import DashboardLayout from '@/Layouts/DashboardLayout.vue'
     import Editor from '@tinymce/tinymce-vue'
+    import { useForm } from '@inertiajs/inertia-vue3'
 
     export default defineComponent({
         components: {
@@ -89,36 +129,86 @@
             Link,
             Editor,
         },
+        
         props: {
-            article: Object,
+          article: Object,
+          categories: Object,
         },
+
         data() {
-            return {
-                form: this.$inertia.form({
-                    _method: 'PUT',
-                    title: this.article.title,
-                    slug: this.article.slug,
-                    category_id: this.article.category_id,
-                    content: this.article.content,
-                }),
-            }
+          return {
+            images: [
+              { id: 0, title: 'Imagen #1', value: 'https://tictac.seoalexramon.dev/img/article.jpg' },
+              { id: 1, title: 'Imagen #2', value: 'https://tictac.seoalexramon.dev/img/article.jpg' },
+              { id: 2, title: 'Imagen #3', value: 'https://tictac.seoalexramon.dev/img/article.jpg' },
+            ],
+
+            image: this.$inertia.form({
+              _method: 'PUT',
+              image: null,
+            }),
+
+            form: this.$inertia.form({
+              _method: 'PUT',
+              title: this.article.title,
+              slug: this.article.slug,
+              category: this.article.category,
+              content: this.article.content,
+              active: this.article.active,
+
+              // title: this.article.title,
+              // slug: this.article.slug,
+              // category_id: this.article.category_id,
+              // content: this.article.content,
+            }),
+          }
         },
+
+        computed: {
+          generateSlug: function () {
+            let str = this.form.title;
+
+            str = str.replace(/^\s+|\s+$/g, '');
+            str = str.toLowerCase();
+          
+            var from = "àáäâèéëêìíïîòóöôùúüûñç·/_,:;";
+            var to   = "aaaaeeeeiiiioooouuuunc------";
+            
+            for (let i = 0, l = from.length; i < l; i++) {
+              str = str.replace(new RegExp(from.charAt(i), 'g'), to.charAt(i));
+            }
+
+            str = str.replace(/[^a-z0-9 -]/g, '')
+              .replace(/\s+/g, '-')
+              .replace(/-+/g, '-');
+
+            return str;
+          }
+        },
+
         methods: {
-            active(roleInt) {
-                switch(roleInt) {
-                case 0:
-                    return "Publicat";
-                    break;
-                case 1:
-                    return "Borrador";
-                    break;
-                default:
-                    return "Publicat";
-                }
-            },
-            submit() {
-                this.form.post(this.route('articles.update',this.article.id));
-            },
+          active(roleInt) {
+              switch(roleInt) {
+              case 0:
+                  return "Publicat";
+                  break;
+              case 1:
+                  return "Borrador";
+                  break;
+              default:
+                  return "Publicat";
+              }
+          },
+
+          upload() {
+            console.log('hola')
+            // let route = this.route('articles.upload', this.article.id);
+            this.image.post(this.route('articles.upload', this.article.id));
+          },
+
+          submit() {
+            this.form.post(this.route('articles.update',this.article.id));
+          },
         }
     })
 </script>

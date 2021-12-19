@@ -1,6 +1,6 @@
 <template>
   <AppLayout title="Categoria">
-    <section class="bg-yellow-300">
+    <section class="bg-yellow-300" >
       <div class="container flex flex-col items-center mx-auto py-16 text-gray-800">
         <h2 v-text="article.title" class="text-6xl font-bold" />
 
@@ -14,8 +14,8 @@
     </section>
 
     <section class="py-20 bg-gray-50 text-gray-800">
-      <div class="container flex flex-col gap-6 mx-auto max-w-7xl p-10 bg-white rounded-xl shadow">
-        <p class="text-xl leading-7">A continuació veurem quin és el procediment per sol·licitar el certificat COVID-19 a través de "La Meva Salut".</p>
+      <div v-html="article.content" class="container flex flex-col gap-6 mx-auto max-w-7xl p-10 bg-white rounded-xl shadow" id="content" />
+        <!-- <p class="text-xl leading-7">A continuació veurem quin és el procediment per sol·licitar el certificat COVID-19 a través de "La Meva Salut".</p>
 
         <h2 class="text-4xl font-bold">Accedir a "La Meva Salut"</h2>
 
@@ -68,8 +68,8 @@
 
         <img class="mx-auto w-9/12 border-4 rounded-xl" src="https://i.imgur.com/8qJfK3P.png">
 
-        <p class="text-xl leading-7">Un cop realitzat tots els passos anteriors, se'ns descarregarà un PDF amb el nostre certificat de vacunació contra la COVID-19.</p>
-      </div>
+        <p class="text-xl leading-7">Un cop realitzat tots els passos anteriors, se'ns descarregarà un PDF amb el nostre certificat de vacunació contra la COVID-19.</p> -->
+      <!-- </div> -->
     </section>
 
     <section class="pb-20 bg-gray-50 text-gray-800">
@@ -83,7 +83,7 @@
           <!-- Comment -->
           <div class="flex flex-col p-4 gap-4 bg-yellow-50 rounded-xl">
             <div class="flex items-center gap-4">
-              <img class="h-14 rounded-full" :src="comment.user.picture">
+              <img class="h-14 rounded-full" :src="comment.user.picture" draggable="false">
               <div class="flex items-center gap-2">
                 <span v-text="comment.user.name" class="text-2xl font-bold" />
               </div>
@@ -95,7 +95,7 @@
           <!-- Replies -->
           <div v-for="reply in comment.replies" :key="reply.id" class="ml-16 flex flex-col p-4 gap-4 bg-yellow-50 rounded-xl">
             <div class="flex items-center gap-4">
-              <img class="h-14 rounded-full" :src="reply.user.picture">
+              <img class="h-14 rounded-full" :src="reply.user.picture" draggable="false">
               <div class="flex items-center gap-2">
                 <span v-text="reply.user.name" class="text-2xl font-bold" />
                 <span v-if="reply.user.role" v-text="reply.user.role" class="p-1 text-md font-semibold bg-yellow-300 rounded leading-none" />
@@ -131,30 +131,34 @@
       AppLayout
     },
 
+    props: {
+      article: Object,
+    },
+
     data() {
       return {
-        article: {
-          title: 'Sol·licitar el certificat COVID-19',
-          stats: [
-            {
-              id: 0,
-              icon: 'book-open',
-              value: 'Lectura de 3 minuts'
-            },
+        // article: {
+        //   title: 'Sol·licitar el certificat COVID-19',
+        //   stats: [
+        //     {
+        //       id: 0,
+        //       icon: 'book-open',
+        //       value: 'Lectura de 3 minuts'
+        //     },
 
-            {
-              id: 1,
-              icon: 'comment',
-              value: '12 comentaris'
-            },
+        //     {
+        //       id: 1,
+        //       icon: 'comment',
+        //       value: '12 comentaris'
+        //     },
 
-            {
-              id: 2,
-              icon: 'bookmark',
-              value: '3 favorits'
-            },
-          ]
-        },
+        //     {
+        //       id: 2,
+        //       icon: 'bookmark',
+        //       value: '3 favorits'
+        //     },
+        //   ]
+        // },
 
         comments: [
           {
@@ -189,6 +193,24 @@
             replies: []
           },
         ]
+      }
+    },
+
+    mounted() {
+      let tags = [
+        { name: 'h2', class: 'text-4xl font-bold' },
+        { name: 'h3', class: 'text-3xl font-bold' },
+        { name: 'p', class: 'text-xl leading-7' },
+        { name: 'img', class: 'mx-auto w-9/12 border-4 rounded-xl' },
+      ];
+      
+      for (let tag of tags) {
+        let contentElement = document.getElementById('content');
+        let elements = contentElement.getElementsByTagName(tag.name);
+
+        for (let element of elements) {
+          element.className = tag.class;
+        }
       }
     }
   })
