@@ -58,7 +58,7 @@ class UserController extends Controller
             'role' => ['required', 'max:1'],
         ]);
 
-        Auth::user()->create([
+        User::create([
             'name' => Request::get('name'),
             'email' => Request::get('email'),
             'password' => Hash::make(Request::get('password')),
@@ -104,20 +104,16 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update($id)
     {   
 
         $user = User::find($id);
 
-        $validator = Request::validate([
+        Request::validate([
             'name' => ['required', 'max:50'],
             'email' => ['required', 'max:50', 'email', Rule::unique('users')->ignore($user->id)],
             'role' => ['required'],
         ]);
-        
-        $userRole = Request::get('role');
-        error_log($userRole);
-        error_log(gettype($userRole));
 
         $user->update([
             'name' => Request::get('name'),
@@ -134,7 +130,7 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Re  sponse
      */
-    public function destroy(Request $request)
+    public function destroy()
     {   
         $user = User::where('id', Request::get('id'))->first();
         $user->delete();

@@ -2,7 +2,7 @@
     <dashboard-layout title="Dashboard">
         
         <div class="ml-4 mr-4">
-            <h1 class="mb-8 mt-8 ml-8 font-bold text-3xl ">Add User</h1>
+            <h1 class="mb-8 mt-8 ml-8 font-bold text-3xl ">Afegir Usuari</h1>
             <form @submit.prevent="submit" class="w-3/5 ml-8">
                 <div>
                     <jet-label for="name" value="Nom" />
@@ -69,7 +69,6 @@
             JetLabel,
             JetValidationErrors,
             Link,
-            faIconsModal
         },
         data() {
             return {

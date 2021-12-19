@@ -24,9 +24,8 @@ use App\Http\Controllers\CategoryController;
 
 Route::get('/', [HomeController::class, 'index']);
 
-//  Admin Dashboard    
-Route::get('/{slug}', [CategoryController::class, 'index']);
 
+//  Admin Dashboard   
 Route::middleware(['auth:sanctum', 'verified', 'admin'])->group(function () {
 
     Route::get('/dashboard', function () {
@@ -84,7 +83,7 @@ Route::middleware(['auth:sanctum', 'verified', 'admin'])->group(function () {
     Route::get('dashboard/categories/{category}/edit', [CategoryController::class, 'edit'])
     ->name('categories.edit');
 
-    Route::get('dashboard/categories/{id}/delete', [CategoryController::class, 'destroy'])
+    Route::delete('dashboard/categories/{id}/delete', [CategoryController::class, 'destroy'])
     ->name('categories.destroy');
 
     Route::put('dashboard/categories/{id}', [CategoryController::class, 'update'])
@@ -94,3 +93,6 @@ Route::middleware(['auth:sanctum', 'verified', 'admin'])->group(function () {
     ->name('categories.store');
         
 });
+
+Route::get('/{slug}', [CategoryController::class, 'view'])
+    ->name('category.view');

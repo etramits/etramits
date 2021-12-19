@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Str;
 use Inertia\Inertia;
 
 class CategoryController extends Controller
@@ -56,19 +57,19 @@ class CategoryController extends Controller
     public function store()
     {
         Request::validate([
-            'name' => ['required'],
-            'description' => ['required'],
-            'parent' => ['required'],
-            'active' => ['required'],
+            'name' => ['required', 'max:50', Rule::unique('categories')],
         ]);
 
+        $slug = Str::slug(Request::get('name'));
+
         Category::create([
-            'name'        => $this->name,
-            'description' => $this->description,
-            'parent'    => $this->quantity,
-            'active'       => $this->price
+            'name' => Request::get('name'),
+            'slug' => $slug,
+            'description' => Request::get('description'),
+            'parent' => Request::get('parent'),
+            'active' => Request::get('active'),
+            'creator_id' => Auth::user()->id,
         ]);
-        $this->reset();
 
         return Redirect::route('categories')->with('success', 'Category created.');
     }
@@ -90,9 +91,17 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Category $category)
     {
-        //
+        return Inertia::render('Categories/Edit', [
+            'category' => [
+                'id' => $category->id,
+                'name' => $category->name,
+                'description' => $category->description,
+                'parent' => $category->parent,
+                'active' => $category->active
+            ],
+        ]);
     }
 
     /**
@@ -102,9 +111,25 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update($id)
     {
-        //
+        $category = Category::find($id);
+
+        Request::validate([
+            'name' => ['required', 'max:50', Rule::unique('categories')->ignore($category->id)],
+        ]);
+
+        $slug = Str::slug(Request::get('name'));
+
+        $category->update([
+            'name' => Request::get('name'),
+            'slug' => $slug,
+            'description' => Request::get('description'),
+            'parent' => Request::get('parent'),
+            'active' => Request::get('active'),
+        ]);
+
+        return Redirect::route('categories')->with('success', 'Category created.');
     }
 
     /**
@@ -113,8 +138,38 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy()
     {
-        //
+        $category = Category::where('id', Request::get('id'))->first();
+        $category->delete();
+
+        return Redirect::back()->with('success', 'User deleted.');
+    }
+
+    public function view($slug)
+    {
+        $category = Category::where('slug', $slug)
+        ->where('active', true)
+        ->get()
+        ->map(fn ($category) => [
+            'id' => $category->id,
+            'name' => $category->name,
+            'description' => $category->descripton
+        ])
+        ->first();
+
+        return Inertia::render('Category', [
+        'category' => $category,
+        
+        'subcategories' => Category::where('parent', $category['id'])
+            ->where('active', true)
+            ->orderBy('position')
+            ->get()
+            ->map(fn ($category) => [
+            'id' => $category->id,
+            'name' => $category->name,
+            'icon' => $category->icon,
+            ])
+        ]);
     }
 }
