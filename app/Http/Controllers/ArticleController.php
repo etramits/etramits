@@ -9,8 +9,9 @@ use App\Models\Category;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
-use Illuminate\Support\Facades\Request;
-// use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+//use Illuminate\Support\Facades\Request;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Validation\Rule;
 use Inertia\Inertia;
@@ -134,6 +135,17 @@ class ArticleController extends Controller
           'name' => $category->name,
         ]);
 
+      if (is_dir('articles/' . $article['id'] . '/images/'))
+      {
+        $images = scandir(public_path('articles/' . $article['id'] . '/images/'));
+        array_shift($images);
+        array_shift($images);
+      }
+      else
+      {
+        $images = [];
+      }
+
       return Inertia::render('Articles/Edit', [
         'article' => [
           'id' => $article->id,
@@ -144,13 +156,32 @@ class ArticleController extends Controller
           'active' => $article->active,
         ],
         'categories' => $categories,
+        'images' => $images,
       ]);
     }
 
     public function upload(Request $request, $id)
     {
-      Request::file('image')->move('images');
+      $image = $request->image;
+      $image->move(public_path('articles/' . $id . '/images/'), $image->getClientOriginalName());
       
+      // $request->image->store('/public/articles/' . $id);
+
+      // $path = storage_path('app/public/articles/' . $id);
+      // $images = scandir('');
+
+      // array_shift($images);
+      // array_shift($images);
+
+      // return scandir(public_path('articles/' . $id . '/images/'));
+
+      
+
+      // $request->image->store('/public/articles/' . $id);
+
+      // $request->image->move(public_path('images'), 'seo.jpeg');
+
+
       // if (Request::hasFile('image'))
       // {
       //   return 'Yes';
@@ -203,7 +234,7 @@ class ArticleController extends Controller
         // ]);
 
         
-        return Redirect::route('articles')->with('success', 'Article updated.');
+        return Redirect::route('articles.edit', $id)->with('success', 'Article updated.');
     }
 
     /**

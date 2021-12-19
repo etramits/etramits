@@ -60,7 +60,7 @@
                   alignleft aligncenter alignright alignjustify | \
                   bullist numlist outdent indent | removeformat | help',
 
-                  image_list: images
+                  image_list: imagesEditor
                 }"
               />
 
@@ -78,17 +78,17 @@
               <jet-label for="content" value="Imatges" />
 
               <form @submit.prevent="upload" class="flex justify-between">
-                <jet-input v-model="image.image" type="file" />
+                <jet-input @input="image.image = $event.target.files[0]" type="file" />
                 <jet-button type="submit">Penjar</jet-button>
               </form>
             </div>
 
             <div>
               <div class="grid grid-cols-2 gap-3">
-                <div v-for="image in images" :key='image.id'>
-                  <img :src="image.value" class="rounded">
+                <div v-for="image in images" :key='image'>
+                  <img :src="`/articles/${article.id}/images/${image}`" class="rounded">
                   <div class="flex justify-between text-sm text-gray-500">
-                    <span v-text="image.title" />
+                    <span v-text="image" />
                     <button>Eliminar</button>
                   </div>
                 </div>
@@ -133,16 +133,11 @@
         props: {
           article: Object,
           categories: Object,
+          images: Object,
         },
 
         data() {
           return {
-            images: [
-              { id: 0, title: 'Imagen #1', value: 'https://tictac.seoalexramon.dev/img/article.jpg' },
-              { id: 1, title: 'Imagen #2', value: 'https://tictac.seoalexramon.dev/img/article.jpg' },
-              { id: 2, title: 'Imagen #3', value: 'https://tictac.seoalexramon.dev/img/article.jpg' },
-            ],
-
             image: this.$inertia.form({
               _method: 'PUT',
               image: null,
@@ -156,10 +151,6 @@
               content: this.article.content,
               active: this.article.active,
 
-              // title: this.article.title,
-              // slug: this.article.slug,
-              // category_id: this.article.category_id,
-              // content: this.article.content,
             }),
           }
         },
@@ -183,6 +174,19 @@
               .replace(/-+/g, '-');
 
             return str;
+          },
+
+          imagesEditor: function () {
+            let result = [];
+
+            for (let image of this.images) {
+              result.push({
+                title: image,
+                value: `/articles/${this.article.id}/images/${image}`,
+              })
+            }
+
+            return result;
           }
         },
 
@@ -201,9 +205,8 @@
           },
 
           upload() {
-            console.log('hola')
-            // let route = this.route('articles.upload', this.article.id);
-            this.image.post(this.route('articles.upload', this.article.id));
+            let route = this.route('articles.upload', this.article.id);
+            this.image.post(route);
           },
 
           submit() {
