@@ -68,6 +68,7 @@ class CategoryController extends Controller
             'description' => Request::get('description'),
             'parent' => Request::get('parent'),
             'active' => Request::get('active'),
+            'icon' => Request::get('icon'),
             'creator_id' => Auth::user()->id,
         ]);
 
@@ -99,7 +100,8 @@ class CategoryController extends Controller
                 'name' => $category->name,
                 'description' => $category->description,
                 'parent' => $category->parent,
-                'active' => $category->active
+                'active' => $category->active,
+                'icon' => $category->icon,
             ],
         ]);
     }
@@ -127,6 +129,7 @@ class CategoryController extends Controller
             'description' => Request::get('description'),
             'parent' => Request::get('parent'),
             'active' => Request::get('active'),
+            'icon' => Request::get('icon'),
         ]);
 
         return Redirect::route('categories')->with('success', 'Category created.');

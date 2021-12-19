@@ -20,7 +20,8 @@ class Category extends Model
         'parent',
         'active',
         'slug',
-        'creator_id'
+        'creator_id',
+        'icon',
     ];
 
     public function articles()

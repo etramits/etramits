@@ -27,6 +27,18 @@
                     </select>
                 </div>
 
+                <div class="mt-4 inline-flex justify-items-center">
+                    <div class="mr-4 justify-items-center">
+                        <jet-label for="icon" >Icona (opcional)<a href="https://fontawesome.com/v5.15/icons?d=gallery&p=2&s=solid&m=free" target="_blank"><font-awesome-icon icon="external-link-alt" size="sx" class="text-gray-600 ml-2"  /></a></jet-label>
+                        <jet-input id="icon" type="text" class="mt-1 block w-1/2" v-model="form.icon"/>
+                    </div>
+                    
+                    <div class="justify-items-center">
+                        <jet-label for="active" value="Pre-visualització: " />
+                        <font-awesome-icon v-bind:icon="!form.icon ? 'file-alt' : form.icon" size="5x" class="text-gray-600"  small />
+                    </div>
+                </div>
+
                 <div class="flex items-center justify-end mt-4">
 
                     <jet-button type="submit" class="ml-4" :class="{ 'opacity-25': form.processing }" >
@@ -51,6 +63,10 @@
     import JetValidationErrors from '@/Jetstream/ValidationErrors.vue'
     import { Head, Link } from '@inertiajs/inertia-vue3';
     import DashboardLayout from '@/Layouts/DashboardLayout.vue'
+    import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+    import { library } from '@fortawesome/fontawesome-svg-core'
+    import { fas } from '@fortawesome/free-solid-svg-icons'
+    library.add(fas)
 
     export default defineComponent({
         components: {
@@ -64,6 +80,7 @@
             JetLabel,
             JetValidationErrors,
             Link,
+            FontAwesomeIcon,
         },
         props: {
             category: Object,
@@ -76,6 +93,7 @@
                     description: this.category.description,
                     parent: this.category.parent,
                     active: this.category.active,
+                    icon: this.category.icon,
                 }),
             }
         },

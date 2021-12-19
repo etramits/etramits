@@ -37,8 +37,6 @@
                         <jet-label for="active" value="Pre-visualització: " />
                         <font-awesome-icon v-bind:icon="!form.icon ? 'file-alt' : form.icon" size="5x" class="text-gray-600"  small />
                     </div>
-                    
-                    
                 </div>
 
                 <div class="flex items-center justify-end mt-4">
