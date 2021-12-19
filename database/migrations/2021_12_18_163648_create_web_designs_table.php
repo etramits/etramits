@@ -17,7 +17,10 @@ class CreateWebDesignsTable extends Migration
             $table->id();
             $table->timestamps();
             $table->string('main_color');
-            $table->string('font');
+            $table->string('font_family');
+            $table->string('like_button');
+            $table->string('header_text');
+            $table->string('header_img');
 
         });
     }

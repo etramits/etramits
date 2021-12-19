@@ -2,20 +2,28 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Models\WebDesign;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Facades\URL;
+use Illuminate\Validation\Rule;
+use Inertia\Inertia;
 
 class WebDesignController extends Controller
 {
     public function index()
     {
+        $webdesign = Webdesign::find(1);
+
         return Inertia::render('WebDesign/Index', [
-            "webdesign" => WebDesign::orderBy('id', 'DESC')
-            ->get()
-            ->map(fn ($article) => [
-                'title' => $webdesign->title,
-                'main_color' => $webdesign->main_color,
-                'font_type' => $webdesign->font_type,
-            ])
+            'id' => $webdesign->id,
+            'main_color' => $webdesign->main_color,
+            'font_family' => $webdesign->font_family,
+            'like_button' => $webdesign->like_button,
+            'header_text' => $webdesign->header_text,
+            'header_img' => $webdesign->header_img            
         ]);
     }
 
@@ -26,7 +34,7 @@ class WebDesignController extends Controller
      */
     public function create()
     {
-        return Inertia::render('Articles/Create');
+        return Inertia::render('WebDesign/Create');
 
     }
 
@@ -39,24 +47,23 @@ class WebDesignController extends Controller
     public function store()
     {
         Request::validate([
-            'title' => ['required', 'max:200'],
-            'slug' => ['required', 'max:200'],
-            'category_id' => ['required','integer'],
-            'author_id' => ['required', 'integer'],
-            'content' => ['required'],
-            'active' => ['required','boolean'],
+            'main_color' => ['required', 'max:20'],
+            'font_family' => ['required', 'max:30'],
+            'like_button' => ['required', 'max:30'],
+            'header_text' => ['required', 'max:40'],
+            'header_img' => ['required', 'max:20'],
         ]);
 
-        Article::create([
-            'title' => Request::get('title'),
-            'slug' => Request::get('slug'),
-            'category_id' => Request::get('category_id'),
-            'author_id' => Request::get('author_id'),
-            'content' => Request::get('content'),
-            'active' => Request::get('active'),
+        WebDesign::create([
+            'main_color' => Request::get('main_color'),
+            'font_family' => Request::get('font_family'),
+            'like_button' => Request::get('like_button'),
+            'font_family' => Request::get('font_family'),
+            'header_text' => Request::get('header_text'),
+            'header_img' => Request::get('header_img'),
         ]);
 
-        return Redirect::route('articles')->with('success', 'Article created.');
+        return Redirect::route('webdesign')->with('success', 'WebDesign created.');
     }
 
     /**
@@ -76,17 +83,16 @@ class WebDesignController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Article $article)
+    public function edit(WebDesign $webdesign)
     {
-        return Inertia::render('Articles/Edit', [
-            'article' => [
-                'id' => $article->id,
-                'title' => $article->title,
-                'category_id' => $article->category_id,
-                'slug' => $article->slug,
-                'author_id' => $article->author_id,
-                'content' => $article->content,
-                'active' => $article->active,
+        return Inertia::render('WebDesign/Edit', [
+            'webdesign' => [
+                'id' => $webdesign->id,
+                'main_color' => $webdesign->main_color,
+                'font_family' => $webdesign->font_family,
+                'like_button' => $webdesign->like_button,
+                'header_text' => $webdesign->header_text,
+                'header_img' => $webdesign->header_img,
             ],
         ]);
     }
@@ -98,50 +104,31 @@ class WebDesignController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update($id)
     {
-        $article = Article::find($id);
+        $webdesign = Webdesign::find($id);
+
+        error_log(123); 
+        error_log(Request::get('main_color')); 
 
         $validator = Request::validate([
-            'title' => ['required', 'max:200'],
-            'slug' => ['required', 'max:200'],
-            'category_id' => ['required','integer'],
-            'author_id' => ['required', 'integer'],
-            'content' => ['required'],
-            'active' => ['required','boolean'],
+            'main_color' => ['required', 'max:20'],
+            'font_family' => ['required', 'max:30'],
+            'like_button' => ['required', 'max:30'],
+            'header_text' => ['required', 'max:40'],
+            'header_img' => ['required', 'max:20'],
         ]);
 
-        $article->update([
-            'title' => Request::get('title'),
-            'slug' => Request::get('slug'),
-            'category_id' => Request::get('category_id'),
-            'author_id' => Request::get('author_id'),
-            'content' => Request::get('content'),
-            'active' => Request::get('active'),
+        $webdesign->update([
+            'main_color' => Request::get('main_color'),
+            'font_family' => Request::get('font_family'),
+            'like_button' => Request::get('like_button'),
+            'font_family' => Request::get('font_family'),
+            'header_text' => Request::get('header_text'),
+            'header_img' => Request::get('header_img'),
         ]);
-
         
-        return Redirect::route('articles')->with('success', 'Article updated.');
+        return Redirect::route('webdesign')->with('success', 'Webdesign updated.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Article $article)
-    {
-        $article = Article::where('id', Request::get('id'))->first();
-        $article->delete();
-
-        return Redirect::route('articles')->with('success', 'User deleted.');
-    }
-
-    public function restore(Article $article)
-    {
-        $article->restore();
-
-        return Redirect::back()->with('success', 'Article restored.');
-    }
 }

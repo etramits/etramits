@@ -8,6 +8,8 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\WebDesignController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -25,7 +27,6 @@ use App\Http\Controllers\CategoryController;
 Route::get('/', [HomeController::class, 'index']);
 
 //  Admin Dashboard    
-Route::get('/{slug}', [CategoryController::class, 'index']);
 
 Route::middleware(['auth:sanctum', 'verified', 'admin'])->group(function () {
 
@@ -72,5 +73,21 @@ Route::middleware(['auth:sanctum', 'verified', 'admin'])->group(function () {
 
     Route::post('dashboard/articles', [ArticleController::class, 'store'])
         ->name('articles.store');
+
+    // WebDesign
+
+    Route::get('dashboard/webdesign/', [WebDesignController::class, 'index'])
+        ->name('webdesign');
+
+    Route::get('dashboard/webdesign/{webdesign}/edit', [WebDesignController::class, 'edit'])
+        ->name('webdesign.edit');
+
+    Route::put('dashboard/webdesign/{id}', [WebDesignController::class, 'update'])
+        ->name('webdesign.update');
+
+    Route::post('dashboard/webdesign', [WebDesignController::class, 'store'])
+        ->name('webdesign.store');
         
 });
+
+Route::get('/{slug}', [CategoryController::class, 'index']);

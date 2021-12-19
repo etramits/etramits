@@ -8,4 +8,19 @@ use Illuminate\Database\Eloquent\Model;
 class WebDesign extends Model
 {
     use HasFactory;
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var string[]
+     */
+    protected $fillable = [
+        'main_color',
+        'font_family',
+        'like_button',
+        'font_family',
+        'header_text',
+        'header_img',
+    ];
+
 }
