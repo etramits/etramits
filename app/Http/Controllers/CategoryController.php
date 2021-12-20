@@ -176,7 +176,6 @@ class CategoryController extends Controller
 
         return Inertia::render('Category', [
         'category' => $category,
-
         'articles' => $articles,
         
         'subcategories' => Category::where('parent', $category['id'])

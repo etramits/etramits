@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Comment;
+use App\Models\Article;
 use Illuminate\Support\Facades\Redirect;
+use Inertia\Inertia;
+use Illuminate\Support\Facades\Validator;
 
 class CommentController extends Controller
 {
@@ -15,7 +18,18 @@ class CommentController extends Controller
      */
     public function index()
     {
-        //
+        return Inertia::render('Comments/Index', [
+            "comments" => Comment::orderBy('id', 'DESC')
+            ->where('active', 0)
+            ->get()
+            ->map(fn ($comment) => [
+                'id' => $comment->id,
+                'user_id' => $comment->user_id,
+                'article_id' => $comment->article_id,
+                'content' => $comment->content,
+                'created_at' => date("Y-m-d",strtotime($comment->created_at)),
+            ])
+        ]);
     }
 
     /**
@@ -34,17 +48,24 @@ class CommentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, $article)
-    {
-        $validated = $request->validate([
-            'content' => 'required',
-            'user_id' => 'required',
-        ]);
+    public function store(Request $request, $id)
+    {   
 
-        $article = Comment::create([
+        error_log($id);
+        $validator = Validator::make($request->all(), [
+            'user_id' => 'required',
+            'content' => 'required',
+        ]);
+        
+        if ($validator->fails()) {
+            error_log($validator->errors());
+        }
+
+
+        Comment::create([
             'user_id' => $request->user_id,
             'content' => $request->content,
-            'article_id' => $article,
+            'article_id' => $id,
             'active' => 0
         ]);
 
@@ -82,7 +103,13 @@ class CommentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $comment = Comment::find($id);
+
+        $comment->update([
+          'active' => 1,
+        ]);
+
+        return Redirect::back()->with('msg', 'Comment validated succefully');
     }
 
     /**
@@ -93,6 +120,8 @@ class CommentController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Comment::where('id', $id)->delete();
+
+        return Redirect::back()->with('success', 'Comment deleted.');
     }
 }

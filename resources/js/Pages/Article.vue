@@ -83,13 +83,11 @@
         <div v-if="$page.props.user">
             <form @submit.prevent="submitComment" class="w-3/5 ml-8">
                 <div>
-                    <jet-label for="content" value="Commentari:" />
-                    <jet-input id="content" type="text" class="mt-1 block w-full" v-model="form.content" required autofocus />
-                    <jet-input type="hidden" id="content" class="mt-1 block w-full" v-model="form.user_id" :value="$page.props.user.id" required />
+                    <jet-label for="content" value="Comentari:" />
+                    <textarea id="content" type="text" class="mt-1 block w-full" v-model="form.content" :maxlength="200" required />
                 </div>
-                <div class="flex items-center justify-end mt-4">
-
-                    <jet-button class="ml-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
+                <div class="flex items-center justify-start mt-4">
+                    <jet-button :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
                         Enviar
                     </jet-button>
                 </div>
@@ -123,6 +121,7 @@
   import JetInput from '@/Jetstream/Input.vue'
   import JetLabel from '@/Jetstream/Label.vue'
   import JetButton from '@/Jetstream/Button.vue'
+  import JetTextarea from '@/Jetstream/Textarea.vue'
   import { fas } from '@fortawesome/free-solid-svg-icons'
   import AppLayout from '@/Layouts/AppLayout.vue'
 
@@ -135,7 +134,8 @@
       AppLayout,
       JetInput,
       JetLabel,
-      JetButton
+      JetButton,
+      JetTextarea
     },
 
     props: {
@@ -153,7 +153,10 @@
     },
     methods: {
         submitComment() {
-            this.form.post(this.route('comment.store', this.article.id));
+          this.form.user_id = this.$page.props.user.id;
+          this.form.post(this.route('comment.store', this.article.id), {
+            onFinish: () => this.form.reset('content'),
+          });
         }
     },
     mounted() {

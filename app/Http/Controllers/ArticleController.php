@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 use App\Models\Article;
 use App\Models\Category;
 use App\Models\Comment;
+use App\Models\User;
 
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
@@ -25,23 +26,23 @@ class ArticleController extends Controller
             "articles" => Article::orderBy('id', 'DESC')
             ->get()
             ->map(fn ($article) => [
-                'id' => $article->id,
-                'title' => $article->title,
-                'category_id' => $article->category_id,
-                'author_id' => $article->author_id,
-                'content' => $article->content,
+              'id' => $article->id,
+              'title' => $article->title,
+              'category_id' => $article->category_id,
+              'author_id' => $article->author_id,
+              'content' => $article->content,
             ])
         ]);
     }
 
     public function view($category_slug, $article_slug)
-    {
+    {   
 
         $category = Category::where('slug', $category_slug)
             ->where('active', true)
             ->get()
             ->map(fn ($category) => [
-                'id' => $category->id,
+              'id' => $category->id,
             ])
             ->first();
 
@@ -50,22 +51,22 @@ class ArticleController extends Controller
             ->where('category_id', $category['id'])
             ->get()
             ->map(fn ($article) => [
-                'id' => $article->id,
-                'title' => $article->title,
-                'content' => $article->content,
+              'id' => $article->id,
+              'title' => $article->title,
+              'content' => $article->content,
             ])
             ->first();
 
         $comments = Comment::where('article_id', $article['id'])
-                ->where('active', true)
-                ->orderBy('id', 'DESC')
-                ->get()
-                ->map(fn ($comment) => [
-                    'id' => $comment->id,
-                    'content' => $comment->content,
-                    'user_id' => $comment->user_id,
-                    'created_at' => $comment->created_at
-                ]);
+            ->where('active', true)
+            ->orderBy('id', 'DESC')
+            ->get()
+            ->map(fn ($comment) => [
+              'id' => $comment->id,
+              'content' => $comment->content,
+              'user_id' => $comment->user_id,
+              'created_at' => $comment->created_at,
+            ]);
 
         return Inertia::render('Article', [
             'article' => $article,

@@ -94,14 +94,28 @@ Route::middleware(['auth:sanctum', 'verified', 'admin'])->group(function () {
 
     Route::post('dashboard/categories', [CategoryController::class, 'store'])
     ->name('categories.store');
+
+    //Comments
+
+    Route::get('dashboard/comments', [CommentController::class, 'index'])
+    ->name('comments');
+
+    Route::get('dashboard/comments/{id}/update', [CommentController::class, 'update'])
+    ->name('comment.update');
+
+    Route::delete('dashboard/comments/{id}/delete', [CommentController::class, 'destroy'])
+    ->name('comment.destroy');
         
 });
 
-Route::post('/{article}/comment', [CommentController::class, 'store'])
+//send comments
+Route::post('/{id}/comment', [CommentController::class, 'store'])
     ->name('comment.store');
 
+//view articles
 Route::get('/{category}/{article}', [ArticleController::class, 'view'])
     ->name('article.view');
 
+//view categories
 Route::get('/{slug}', [CategoryController::class, 'view'])
     ->name('category.view');
