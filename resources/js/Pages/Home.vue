@@ -1,12 +1,14 @@
 <template>
   <AppLayout title="Home">
     <!-- Slogan -->
-    <section class="bg-yellow-300 font-sans">
+    <section :class="`bg-${webdesign.main_color}-300 ${webdesign.font_family}`">
       <div class="container flex flex-col md:flex-row items-center justify-between mx-auto max-w-7xl px-4 gap-20 text-gray-800">
-        <h2 class="text-4xl md:text-8xl font-bold">Consulta tràmits<br>en dos clics</h2>
-        <img class="mt-10 h-64 md:h-80 md:w-auto" src="/img/slogan.svg" draggable="false">
+        <h2 class="text-4xl md:text-8xl font-bold">{{webdesign.header_text}}</h2>
+        <img class="mt-10 h-64 md:h-80 md:w-auto" :src="'/img/' + header_img" draggable="false">
       </div>
     </section>
+
+    
 
     <div class="py-12 md:py-24 bg-gray-50">
       <section class="container mx-auto max-w-7xl text-gray-800">
@@ -17,7 +19,7 @@
         <!-- Procedure -->
         <div class="grid md:grid-cols-5 gap-10 mt-8 md:mt-10">
           <Link as="div" v-for="category in categories" :key="category.id" :href="`/${category.slug}`" class="flex flex-col items-center p-5 w-50 bg-white rounded-xl shadow hover:opacity-60 cursor-pointer">
-            <font-awesome-icon v-bind:icon="!category.icon ? 'file-alt' : category.icon" size="5x" class="text-yellow-300" />
+            <font-awesome-icon v-bind:icon="!category.icon ? 'file-alt' : category.icon" size="5x" :class="`text-${webdesign.main_color}-300`" />
             <h4 class="mt-6 max-w-full text-xl md:text-2xl font-medium overflow-hidden whitespace-nowrap	overflow-ellipsis">{{ category.name }}</h4>
           </Link>
         </div>
@@ -131,6 +133,8 @@
 
     props: {
       categories: Object,
+      webdesign: Object,
+  
     },
 
     data() {
@@ -151,7 +155,10 @@
             label: 'Usuaris',
             value: 8,
           }
-        ]
+        ],
+
+        header_img: this.webdesign.header_img,
+
       }
     }
   })
