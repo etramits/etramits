@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Article;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
@@ -149,30 +150,48 @@ class CategoryController extends Controller
         return Redirect::back()->with('success', 'User deleted.');
     }
 
-    public function view($slug)
-    {
-        $category = Category::where('slug', $slug)
-        ->where('active', true)
-        ->get()
-        ->map(fn ($category) => [
-            'id' => $category->id,
-            'name' => $category->name,
-            'description' => $category->descripton
-        ])
-        ->first();
+  public function view($slug)
+  {
+    $category = Category::where('slug', $slug)
+      ->where('active', true)
+      ->get()
+      ->map(fn ($category) => [
+        'id' => $category->id,
+        'name' => $category->name,
+        'description' => $category->descripton,
+        'slug' => $category->slug,
+      ])
+      ->first();
 
-        return Inertia::render('Category', [
-        'category' => $category,
-        
-        'subcategories' => Category::where('parent', $category['id'])
-            ->where('active', true)
-            ->orderBy('position')
-            ->get()
-            ->map(fn ($category) => [
-            'id' => $category->id,
-            'name' => $category->name,
-            'icon' => $category->icon,
-            ])
-        ]);
-    }
+    $subcategories = Category::where('parent', $category['id'])
+      ->where('active', true)
+      ->orderBy('position')
+      ->get()
+      ->map(fn ($category) => [
+        'id' => $category->id,
+        'name' => $category->name,
+        'icon' => $category->icon,
+      ]);
+    
+    $articles = Article::where('category_id', $category['id'])
+      ->where('active', true)
+      ->get()
+      ->map(fn ($article) => [
+        'id' => $article->id,
+        'title' => $article->title,
+        'slug' => $article->slug,
+      ]);
+
+    // return [
+    //   $category,
+    //   $subcategories,
+    //   $articles,
+    // ];
+
+    return Inertia::render('Category', [
+      'category' => $category,
+      'subcategories' => $subcategories,
+      'articles' => $articles,
+    ]);
+  }
 }

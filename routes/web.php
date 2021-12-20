@@ -34,7 +34,7 @@ Route::middleware(['auth:sanctum', 'verified', 'admin'])->group(function () {
 
     // Users
 
-    Route::get('dashboard/users', [UserController::class, 'index'])
+    Route::get('dashbo/salut/exampleard/users', [UserController::class, 'index'])
         ->name('users');
 
     Route::get('dashboard/users/create', [UserController::class, 'create'])
@@ -111,8 +111,8 @@ Route::put('dashboard/categories/{id}', [CategoryController::class, 'update'])
 
 Route::post('dashboard/categories', [CategoryController::class, 'store'])
 ->name('categories.store');
-    
 
+Route::get('/{category}/{article}', [ArticleController::class, 'view']);
 
 Route::get('/{slug}', [CategoryController::class, 'view'])
-    ->name('category.view');
+  ->name('category.view');
