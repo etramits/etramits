@@ -12,20 +12,22 @@ use Inertia\Inertia;
 
 class ArticleController extends Controller
 {
-    public function index()
-    {
-        return Inertia::render('Articles/Index', [
-            "articles" => Article::orderBy('id', 'DESC')
-            ->get()
-            ->map(fn ($article) => [
-                'id' => $article->id,
-                'title' => $article->title,
-                'category_id' => $article->category_id,
-                'author_id' => $article->author_id,
-                'content' => $article->content,
-            ])
-        ]);
-    }
+  public function index()
+  {
+    return Inertia::render('Articles/Index', [
+      "articles" => Article::orderBy('id', 'DESC')
+      ->get()
+      ->map(fn ($article) => [
+        'id' => $article->id,
+        'title' => $article->title,
+        'category_id' => $article->category_id,
+        'slug' => $article->slug,
+        'author_id' => $article->author_id,
+        'slug' => $article->slug,
+        'content' => $article->content,
+      ])
+    ]);
+  }
 
   public function view($category_slug, $article_slug)
   {
@@ -48,29 +50,19 @@ class ArticleController extends Controller
       ])
       ->first();
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store()
-    {
-        Request::validate([
-            'title' => ['required', 'max:200'],
-            'slug' => ['required', 'max:200'],
-            'category_id' => ['required','integer'],
-            'author_id' => ['required', 'integer'],
-            'content' => ['required'],
-        ]);
+    return Inertia::render('Article', [
+      'article' => $article,
+    ]);
+  }
 
-        Auth::user()->account->users()->create([
-            'title' => Request::get('title'),
-            'slug' => Request::get('slug'),
-            'category_id' => Request::get('category_id'),
-            'author_id' => Request::get('author_id'),
-            'content' => Request::get('content'),
-        ]);
+  public function create()
+  {
+    $categories = Category::where('active', true)
+      ->get()
+      ->map(fn ($category) => [
+        'id' => $category->id,
+        'name' => $category->name,
+      ]);
 
     // return $categories;
     
@@ -115,52 +107,58 @@ class ArticleController extends Controller
     }
     else
     {
-        return Inertia::render('Articles/Edit', [
-            'article' => [
-                'id' => $article->id,
-                'title' => $article->title,
-                'category_id' => $article->category_id,
-                'author_id' => $article->author_id,
-                'content' => $article->content,
-            ],
-        ]);
+      $images = [];
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Article $article)
-    {
-        Request::validate([
-            'title' => ['required', 'max:200'],
-            'slug' => ['required', 'max:200'],
-            'category_id' => ['required','integer'],
-            'author_id' => ['required', 'integer'],
-            'content' => ['required'],
-        ]);
+    return Inertia::render('Articles/Edit', [
+      'article' => [
+        'id' => $article->id,
+        'title' => $article->title,
+        'slug' => $article->slug,
+        'category' => $article->category_id,
+        'content' => $article->content,
+        'active' => $article->active,
+      ],
+      'categories' => $categories,
+      'images' => $images,
+    ]);
+  }
 
-        $article->update(Request::only('title', 'slug', 'category_id', 'author_id','content'));
-        
-        return Redirect::back()->with('success', 'Article updated.');
-    }
+  public function upload(Request $request, $id)
+  {
+    $image = $request->image;
+    $image->move(public_path('articles/' . $id . '/images/'), $image->getClientOriginalName());
+      
+    return Redirect::route('articles.edit', $id)->with('success', 'Article updated.');
+  }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Article $article)
-    {
-    
-        $article->delete();
+  public function update(Request $request, $id)
+  {
+      $article = Article::find($id);
 
-        return Redirect::back()->with('success', 'User deleted.');
-    }
+      $validated = $request->validate([
+        'title' => 'required',
+        'slug' => 'required',
+        'category' => 'required|integer',
+        'content' => 'required',
+        'active' => 'required|boolean',
+      ]);
+
+      $article->update([
+        'title' => $request->title,
+        'slug' => $request->slug,
+        'category_id' => $request->category,
+        'content' => $request->content,
+        'active' => $request->active,
+      ]);
+      
+      return Redirect::route('articles.edit', $id)->with('success', "L'informació de l'article s'ha actualitzat correctament");
+  }
+
+  public function destroy(Request $request, Article $article)
+  {
+    $article = Article::where('id', $request->id)->first();
+    $article->delete();
 
     return Redirect::route('articles')->with('success', 'User deleted.');
   }
