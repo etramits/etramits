@@ -4,10 +4,9 @@
     <div class="m-12">
       <h1 class="font-bold text-4xl">Editar article</h1>
 
-      <div class="flex mt-6 p-4 bg-yellow-50 rounded-xl">
+      <!-- <div class="flex mt-6 p-4 bg-yellow-50 rounded-xl">
         <p class="text-lg leading-none">Emplena tots el camps especificats a continuació per inciar la creació d'un nou article.</p>
-      </div>
-
+      </div> -->
 
       <form @submit.prevent="submit" class="flex flex-col gap-6 mt-6 w-full">
         <div>
@@ -17,31 +16,6 @@
 
         <div class="flex gap-10">
           <div class="flex flex-col gap-6 w-8/12">
-            <div class="flex gap-6">
-              <div class="w-full">
-                <jet-label for="title" value="Enllaç" />
-                <jet-input v-model="generateSlug" class="mt-1 block w-full" type="text" required disabled />
-              </div>
-
-              <div class="w-full">
-                <jet-label for="category_id" value="Categoría" />
-
-                <select class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm mt-1 block w-full">
-                  <option value="" selected hidden></option>
-                  <option v-for="category in categories" :key="category.id" v-text="category.name" :value="category.id" :selected="form.category == category.id" />
-                </select>
-              </div>
-
-              <div class="w-full">
-                <jet-label for="active" value="Estat" />
-
-                <select v-model="form.active" name="active" class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm mt-1 block w-full">
-                  <option :selected="form.active == 0" :value="0">Borrador</option>
-                  <option :selected="form.active == 1" :value="1">Publicat</option>
-                </select>
-              </div>
-            </div>
-
             <div>
               <jet-label for="content" value="Contingut" />
                       
@@ -49,18 +23,41 @@
                 :init="{
                   language: 'ca',
                   height: 500,
-                  menubar: true,
+                  
                   plugins: [
                   'advlist autolink lists link image charmap print preview anchor',
                   'searchreplace visualblocks code fullscreen',
                   'insertdatetime media table paste code help wordcount'
                   ],
-                  toolbar:
-                  'undo redo | formatselect | bold italic backcolor | \
-                  alignleft aligncenter alignright alignjustify | \
-                  bullist numlist outdent indent | removeformat | help',
 
-                  image_list: imagesEditor
+                  menubar: true,
+                  toolbar: 'undo redo | formatselect | bold | image | fullscreen | tictac',
+
+                  // Images
+                  image_list: imagesEditor,
+
+                  // Formats
+                  /*
+                  formats: {
+                    h2: { block: 'h2', classes: 'text-4xl font-bold' },
+                    h3: { block: 'h3', classes: 'text-3xl font-bold' },
+                    p: { block: 'p', classes: 'text-xl leading-7' },
+                    img: { block: 'img', classes: 'mx-auto w-9/12 border-4 rounded-xl' },
+                  },
+                  */
+
+                  // Image options
+                  image_description: false,
+                  image_dimensions: false,
+
+                  setup: function (editor) {
+                    editor.ui.registry.addButton('tictac', {
+                      text: 'TicTac',
+                      onAction: function (_) {
+                        editor.insertContent('{{ARTICLE_ID}}');
+                      }
+                    });
+                  }
                 }"
               />
 
@@ -74,6 +71,29 @@
             </div>
           </div>
           <div class="flex flex-col gap-6 w-4/12">
+            <div class="w-full">
+              <jet-label for="title" value="Enllaç" />
+              <jet-input v-model="generateSlug" class="mt-1 block w-full" type="text" required disabled />
+            </div>
+
+            <div class="w-full">
+              <jet-label for="category_id" value="Categoría" />
+
+              <select class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm mt-1 block w-full">
+                <option value="" selected hidden></option>
+                <option v-for="category in categories" :key="category.id" v-text="category.name" :value="category.id" :selected="form.category == category.id" />
+              </select>
+            </div>
+
+            <div class="w-full">
+              <jet-label for="active" value="Estat" />
+
+              <select v-model="form.active" name="active" class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm mt-1 block w-full">
+                <option :selected="form.active == 0" :value="0">Borrador</option>
+                <option :selected="form.active == 1" :value="1">Publicat</option>
+              </select>
+            </div>
+
             <div>
               <jet-label for="content" value="Imatges" />
 
@@ -113,7 +133,6 @@
     import { Head, Link } from '@inertiajs/inertia-vue3';
     import DashboardLayout from '@/Layouts/DashboardLayout.vue'
     import Editor from '@tinymce/tinymce-vue'
-    import { useForm } from '@inertiajs/inertia-vue3'
 
     export default defineComponent({
         components: {
@@ -134,6 +153,7 @@
           article: Object,
           categories: Object,
           images: Object,
+          success: String,
         },
 
         data() {
@@ -173,7 +193,9 @@
               .replace(/\s+/g, '-')
               .replace(/-+/g, '-');
 
-            return str;
+            this.form.slug = str;
+
+            return this.form.slug;
           },
 
           imagesEditor: function () {

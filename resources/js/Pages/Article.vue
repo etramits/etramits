@@ -15,6 +15,28 @@
 
     <section class="py-20 bg-gray-50 text-gray-800">
       <div v-html="article.content" class="container flex flex-col gap-6 mx-auto max-w-7xl p-10 bg-white rounded-xl shadow" id="content" />
+
+      <!-- <div class="flex items-center justify-between p-6 bg-yellow-50 rounded-xl">
+        <div>
+          <span class="text-2xl font-bold">Com accedir a "La Meva Salut"</span>
+          
+          <div class="mt-1 flex gap-4 opacity-75">
+            <span class="text-md">
+              <font-awesome-icon icon="book-open" />
+              Lectura de 1 minut
+            </span>
+            <span class="text-md">
+              <font-awesome-icon icon="comment" />
+              2 comentaris
+            </span>
+            <span class="text-md">
+              <font-awesome-icon icon="bookmark" />
+              12 favorits
+            </span>
+          </div>
+        </div>
+        <button class="p-3 text-xl font-medium bg-yellow-300 rounded leading-none hover:opacity-75">Veure</button>
+      </div> -->
       
         <!-- <p class="text-xl leading-7">A continuació veurem quin és el procediment per sol·licitar el certificat COVID-19 a través de "La Meva Salut".</p>
 
