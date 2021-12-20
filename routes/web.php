@@ -8,6 +8,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\FavoriteController;
 
 /*
 |--------------------------------------------------------------------------
@@ -72,7 +73,7 @@ Route::middleware(['auth:sanctum', 'verified', 'admin'])->group(function () {
     Route::post('dashboard/articles', [ArticleController::class, 'store'])
         ->name('articles.store');
 
-    //categories
+    // Categories
 
     Route::get('dashboard/categories', [CategoryController::class, 'index'])
     ->name('categories');
@@ -93,6 +94,9 @@ Route::middleware(['auth:sanctum', 'verified', 'admin'])->group(function () {
     ->name('categories.store');
         
 });
+
+Route::get('favorites', [FavoriteController::class, 'index'])
+    ->name('favorites');
 
 Route::get('/{slug}', [CategoryController::class, 'view'])
     ->name('category.view');

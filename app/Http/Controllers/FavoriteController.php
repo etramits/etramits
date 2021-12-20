@@ -2,9 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Facades\URL;
+use Illuminate\Validation\Rule;
+use Inertia\Inertia;
+use App\Models\Favorite;
 
-class FavouriteController extends Controller
+class FavoriteController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,18 +20,22 @@ class FavouriteController extends Controller
      */
     public function index()
     {
-        //
+        return Inertia::render('Favorites', [
+            "favorites" => Favorite::where('id', 'DESC')
+            ->get()
+            ->map(fn ($favorite) => [
+                'user_id' => $favorite->user_id,
+                'article_id' => $favorite->article_id,
+            ])
+        ]);
     }
+
 
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -34,7 +45,17 @@ class FavouriteController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Request::validate([
+            'user_id' => ['required', 'max:200'],
+            'article_id' => ['required', 'max:200'],
+        ]);
+
+        Auth::user()->account->users()->create([
+            'user_id' => Request::get('user_id'),
+            'article_id' => Request::get('article_id'),
+        ]);
+
+        return Redirect::route('favorites')->with('success', 'Guardat a favorits');
     }
 
     /**
@@ -77,8 +98,10 @@ class FavouriteController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Favorite $favorite)
     {
-        //
+        $favorite->delete();
+
+        return Redirect::back()->with('success', 'User deleted.');
     }
 }

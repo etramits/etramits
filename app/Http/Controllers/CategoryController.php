@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\WebDesign;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
@@ -161,6 +162,16 @@ class CategoryController extends Controller
         ])
         ->first();
 
+        $webdesign = WebDesign::find(1)
+        ->get()
+        ->map(fn ($wd) => [
+            'main_color' => $wd->main_color,
+            'font_family' => $wd->font_family,
+            'like_button' => $wd->like_button,
+            'header_text' => $wd->header_text,
+            'header_img' => $wd->header_img 
+        ])->first();
+
         return Inertia::render('Category', [
         'category' => $category,
         
@@ -172,7 +183,11 @@ class CategoryController extends Controller
             'id' => $category->id,
             'name' => $category->name,
             'icon' => $category->icon,
-            ])
+            ]),
+
+        'webdesign' => $webdesign,
+        
+        
         ]);
     }
 }
