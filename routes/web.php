@@ -1,13 +1,12 @@
 <?php
 
-use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\CategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -66,7 +65,10 @@ Route::middleware(['auth:sanctum', 'verified', 'admin'])->group(function () {
     Route::delete('dashboard/articles/{id}/delete', [ArticleController::class, 'destroy'])
         ->name('articles.destroy');
 
-    Route::put('dashboard/articles/{id}', [ArticleController::class, 'update'])
+    Route::put('dashboard/articles/{id}', [ArticleController::class, 'upload'])
+      ->name('articles.upload');
+
+    Route::put('dashboard/articles/{id}/upload', [ArticleController::class, 'update'])
         ->name('articles.update');
 
     Route::post('dashboard/articles', [ArticleController::class, 'store'])
@@ -94,5 +96,6 @@ Route::middleware(['auth:sanctum', 'verified', 'admin'])->group(function () {
         
 });
 
-Route::get('/{slug}', [CategoryController::class, 'view'])
-    ->name('category.view');
+Route::get('/{category}/{article}', [ArticleController::class, 'view']);
+
+Route::get('/{slug}', [CategoryController::class, 'index']);
