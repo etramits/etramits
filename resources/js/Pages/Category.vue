@@ -1,19 +1,23 @@
 <template>
   <AppLayout title="Categoria">
     <section class="bg-yellow-300">
-      <div class="container flex flex-col items-center justify-center mx-auto py-20 text-gray-800">
-        <h2 class="text-7xl font-bold">{{ category.name }}</h2>
-        <span class="mt-2 text-xl">
-          {{
-            !category.description
-              ? `En aquest apartat podrás consultar tots el tràmits relacionats amb la categoria ${category.name}`
-              : category.description
-          }}
-        </span>
+      <div class="container flex items-center justify-center mx-auto py-6 gap-20 text-gray-800">
+        <div class="flex flex-col">
+          <h2 class="text-7xl font-bold">{{ category.name }}</h2>
+          <span class="mt-4 max-w-xl text-2xl">
+            {{
+              !category.description
+                ? `En aquest apartat podrás consultar tots el tràmits relacionats amb la categoria ${category.name}`
+                : category.description
+            }}
+          </span>
+        </div>
+
+        <img class="h-80" src="/img/salut.svg">
       </div>
     </section>
 
-    <div class="py-20 bg-gray-100">
+    <div class="py-20 bg-gray-50">
       <div class="container mx-auto">
 
         <h3 v-if="subcategories.length" class="text-4xl font-semibold">Subcategories</h3>
@@ -22,7 +26,7 @@
         <section v-if="subcategories.length" class="mt-10 mb-20 grid md:grid-cols-5 gap-10">
           <div v-for="subcategory in subcategories" :key="subcategory.id" class="flex flex-col items-center p-6 w-50 bg-white rounded-xl shadow hover:opacity-75 cursor-pointer">
             <font-awesome-icon :icon="!subcategory.icon ? 'file-alt' : subcategory.icon" size="5x" class="text-yellow-300" />
-            <h4 class="mt-6 max-w-full text-xl font-medium md:text-2xl overflow-hidden whitespace-nowrap	overflow-ellipsis">{{ subcategory.name }}</h4>
+            <h4 class="mt-6 max-w-full text-xl md:text-2xl font-medium overflow-hidden whitespace-nowrap	overflow-ellipsis">{{ subcategory.name }}</h4>
           </div>
         </section>
 

@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers;
 
+// Models
 use App\Models\Article;
-use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Auth;
+use App\Models\Category;
+
 use Illuminate\Support\Facades\Redirect;
-use Illuminate\Support\Facades\Request;
-use Illuminate\Support\Facades\URL;
-use Illuminate\Validation\Rule;
+use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class ArticleController extends Controller
@@ -28,16 +27,26 @@ class ArticleController extends Controller
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        return Inertia::render('Articles/Create');
+  public function view($category_slug, $article_slug)
+  {
+    $category = Category::where('slug', $category_slug)
+      ->where('active', true)
+      ->get()
+      ->map(fn ($category) => [
+        'id' => $category->id,
+      ])
+      ->first();
 
-    }
+    $article = Article::where('slug', $article_slug)
+      ->where('active', true)
+      ->where('category_id', $category['id'])
+      ->get()
+      ->map(fn ($article) => [
+        'id' => $article->id,
+        'title' => $article->title,
+        'content' => $article->content,
+      ])
+      ->first();
 
     /**
      * Store a newly created resource in storage.
@@ -63,27 +72,48 @@ class ArticleController extends Controller
             'content' => Request::get('content'),
         ]);
 
-        return Redirect::route('articles')->with('success', 'Article created.');
-    }
+    // return $categories;
+    
+    return Inertia::render('Articles/Create', [
+      'categories' => $categories,
+    ]);
+  }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+  public function store(Request $request)
+  {
+    $validated = $request->validate([
+      'title' => 'required',
+      'category' => 'required|integer',
+    ]);
+
+    $article = Article::create([
+      'title' => $request->title,
+      'slug' => $request->slug,
+      'category_id' => $request->category,
+      'author_id' => 1,
+      'content' => '',
+      'active' => false,
+    ]);
+
+    return Redirect::route('articles.edit', $article['id'])->with('success', 'Article created');
+  }
+
+  public function edit(Article $article)
+  {
+    $categories = Category::where('active', true)
+      ->get()
+      ->map(fn ($category) => [
+        'id' => $category->id,
+        'name' => $category->name,
+      ]);
+
+    if (is_dir('articles/' . $article['id'] . '/images/'))
     {
-        //
+      $images = scandir(public_path('articles/' . $article['id'] . '/images/'));
+      array_shift($images);
+      array_shift($images);
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Article $article)
+    else
     {
         return Inertia::render('Articles/Edit', [
             'article' => [
@@ -132,10 +162,13 @@ class ArticleController extends Controller
         return Redirect::back()->with('success', 'User deleted.');
     }
 
-    public function restore(Article $article)
-    {
-        $article->restore();
+    return Redirect::route('articles')->with('success', 'User deleted.');
+  }
 
-        return Redirect::back()->with('success', 'Article restored.');
-    }
+  // public function restore(Article $article)
+  // {
+  //     $article->restore();
+
+  //     return Redirect::back()->with('success', 'Article restored.');
+  // }
 }

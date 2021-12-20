@@ -13,18 +13,17 @@ class CreateArticlesTable extends Migration
      */
     public function up()
     {
-        Schema::create('articles', function (Blueprint $table) {
-            $table->id();
-            $table->string('title');
-            $table->string('slug');
-            $table->longtext('content');
-            $table->integer('category_id');
-            $table->integer('author_id');
-            $table->boolean('active')->default(false);
+      Schema::create('articles', function (Blueprint $table) {
+        $table->id();
+        $table->string('title');
+        $table->string('slug');
+        $table->longtext('content');
+        $table->integer('category_id');
+        $table->integer('author_id');
+        $table->boolean('active')->default(false);
 
-            $table->timestamps();
-
-        });
+        $table->timestamps();
+      });
     }
 
     /**
