@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
-//use Illuminate\Support\Facades\Request;
+// use Illuminate\Support\Facades\Request;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Validation\Rule;
@@ -89,22 +89,36 @@ class ArticleController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store()
+    public function store(Request $request)
     {
-      Request::validate([
-        'title' => ['required', 'max:200'],
-        // 'slug' => ['required', 'max:200'],
-        'category' => ['required', 'integer'],
+      $validated = $request->validate([
+        'title' => 'required',
+        'category' => 'required|integer',
       ]);
 
       $article = Article::create([
-        'title' => Request::get('title'),
-        'slug' => 'asd',
-        'category_id' => Request::get('category'),
+        'title' => $request->title,
+        'slug' => $request->slug,
+        'category_id' => $request->category,
         'author_id' => 1,
         'content' => '',
         'active' => false,
       ]);
+      
+      // Request::validate([
+      //   'title' => ['required', 'max:200'],
+      //   // 'slug' => ['required', 'max:200'],
+      //   'category' => ['required', 'integer'],
+      // ]);
+
+      // $article = Article::create([
+      //   'title' => Request::get('title'),
+      //   'slug' => 'asd',
+      //   'category_id' => Request::get('category'),
+      //   'author_id' => 1,
+      //   'content' => '',
+      //   'active' => false,
+      // ]);
 
       return Redirect::route('articles.edit', [$article['id']])->with('success', 'Article created');
     }
@@ -164,53 +178,39 @@ class ArticleController extends Controller
     {
       $image = $request->image;
       $image->move(public_path('articles/' . $id . '/images/'), $image->getClientOriginalName());
-      
-      // $request->image->store('/public/articles/' . $id);
-
-      // $path = storage_path('app/public/articles/' . $id);
-      // $images = scandir('');
-
-      // array_shift($images);
-      // array_shift($images);
-
-      // return scandir(public_path('articles/' . $id . '/images/'));
-
-      
-
-      // $request->image->store('/public/articles/' . $id);
-
-      // $request->image->move(public_path('images'), 'seo.jpeg');
-
-
-      // if (Request::hasFile('image'))
-      // {
-      //   return 'Yes';
-      // }  
-      // else
-      // {
-      //   return 'No';
-      // }
-
-      // return Request::get('image');
         
-        // ->move(public_path('images'), 'seo.jpeg');
+      return Redirect::route('articles.edit', $id)->with('success', 'Article updated.');
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        $article = Article::find($id);
+
+        $validated = $request->validate([
+          'title' => 'required',
+          'slug' => 'required',
+          'category' => 'required|integer',
+          'content' => 'required',
+          'active' => 'required|boolean',
+        ]);
+
+        $article->update([
+          'title' => $request->title,
+          'slug' => $request->slug,
+          'category_id' => $request->category,
+          'content' => $request->content,
+          'active' => $request->active,
+        ]);
+
+        // Request::get('image')->move(public_path('images'), 'seo.jpeg');
         // Request::get('image')->store('images');
-        // $request->file('image')->move(public_path('images'), 'seo.jpeg');
-
-        // $picture = Request::file('image');
-
-        // $picture->move(public_path('images'), 'seo.jpeg');
-
-        // return 'Fet';
-
-        // if ($request->hasFile('image'))
-        // {
-        //   return 'Yes';
-        // }
-        // else
-        // {
-        //   return 'No';
-        // }
 
         // return Request::get('image');
 
@@ -232,45 +232,6 @@ class ArticleController extends Controller
         //     'content' => Request::get('content'),
         //     'active' => Request::get('active'),
         // ]);
-
-        
-        return Redirect::route('articles.edit', $id)->with('success', 'Article updated.');
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        $article = Article::find($id);
-
-        // Request::get('image')->move(public_path('images'), 'seo.jpeg');
-        // Request::get('image')->store('images');
-
-        return Request::get('image');
-
-
-        $validator = Request::validate([
-            'title' => ['required', 'max:200'],
-            'slug' => ['required', 'max:200'],
-            'category_id' => ['required','integer'],
-            'author_id' => ['required', 'integer'],
-            'content' => ['required'],
-            'active' => ['required','boolean'],
-        ]);
-
-        $article->update([
-            'title' => Request::get('title'),
-            'slug' => Request::get('slug'),
-            'category_id' => Request::get('category_id'),
-            'author_id' => Request::get('author_id'),
-            'content' => Request::get('content'),
-            'active' => Request::get('active'),
-        ]);
 
         
         return Redirect::route('articles')->with('success', 'Article updated.');

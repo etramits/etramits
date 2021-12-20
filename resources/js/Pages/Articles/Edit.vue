@@ -36,8 +36,8 @@
                 <jet-label for="active" value="Estat" />
 
                 <select v-model="form.active" name="active" class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm mt-1 block w-full">
-                  <option :selected="form.active == 0" :value="0">Publicat</option>
-                  <option :selected="form.active == 1" :value="1">Borrador</option>
+                  <option :selected="form.active == 0" :value="0">Borrador</option>
+                  <option :selected="form.active == 1" :value="1">Publicat</option>
                 </select>
               </div>
             </div>

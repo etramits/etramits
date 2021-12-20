@@ -5,16 +5,17 @@
         <h2 v-text="article.title" class="text-6xl font-bold" />
 
         <div class="mt-3 flex items-center gap-8">
-          <span v-for="entry in article.stats" :key="entry.id" class="text-xl">
+          <!-- <span v-for="entry in article.stats" :key="entry.id" class="text-xl">
             <font-awesome-icon :icon="entry.icon" />
             {{ entry.value }}
-          </span>
+          </span> -->
         </div>
       </div>
     </section>
 
     <section class="py-20 bg-gray-50 text-gray-800">
       <div v-html="article.content" class="container flex flex-col gap-6 mx-auto max-w-7xl p-10 bg-white rounded-xl shadow" id="content" />
+      
         <!-- <p class="text-xl leading-7">A continuació veurem quin és el procediment per sol·licitar el certificat COVID-19 a través de "La Meva Salut".</p>
 
         <h2 class="text-4xl font-bold">Accedir a "La Meva Salut"</h2>
