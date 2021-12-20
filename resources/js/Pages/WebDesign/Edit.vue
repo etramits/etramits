@@ -5,7 +5,7 @@
             
             <h2 class="mb-6 ml-8 font-bold text-2xl text-gray-600">Previsualització</h2>
                 <div :class="`container flex flex-col md:flex-row items-center justify-between mx-auto max-w-7xl px-4 gap-20 text-gray-800 bg-${form.main_color}-300 ${form.family_font}`">
-                    <div class="text-4xl md:text-8xl font-bold">{{form.header_text}}</div>
+                    <div :class="`${form.font_family} text-4xl md:text-8xl font-bold`">{{form.header_text}}</div>
                     <div><img class="mt-10 h-64 md:h-80 md:w-auto" :src="'/img/' + form.header_img" alt=""></div>
                 </div>
 
@@ -34,10 +34,10 @@
                     <jet-label for="main_color" value="Colors principals" />
                     <select v-model="form.main_color" name='main_color' class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm mt-1 block w-full">
                         <option value="yellow">Groc</option>
-                        <option value="red">Vermell</option>
+                        <option value="red">Rosa</option>
                         <option value="indigo">Blau</option>
-                        <option value="lime">Verd</option>
-                        <option value="fuchsia">Fucsia</option>
+                        <option value="green">Verd</option>
+                        <option value="purple">Púrpura</option>
                     </select>
                 </div>
 
@@ -45,10 +45,8 @@
                     <jet-label for="font_family" value="Tipus de fonts" />
                     <select v-model="form.font_family" name='font_family' class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm mt-1 block w-full">
                         <option value="font-sans">Lletra de pal sec</option>
-                        <option value="red">Vermell</option>
-                        <option value="indigo">Blau</option>
-                        <option value="lime">Verd</option>
-                        <option value="fuchsia">Fucsia</option>
+                        <option value="font-serif">Lletra amb sèrifes</option>
+                        <option value="font-mono">Lletra monoespaiada</option>
                     </select>
                 </div>
                 
