@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Comment;
+use Illuminate\Support\Facades\Redirect;
 
 class CommentController extends Controller
 {
@@ -32,9 +34,21 @@ class CommentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $article)
     {
-        //
+        $validated = $request->validate([
+            'content' => 'required',
+            'user_id' => 'required',
+        ]);
+
+        $article = Comment::create([
+            'user_id' => $request->user_id,
+            'content' => $request->content,
+            'article_id' => $article,
+            'active' => 0
+        ]);
+
+        return Redirect::back()->with('msg', 'Comment sended succefully');
     }
 
     /**

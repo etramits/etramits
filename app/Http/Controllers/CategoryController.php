@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Article;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
@@ -157,12 +158,26 @@ class CategoryController extends Controller
         ->map(fn ($category) => [
             'id' => $category->id,
             'name' => $category->name,
-            'description' => $category->descripton
+            'description' => $category->descripton,
+            'slug' => $category->slug
+        ])
+        ->first();
+
+        $articles = Article::where('category_id', $category['id'])
+        ->where('active', 1)
+        ->get()
+        ->map(fn ($article) => [
+            'id' => $article->id,
+            'title' => $article->name,
+            'content' => $article->descripton,
+            'slug' => $article->slug
         ])
         ->first();
 
         return Inertia::render('Category', [
         'category' => $category,
+
+        'articles' => $articles,
         
         'subcategories' => Category::where('parent', $category['id'])
             ->where('active', true)

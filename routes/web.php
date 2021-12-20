@@ -7,6 +7,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\CommentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -96,6 +97,11 @@ Route::middleware(['auth:sanctum', 'verified', 'admin'])->group(function () {
         
 });
 
-Route::get('/{category}/{article}', [ArticleController::class, 'view']);
+Route::post('/{article}/comment', [CommentController::class, 'store'])
+    ->name('comment.store');
 
-Route::get('/{slug}', [CategoryController::class, 'index']);
+Route::get('/{category}/{article}', [ArticleController::class, 'view'])
+    ->name('article.view');
+
+Route::get('/{slug}', [CategoryController::class, 'view'])
+    ->name('category.view');

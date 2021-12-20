@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 // Models
 use App\Models\Article;
 use App\Models\Category;
+use App\Models\Comment;
 
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
@@ -35,28 +36,41 @@ class ArticleController extends Controller
 
     public function view($category_slug, $article_slug)
     {
-      $category = Category::where('slug', $category_slug)
-        ->where('active', true)
-        ->get()
-        ->map(fn ($category) => [
-          'id' => $category->id,
-        ])
-        ->first();
 
-      $article = Article::where('slug', $article_slug)
-        ->where('active', true)
-        ->where('category_id', $category['id'])
-        ->get()
-        ->map(fn ($article) => [
-          'id' => $article->id,
-          'title' => $article->title,
-          'content' => $article->content,
-        ])
-        ->first();
+        $category = Category::where('slug', $category_slug)
+            ->where('active', true)
+            ->get()
+            ->map(fn ($category) => [
+                'id' => $category->id,
+            ])
+            ->first();
 
-      return Inertia::render('Article', [
-        'article' => $article,
-      ]);
+        $article = Article::where('slug', $article_slug)
+            ->where('active', true)
+            ->where('category_id', $category['id'])
+            ->get()
+            ->map(fn ($article) => [
+                'id' => $article->id,
+                'title' => $article->title,
+                'content' => $article->content,
+            ])
+            ->first();
+
+        $comments = Comment::where('article_id', $article['id'])
+                ->where('active', true)
+                ->orderBy('id', 'DESC')
+                ->get()
+                ->map(fn ($comment) => [
+                    'id' => $comment->id,
+                    'content' => $comment->content,
+                    'user_id' => $comment->user_id,
+                    'created_at' => $comment->created_at
+                ]);
+
+        return Inertia::render('Article', [
+            'article' => $article,
+            'comments' => $comments,
+        ]);
     }
 
     /**
