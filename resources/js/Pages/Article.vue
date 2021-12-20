@@ -98,6 +98,7 @@
         </div>
         <div v-for="comment in comments" :key="comment.id" class="flex flex-col gap-5">
           <!-- Comment -->
+          {{comment.user_name}}
           <div class="flex flex-col p-4 gap-4 bg-yellow-50 rounded-xl">
             <div class="flex items-center gap-4">
               <div class="flex items-center gap-2">
