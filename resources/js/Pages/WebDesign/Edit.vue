@@ -19,8 +19,14 @@
                 <div class="mt-4">
                     <jet-label for="header_img" value="Imatge de la capçalera" />
                     <select v-model="form.header_img" name='header_img' class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm mt-1 block w-full">
-                        <option value="slogan.svg">Home amb informe</option>
-                        <option value="slogan2.svg">Dona amb informe</option>
+                        <option value="slogan1.svg">Persona amb informe</option>
+                        <option value="slogan2.svg">Persona amb aplicacions</option>
+                        <option value="slogan3.svg">Persona amb carpetes</option>
+                        <option value="slogan4.svg">Persona amb ordinador</option>
+                        <option value="slogan5.svg">Dues persones en una entrevista</option>
+                        <option value="slogan6.svg">Persona enviant un missatge</option>
+                        <option value="slogan7.svg">Persona afegint un informe</option>
+                        <option value="slogan8.svg">Persona amb un ordinador</option>
                     </select>
                 </div>
 

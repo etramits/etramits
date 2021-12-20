@@ -21,7 +21,7 @@ class WebDesignSeeder extends Seeder
         'font_family' => 'font-sans',
         'like_button' => 'bookmark',
         'header_text' => 'Consulta tràmits en dos clics',
-        'header_img' => 'slogan.svg',
+        'header_img' => 'slogan1.svg',
     ]);
   }
 }

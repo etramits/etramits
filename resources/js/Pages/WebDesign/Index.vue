@@ -61,7 +61,6 @@
             main_color: String,
             font_family: String,
             webdesign: Object,
-            modal: false,
         }, 
         
     })
