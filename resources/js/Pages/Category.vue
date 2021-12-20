@@ -52,8 +52,6 @@
               </div>
             </div>
 
-            {{ `/${category.slug}/${article.slug}` }}
-
             <img class="w-full rounded-b-xl" src="/img/article.jpg">
           </Link>
         </section>
