@@ -7,12 +7,8 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\UserController;
-<<<<<<< HEAD
 use App\Http\Controllers\WebDesignController;
-
-=======
 use App\Http\Controllers\CommentController;
->>>>>>> feature_commentsSystem
 
 /*
 |--------------------------------------------------------------------------
@@ -29,10 +25,7 @@ use App\Http\Controllers\CommentController;
 
 Route::get('/', [HomeController::class, 'index']);
 
-<<<<<<< HEAD
-=======
 
->>>>>>> feature_commentsSystem
 //  Admin Dashboard   
 Route::middleware(['auth:sanctum', 'verified', 'admin', 'gestor'])->group(function () {
 
@@ -96,38 +89,6 @@ Route::middleware(['auth:sanctum', 'verified', 'admin', 'gestor'])->group(functi
 
     Route::post('dashboard/webdesign', [WebDesignController::class, 'store'])
         ->name('webdesign.store');
-        
-});
-
-Route::get('/{slug}', [CategoryController::class, 'index']);
-    //categories
-
-Route::get('dashboard/categories', [CategoryController::class, 'index'])
-->name('categories');
-
-Route::get('dashboard/categories/create', [CategoryController::class, 'create'])
-->name('categories.create');
-
-Route::get('dashboard/categories/{category}/edit', [CategoryController::class, 'edit'])
-->name('categories.edit');
-
-Route::delete('dashboard/categories/{id}/delete', [CategoryController::class, 'destroy'])
-->name('categories.destroy');
-
-Route::put('dashboard/categories/{id}', [CategoryController::class, 'update'])
-->name('categories.update');
-
-<<<<<<< HEAD
-Route::post('dashboard/categories', [CategoryController::class, 'store'])
-->name('categories.store');
-
-Route::get('/{category}/{article}', [ArticleController::class, 'view']);
-
-Route::get('/{slug}', [CategoryController::class, 'view'])
-  ->name('category.view');
-=======
-    Route::post('dashboard/categories', [CategoryController::class, 'store'])
-    ->name('categories.store');
 
     //Comments
 
@@ -142,15 +103,21 @@ Route::get('/{slug}', [CategoryController::class, 'view'])
         
 });
 
-//send comments
-Route::post('/{id}/comment', [CommentController::class, 'store'])
-    ->name('comment.store');
+    Route::get('/{slug}', [CategoryController::class, 'index']);
 
-//view articles
-Route::get('/{category}/{article}', [ArticleController::class, 'view'])
-    ->name('article.view');
+    Route::get('/{category}/{article}', [ArticleController::class, 'view']);
 
-//view categories
-Route::get('/{slug}', [CategoryController::class, 'view'])
+    Route::get('/{slug}', [CategoryController::class, 'view'])
     ->name('category.view');
->>>>>>> feature_commentsSystem
+
+    //send comments
+    Route::post('/{id}/comment', [CommentController::class, 'store'])
+        ->name('comment.store');
+
+    //view articles
+    Route::get('/{category}/{article}', [ArticleController::class, 'view'])
+        ->name('article.view');
+
+    //view categories
+    Route::get('/{slug}', [CategoryController::class, 'view'])
+        ->name('category.view');
