@@ -13,9 +13,8 @@
       </div>
     </section>
 
-    <div class="py-20 bg-gray-100">
+    <div class="py-20 bg-gray-50">
       <div class="container mx-auto">
-
         <h3 v-if="subcategories.length" class="text-4xl font-semibold">Subcategories</h3>
 
         <!-- Subcategories -->
@@ -26,13 +25,13 @@
           </div>
         </section>
 
-        <h3 class="text-4xl font-semibold">Tràmits</h3>
+        <h3 v-if="articles.length" class="text-4xl font-semibold">Tràmits</h3>
 
-        <section class="mt-10 grid grid-cols-3 gap-10">
+        <section v-if="articles.length" class="mt-10 grid grid-cols-3 gap-10">
           <!-- Article -->
-          <article class="bg-white rounded-xl shadow hover:opacity-75 cursor-pointer">
+          <Link as="article" v-for="article in articles" :key="article.id" :href="`/${category.slug}/${article.slug}`" class="bg-white rounded-xl shadow hover:opacity-75 cursor-pointer">
             <div class="p-4">
-              <h3 class="text-xl font-semibold text-gray-800">Sol·licitar el certificat COVID-19</h3>
+              <h3 v-text="article.title" class="text-xl font-semibold text-gray-800" />
               <div class="mt-2 flex items-center gap-4">
                 <div class="px-2 py-1 text-sm text-gray-500 bg-gray-100 rounded leading-none">
                   <font-awesome-icon icon="book-open" class="mr-1" />
@@ -48,12 +47,8 @@
                 </div>
               </div>
             </div>
-            <img class="w-full rounded-b-xl" src="/img/article.jpg">
-          </article>
-        
 
-
-
+<<<<<<< HEAD
 
           <!-- Procedure -->
           <!-- <div class="grid md:grid-cols-5 gap-10 mt-8 md:mt-14">
@@ -63,6 +58,10 @@
               <h4 class="mt-6 max-w-full text-xl md:text-2xl overflow-hidden whitespace-nowrap	overflow-ellipsis">{{ category.name }}</h4>
             </div>
           </div> -->
+=======
+            <img class="w-full rounded-b-xl" src="/img/article.jpg">
+          </Link>
+>>>>>>> c50d73da11c3cd20bb9934e7f5ec92eaf1bc1d8a
         </section>
       </div>
     </div>
@@ -89,7 +88,11 @@
     props: {
       category: Object,
       subcategories: Object,
+<<<<<<< HEAD
       webdesign: Object,
+=======
+      articles: Object,
+>>>>>>> c50d73da11c3cd20bb9934e7f5ec92eaf1bc1d8a
     },
   })
 </script>

@@ -3,7 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+<<<<<<< HEAD
 use App\Models\WebDesign;
+=======
+use App\Models\Article;
+>>>>>>> c50d73da11c3cd20bb9934e7f5ec92eaf1bc1d8a
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
@@ -150,6 +154,7 @@ class CategoryController extends Controller
         return Redirect::back()->with('success', 'User deleted.');
     }
 
+<<<<<<< HEAD
     public function view($slug)
     {
         $category = Category::where('slug', $slug)
@@ -190,4 +195,50 @@ class CategoryController extends Controller
         
         ]);
     }
+=======
+  public function view($slug)
+  {
+    $category = Category::where('slug', $slug)
+      ->where('active', true)
+      ->get()
+      ->map(fn ($category) => [
+        'id' => $category->id,
+        'name' => $category->name,
+        'description' => $category->descripton,
+        'slug' => $category->slug,
+      ])
+      ->first();
+
+    $subcategories = Category::where('parent', $category['id'])
+      ->where('active', true)
+      ->orderBy('position')
+      ->get()
+      ->map(fn ($category) => [
+        'id' => $category->id,
+        'name' => $category->name,
+        'icon' => $category->icon,
+      ]);
+    
+    $articles = Article::where('category_id', $category['id'])
+      ->where('active', true)
+      ->get()
+      ->map(fn ($article) => [
+        'id' => $article->id,
+        'title' => $article->title,
+        'slug' => $article->slug,
+      ]);
+
+    // return [
+    //   $category,
+    //   $subcategories,
+    //   $articles,
+    // ];
+
+    return Inertia::render('Category', [
+      'category' => $category,
+      'subcategories' => $subcategories,
+      'articles' => $articles,
+    ]);
+  }
+>>>>>>> c50d73da11c3cd20bb9934e7f5ec92eaf1bc1d8a
 }

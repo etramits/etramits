@@ -1,14 +1,17 @@
 <?php
 
-use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\UserController;
+<<<<<<< HEAD
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\FavoriteController;
+=======
+>>>>>>> c50d73da11c3cd20bb9934e7f5ec92eaf1bc1d8a
 use App\Http\Controllers\WebDesignController;
 
 
@@ -37,7 +40,7 @@ Route::middleware(['auth:sanctum', 'verified', 'admin'])->group(function () {
 
     // Users
 
-    Route::get('dashboard/users', [UserController::class, 'index'])
+    Route::get('dashbo/salut/exampleard/users', [UserController::class, 'index'])
         ->name('users');
 
     Route::get('dashboard/users/create', [UserController::class, 'create'])
@@ -69,7 +72,10 @@ Route::middleware(['auth:sanctum', 'verified', 'admin'])->group(function () {
     Route::delete('dashboard/articles/{id}/delete', [ArticleController::class, 'destroy'])
         ->name('articles.destroy');
 
-    Route::put('dashboard/articles/{id}', [ArticleController::class, 'update'])
+    Route::put('dashboard/articles/{id}', [ArticleController::class, 'upload'])
+      ->name('articles.upload');
+
+    Route::put('dashboard/articles/{id}/upload', [ArticleController::class, 'update'])
         ->name('articles.update');
 
     Route::post('dashboard/articles', [ArticleController::class, 'store'])
@@ -114,7 +120,14 @@ Route::put('dashboard/categories/{id}', [CategoryController::class, 'update'])
     ->name('categories.update');
 
 Route::post('dashboard/categories', [CategoryController::class, 'store'])
+<<<<<<< HEAD
     ->name('categories.store');
     
+=======
+->name('categories.store');
+
+Route::get('/{category}/{article}', [ArticleController::class, 'view']);
+
+>>>>>>> c50d73da11c3cd20bb9934e7f5ec92eaf1bc1d8a
 Route::get('/{slug}', [CategoryController::class, 'view'])
-    ->name('category.view');
+  ->name('category.view');
