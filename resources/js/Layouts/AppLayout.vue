@@ -147,6 +147,13 @@
             </main>
         </div>
     </div>
+    <footer class="bg-gray-800 text-white">
+        <div class="flex justify-between h-16 text-right">
+            <div class="flex-shrink-0 flex items-center ">
+                © Creat i dissenyat per Oriol Bech, Adrián Pons i Alex Ramón
+            </div>
+        </div>
+    </footer>
 </template>
 
 <script>
