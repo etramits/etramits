@@ -152,23 +152,26 @@ Route::middleware(['auth:sanctum', 'verified', 'admin'])->group(function () {
         
 });
 
-// Favorites
-
-Route::get('favorites/list', [FavoriteController::class, 'index'])
+Route::middleware(['auth:sanctum'])->group(function () {
+    // Favorites
+    Route::get('favorites/list', [FavoriteController::class, 'index'])
     ->name('favorites');
 
-Route::post('favorites/{article_id}/add', [FavoriteController::class, 'add'])
+    Route::post('favorites/{article_id}/add', [FavoriteController::class, 'add'])
     ->name('favorite.add');
 
-Route::post('favorites/{article_id}/rem', [FavoriteController::class, 'rem'])
+    Route::post('favorites/{article_id}/rem', [FavoriteController::class, 'rem'])
     ->name('favorite.rem');
 
-Route::delete('favorites', [FavoriteController::class, 'destroy'])
+    Route::delete('favorites', [FavoriteController::class, 'destroy'])
     ->name('favorites.destroy');
 
-//send comments
-Route::post('/{id}/comment', [CommentController::class, 'store'])
+    //send comments
+    Route::post('/{id}/comment', [CommentController::class, 'store'])
     ->name('comment.store');
+}); 
+
+
 
 //view articles
 Route::get('/{category}/{article}', [ArticleController::class, 'view'])

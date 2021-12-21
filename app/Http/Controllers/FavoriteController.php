@@ -31,6 +31,8 @@ class FavoriteController extends Controller
             'user_id' => $favorite->user_id,
             'article_id' => $favorite->article_id,
             'article_slug' => $favorite->article->slug,
+            'article_title' => $favorite->article->title,
+            'article_category' => $favorite->article->category->slug,
         ]);
 
         $webdesign = WebDesign::find(1)
@@ -46,6 +48,7 @@ class FavoriteController extends Controller
             "webdesign" => $webdesign,           
         ]);
     }
+    
 
     /**
      * Show the form for creating a new resource.

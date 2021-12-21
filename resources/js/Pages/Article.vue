@@ -4,7 +4,6 @@
       <div class="container flex flex-col items-center mx-auto py-16 text-gray-800">
         <h2 v-text="article.title" class="text-6xl font-bold" />
         <div class="mt-10 text-gray-800">
-          {{added}}
           <div v-if="added == 0">
             <button id="fav" @click="addFavorite()">
               <font-awesome-icon icon="star-half-alt" class="mr-1" /> Afegir a favorits

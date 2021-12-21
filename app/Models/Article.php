@@ -44,4 +44,9 @@ class Article extends Model
     {
         return $this->belongsToMany(User::class, 'favorites');
     }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
 }
