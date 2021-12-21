@@ -52,6 +52,10 @@
                                                 Perfil
                                             </jet-dropdown-link>
 
+                                            <jet-dropdown-link :href="route('favorites')">
+                                                Favorits
+                                            </jet-dropdown-link>
+
                                             <jet-dropdown-link :href="route('api-tokens.index')" v-if="$page.props.jetstream.hasApiFeatures">
                                                 API Tokens
                                             </jet-dropdown-link>
@@ -100,6 +104,10 @@
                             <div class="mt-3 space-y-1">
                                 <jet-responsive-nav-link :href="route('profile.show')" :active="route().current('profile.show')">
                                     Perfil
+                                </jet-responsive-nav-link>
+
+                                <jet-responsive-nav-link :href="route('profile.show')" :active="route().current('profile.show')">
+                                    Favorits
                                 </jet-responsive-nav-link>
 
                                 <jet-responsive-nav-link :href="route('api-tokens.index')" :active="route().current('api-tokens.index')" v-if="$page.props.jetstream.hasApiFeatures">

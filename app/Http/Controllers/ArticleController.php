@@ -6,6 +6,9 @@ namespace App\Http\Controllers;
 use App\Models\Article;
 use App\Models\Category;
 use App\Models\Comment;
+use App\Models\User;
+use App\Models\Favorite;
+use Illuminate\Support\Facades\Auth;
 use App\Models\WebDesign;
 
 use Illuminate\Support\Facades\Redirect;
@@ -40,17 +43,24 @@ class ArticleController extends Controller
         'id' => $category->id,
       ])
       ->first();
+    
 
     $article = Article::where('slug', $article_slug)
       ->where('active', true)
       ->where('category_id', $category['id'])
       ->get()
-      ->map(fn ($article) => [
-        'id' => $article->id,
-        'title' => $article->title,
-        'content' => $article->content,
-      ])
       ->first();
+      
+    $favorite = Favorite::where('user_id', Auth::user()->id)->where('article_id', $article->id)
+    ->get()
+    ->first();
+    
+    //Comprovem si l'usuari te afegit l'article a fav
+    if ($favorite === null) {
+      $added = 0;
+    } else {
+      $added = 1;
+    }
 
     $comments = Comment::where('article_id', $article['id'])
       ->where('active', 1)
@@ -80,6 +90,7 @@ class ArticleController extends Controller
     return Inertia::render('Article', [
       'article' => $article,
       'comments' => $comments,
+      'added' => $added,
       'webdesign' => $webdesign,
     ]);
   }

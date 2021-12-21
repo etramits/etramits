@@ -3,7 +3,18 @@
     <section :class="`bg-${webdesign.main_color}-300 ${webdesign.font_family}`" >
       <div class="container flex flex-col items-center mx-auto py-16 text-gray-800">
         <h2 v-text="article.title" class="text-6xl font-bold" />
-
+        <div class="mt-10 text-gray-800">
+          <div v-if="added == 0">
+            <button id="fav" @click="addFavorite()">
+              <font-awesome-icon icon="star-half-alt" class="mr-1" /> Afegir a favorits
+            </button>
+          </div>
+          <div v-else>
+            <button id="fav" @click="removeFavorite()">
+              <font-awesome-icon icon="star" /> Treure de favorits
+            </button>
+          </div>
+        </div>
         <div class="mt-3 flex items-center gap-8">
           <!-- <span v-for="entry in article.stats" :key="entry.id" class="text-xl">
             <font-awesome-icon :icon="entry.icon" />
@@ -13,86 +24,15 @@
       </div>
     </section>
 
+    <div class="inline-reverse">
+      <div>
+        
+      </div>
+    </div>
+
     <section class="py-20 bg-gray-50 text-gray-800">
       <div v-html="article.content" class="container flex flex-col gap-6 mx-auto max-w-7xl p-10 bg-white rounded-xl shadow" id="content" />
 
-      <!-- <div class="flex items-center justify-between p-6 bg-yellow-50 rounded-xl">
-        <div>
-          <span class="text-2xl font-bold">Com accedir a "La Meva Salut"</span>
-          
-          <div class="mt-1 flex gap-4 opacity-75">
-            <span class="text-md">
-              <font-awesome-icon icon="book-open" />
-              Lectura de 1 minut
-            </span>
-            <span class="text-md">
-              <font-awesome-icon icon="comment" />
-              2 comentaris
-            </span>
-            <span class="text-md">
-              <font-awesome-icon icon="bookmark" />
-              12 favorits
-            </span>
-          </div>
-        </div>
-        <button class="p-3 text-xl font-medium bg-yellow-300 rounded leading-none hover:opacity-75">Veure</button>
-      </div> -->
-      
-        <!-- <p class="text-xl leading-7">A continuació veurem quin és el procediment per sol·licitar el certificat COVID-19 a través de "La Meva Salut".</p>
-
-        <h2 class="text-4xl font-bold">Accedir a "La Meva Salut"</h2>
-
-        <p class="text-xl leading-7">No saps com accedir a "La Meva Salut"? Cap problema. En el següent tràmit pots veure tot el procediment:</p>
-
-        <div class="flex items-center justify-between p-6 bg-yellow-50 rounded-xl">
-          <div>
-            <span class="text-2xl font-bold">Com accedir a "La Meva Salut"</span>
-            
-            <div class="mt-1 flex gap-4 opacity-75">
-              <span class="text-md">
-                <font-awesome-icon icon="book-open" />
-                Lectura de 1 minut
-              </span>
-              <span class="text-md">
-                <font-awesome-icon icon="comment" />
-                2 comentaris
-              </span>
-              <span class="text-md">
-                <font-awesome-icon icon="bookmark" />
-                12 favorits
-              </span>
-            </div>
-          </div>
-          <button class="p-3 text-xl font-medium bg-yellow-300 rounded leading-none hover:opacity-75">Veure</button>
-        </div>
-        
-        <p class="text-xl leading-7">Perfecte! En aquest punt hauries d'estar a l'inici de "La Meva Salut".</p>
-
-        <img class="mx-auto w-9/12 border-4 rounded-xl" src="https://i.imgur.com/HYbf9Wq.png">
-
-        <br>
-
-        <h2 class="text-4xl font-bold">Obtenir el certificat "COVID-19"</h2>
-
-        <p class="text-xl leading-7">Anirem a l'apartat de <b>"Vacunes i Certificat COVID EU"</b>.</p>
-
-        <img class="mx-auto w-9/12 border-4 rounded-xl" src="https://i.imgur.com/9vwPMaV.png">
-
-
-        <p class="text-xl leading-7">Allà farem clic al botó <b>"Sol·licita'l aquí"</b> en l'opció <b>"Certificat COVID Digital UE"</b>.</p>
-
-        <img class="mx-auto w-9/12 border-4 rounded-xl" src="https://i.imgur.com/9CWgei1.png">
-
-        <p class="text-xl leading-7">A continuació farem clic al botó <b>"Accedir"</b> en l'opció <b>"Certificat COVID Digital UE"</b>.</p>
-
-        <img class="mx-auto w-9/12 border-4 rounded-xl" src="https://i.imgur.com/3D3iJQi.png">
-
-        <p class="text-xl leading-7">Finalment, farem clic al botó <b>"Sol·licitar"</b> en l'opció <b>"Certificat de vacunació contra la COVID-19"</b>.</p>
-
-        <img class="mx-auto w-9/12 border-4 rounded-xl" src="https://i.imgur.com/8qJfK3P.png">
-
-        <p class="text-xl leading-7">Un cop realitzat tots els passos anteriors, se'ns descarregarà un PDF amb el nostre certificat de vacunació contra la COVID-19.</p> -->
-      <!-- </div> -->
     </section>
 
     <section class="pb-20 bg-gray-50 text-gray-800">
@@ -166,6 +106,8 @@
     props: {
       article: Object,
       comments: Object,
+      favorite: Object,
+      added: Number
       webdesign: Object,
     },
 
@@ -174,6 +116,9 @@
         form: this.$inertia.form({
             user_id: '',
             content: ''
+        }),
+        fav: this.$inertia.form({
+            user_id: '',
         }),
       }
     },
@@ -198,7 +143,15 @@
         this.form.post(this.route('comment.store', this.article.id), {
           onFinish: () => this.form.reset('content'),
         });
-      }
+      },
+      addFavorite() {
+        this.fav.user_id = this.$page.props.user.id;
+        this.fav.post(this.route('favorite.add', this.article.id));
+      },
+      removeFavorite() {
+        this.fav.user_id = this.$page.props.user.id;
+        this.fav.post(this.route('favorite.rem', this.article.id));
+      },
     },
     mounted() {
       let tags = [
