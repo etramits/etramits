@@ -155,6 +155,7 @@ class ArticleController extends Controller
         'slug' => $article->slug,
         'category' => $article->category_id,
         'content' => $article->content,
+        'cover' => file_exists(public_path('articles/' . $article->id . '/cover.jpg')),
         'active' => $article->active,
       ],
       'categories' => $categories,
