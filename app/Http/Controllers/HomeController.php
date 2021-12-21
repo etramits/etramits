@@ -11,6 +11,7 @@ use App\Models\Category;
 use App\Models\WebDesign;
 use App\Models\Article;
 use App\Models\Comment;
+use App\Models\User;
 
 
 class HomeController extends Controller
@@ -38,10 +39,24 @@ class HomeController extends Controller
             'header_text' => $wd->header_text,
             'header_img' => $wd->header_img 
         ])->first();
+      
+      $countArticles = Article::count();
+      $countComments = Comment::count();
+      $countUsers = User::count();
 
       $stats = [
-        'articles' => Article::count(),
-        'comments' => Comment::count()
+        [
+          'value' => $countArticles, 
+          'label' => 'Tràmits'
+        ],
+        [
+          'value' => $countComments, 
+          'label'=> 'Comentaris'
+        ],
+        [
+          'value' => $countUsers, 
+          'label'=> 'Usuaris'
+        ],
       ];
 
       return Inertia::render('Home', [

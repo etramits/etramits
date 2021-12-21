@@ -28,10 +28,9 @@
     <section class="bg-gray-800 text-white">
       <div class="container flex flex-col items-center mx-auto py-20">
         <div class="grid md:grid-cols-3 gap-10">
-          {{JSON.stringify(stats)}}
-          <div v-for="registry in stats" :key="registry.id" class="flex flex-col items-center p-4 bg-gray-700 rounded-md shadow">
-            <div class="text-5xl font-semibold">{{ registry.articles }}</div>
-            <div class="mt-1 text-xl md:text-2xl">{{ registry.comments }}</div>
+          <div v-for="registry in stats" class="flex flex-col items-center p-4 bg-gray-700 rounded-md shadow">
+            <div class="text-5xl font-semibold">{{ registry.value }}</div>
+            <div class="mt-1 text-xl md:text-2xl">{{ registry.label }}</div>
           </div>
         </div>
       </div>
@@ -136,28 +135,7 @@
 
     data() {
       return {
-        /*
-        stats: [
-          {
-            id: 0,
-            label: 'Tràmits',
-            value: 320,
-          },
-          {
-            id: 0,
-            label: 'Comentaris',
-            value: 12,
-          },
-          {
-            id: 0,
-            label: 'Usuaris',
-            value: 8,
-          }
-        ],
-        */
-
         header_img: this.webdesign.header_img,
-
       }
     }
   })
