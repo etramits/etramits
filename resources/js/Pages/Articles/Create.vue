@@ -103,6 +103,7 @@
           .replace(/\s+/g, '-')
           .replace(/-+/g, '-');
 
+        this.form.slug = str;
         return str;
       }
     },
