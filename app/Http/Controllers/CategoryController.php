@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Article;
 use App\Models\WebDesign;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
@@ -182,16 +183,21 @@ class CategoryController extends Controller
         'slug' => $article->slug,
       ]);
 
-    // return [
-    //   $category,
-    //   $subcategories,
-    //   $articles,
-    // ];
+      $webdesign = WebDesign::find(1)
+      ->get()
+      ->map(fn ($wd) => [
+          'main_color' => $wd->main_color,
+          'font_family' => $wd->font_family,
+          'like_button' => $wd->like_button,
+          'header_text' => $wd->header_text,
+          'header_img' => $wd->header_img 
+      ])->first();
 
     return Inertia::render('Category', [
       'category' => $category,
       'subcategories' => $subcategories,
       'articles' => $articles,
+      'webdesign' => $webdesign,
     ]);
   }
 }
