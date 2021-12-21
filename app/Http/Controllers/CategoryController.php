@@ -3,11 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
-<<<<<<< HEAD
-use App\Models\WebDesign;
-=======
 use App\Models\Article;
->>>>>>> c50d73da11c3cd20bb9934e7f5ec92eaf1bc1d8a
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
@@ -154,48 +150,6 @@ class CategoryController extends Controller
         return Redirect::back()->with('success', 'User deleted.');
     }
 
-<<<<<<< HEAD
-    public function view($slug)
-    {
-        $category = Category::where('slug', $slug)
-        ->where('active', true)
-        ->get()
-        ->map(fn ($category) => [
-            'id' => $category->id,
-            'name' => $category->name,
-            'description' => $category->descripton
-        ])
-        ->first();
-
-        $webdesign = WebDesign::find(1)
-        ->get()
-        ->map(fn ($wd) => [
-            'main_color' => $wd->main_color,
-            'font_family' => $wd->font_family,
-            'like_button' => $wd->like_button,
-            'header_text' => $wd->header_text,
-            'header_img' => $wd->header_img 
-        ])->first();
-
-        return Inertia::render('Category', [
-        'category' => $category,
-        
-        'subcategories' => Category::where('parent', $category['id'])
-            ->where('active', true)
-            ->orderBy('position')
-            ->get()
-            ->map(fn ($category) => [
-            'id' => $category->id,
-            'name' => $category->name,
-            'icon' => $category->icon,
-            ]),
-
-        'webdesign' => $webdesign,
-        
-        
-        ]);
-    }
-=======
   public function view($slug)
   {
     $category = Category::where('slug', $slug)
@@ -240,5 +194,4 @@ class CategoryController extends Controller
       'articles' => $articles,
     ]);
   }
->>>>>>> c50d73da11c3cd20bb9934e7f5ec92eaf1bc1d8a
 }
