@@ -26,11 +26,11 @@ Route::get('/', [HomeController::class, 'index']);
 
 
 //  Admin Dashboard   
-Route::middleware(['auth:sanctum', 'verified', 'admin'])->group(function () {
+Route::middleware(['auth:sanctum', 'verified', 'admin', 'gestor'])->group(function () {
 
     Route::get('/dashboard', function () {
         return Inertia::render('Dashboard');
-    })->name('dashboard');
+    })->name('dashboard')->withoutMiddleware(['admin']);
 
     // Users
 
@@ -55,25 +55,25 @@ Route::middleware(['auth:sanctum', 'verified', 'admin'])->group(function () {
     // Articles
 
     Route::get('dashboard/articles', [ArticleController::class, 'index'])
-        ->name('articles');
+        ->name('articles')->withoutMiddleware(['admin']);;
 
     Route::get('dashboard/articles/create', [ArticleController::class, 'create'])
-        ->name('articles.create');
+        ->name('articles.create')->withoutMiddleware(['admin']);;
 
     Route::get('dashboard/articles/{article}/edit', [ArticleController::class, 'edit'])
-        ->name('articles.edit');
+        ->name('articles.edit')->withoutMiddleware(['admin']);;
 
     Route::delete('dashboard/articles/{id}/delete', [ArticleController::class, 'destroy'])
-        ->name('articles.destroy');
+        ->name('articles.destroy')->withoutMiddleware(['admin']);;
 
     Route::put('dashboard/articles/{id}', [ArticleController::class, 'upload'])
-      ->name('articles.upload');
+      ->name('articles.upload')->withoutMiddleware(['admin']);;
 
     Route::put('dashboard/articles/{id}/upload', [ArticleController::class, 'update'])
-        ->name('articles.update');
+        ->name('articles.update')->withoutMiddleware(['admin']);;
 
     Route::post('dashboard/articles', [ArticleController::class, 'store'])
-        ->name('articles.store');
+        ->name('articles.store')->withoutMiddleware(['admin']);;
 
     //categories
 

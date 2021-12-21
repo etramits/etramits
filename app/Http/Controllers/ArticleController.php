@@ -58,20 +58,20 @@ class ArticleController extends Controller
             ->first();
 
         $comments = Comment::where('article_id', $article['id'])
-            ->where('active', true)
-            ->orderBy('id', 'DESC')
-            ->first();
-            /*
-            ->map(fn ($comment) => [
-              'id' => $comment->id,
-              'content' => $comment->content,
-              'user_id' => $comment->user_id,
-              'user_name' =>),
-              'created_at' => $comment->created_at,
-            ]);
-            */
-        dd($comments->user());
-
+        ->where('active', 1)
+        ->orderBy('id', 'DESC')
+        ->with('user')
+        ->get()
+        ->map(fn ($comment) => [
+          'id' => $comment->id,
+          'user_id' => $comment->user_id,
+          'user_name' => $comment->user->name,
+          'user_role' => $comment->user->role,
+          'article_id' => $comment->article_id,
+          'content' => $comment->content,
+          'active' => $comment->active
+        ]);
+        
         return Inertia::render('Article', [
             'article' => $article,
             'comments' => $comments,

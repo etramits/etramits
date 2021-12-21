@@ -80,7 +80,8 @@
       </header>
 
       <div class="container flex flex-col gap-10 mx-auto max-w-7xl p-10 bg-white rounded-b-xl shadow">
-        <div v-if="$page.props.user">
+        <div>
+          <div v-if="$page.props.user">
             <form @submit.prevent="submitComment" class="w-3/5 ml-8">
                 <div>
                     <jet-label for="content" value="Comentari:" />
@@ -92,17 +93,18 @@
                     </jet-button>
                 </div>
             </form>
-        </div>
-        <div v-else>
-            <p><Link :href="route('login')" class="underline">Connectat</Link> per poder deixar un comentari.</p>  
+          </div>
+          <div v-else>
+              <p><Link :href="route('login')" class="underline">Connectat</Link> per poder deixar un comentari.</p>  
+          </div>
         </div>
         <div v-for="comment in comments" :key="comment.id" class="flex flex-col gap-5">
           <!-- Comment -->
-          {{comment.user_name}}
           <div class="flex flex-col p-4 gap-4 bg-yellow-50 rounded-xl">
             <div class="flex items-center gap-4">
               <div class="flex items-center gap-2">
-                <span v-text="comment.user_id" class="text-2xl font-bold" />
+                <span class="text-2xl font-bold">{{comment.user_name}}</span>
+                <span v-if="comment.user_role" v-text="selectRole(comment.user_role)" class="p-1 text-md font-semibold bg-yellow-300 rounded leading-none" />
               </div>
             </div>
 
@@ -153,12 +155,27 @@
       }
     },
     methods: {
-        submitComment() {
-          this.form.user_id = this.$page.props.user.id;
-          this.form.post(this.route('comment.store', this.article.id), {
-            onFinish: () => this.form.reset('content'),
-          });
+      selectRole(roleInt) {
+        switch(roleInt) {
+        case 1:
+            return "Usuari";
+            break;
+        case 2:
+            return "Admin";
+            break;
+        case 3:
+            return "Gestor";
+            break;
+        default:
+            return "Usuari";
         }
+      },
+      submitComment() {
+        this.form.user_id = this.$page.props.user.id;
+        this.form.post(this.route('comment.store', this.article.id), {
+          onFinish: () => this.form.reset('content'),
+        });
+      }
     },
     mounted() {
       let tags = [

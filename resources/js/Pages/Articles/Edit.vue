@@ -191,8 +191,8 @@
         },
 
         methods: {
-          active(roleInt) {
-              switch(roleInt) {
+          active(int) {
+              switch(int) {
               case 0:
                   return "Publicat";
                   break;

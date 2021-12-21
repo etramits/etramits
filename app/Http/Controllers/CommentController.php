@@ -17,7 +17,7 @@ class CommentController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
+    {   
         return Inertia::render('Comments/Index', [
             "comments" => Comment::orderBy('id', 'DESC')
             ->where('active', 0)
