@@ -3,13 +3,13 @@
         <div class="ml-4 mr-4">
             <h1 class="mb-4 mt-8 ml-8 font-bold text-3xl ">Editar disseny web</h1>
             
-            <table class="rounded m-5 mx-auto bg-gray-200 text-gray-800">
+            <table class="rounded m-5 mx-auto w-5/6 bg-gray-200 text-gray-800">
                 <tr class="text-left border-b-2 border-gray-300">
                     <th class="px-4 py-3">Previsualització</th>
                 </tr>
                 
-                <tr class="rounded">
-                    <td :class="`container flex flex-col md:flex-row items-center justify-between mx-auto max-w-7xl px-4 gap-20 text-gray-800 bg-${form.main_color}-300 ${form.family_font}`">
+                <tr >
+                    <td :class="`container flex flex-col md:flex-row items-center justify-between mx-auto w-full px-4 gap-20 text-gray-800 bg-${form.main_color}-300 ${form.family_font}`">
                         <div :class="`${form.font_family} text-4xl md:text-8xl font-bold`">{{form.header_text}}</div>
                         <div><img class="mt-10 h-64 md:h-80 md:w-auto" :src="'/img/' + form.header_img" alt=""></div>
                     </td>
