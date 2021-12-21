@@ -2,36 +2,81 @@
     <dashboard-layout title="Dashboard">
         
         
-        <h1 class="mb-8 mt-8 ml-8 font-bold text-3xl ">Disseny web</h1>
-
-        <div class="mb-8 mt-8 ml-12">
-            <h2 class="font-bold text-2xl">Text de la capçalera</h2>
-            <p class="mt-4">{{header_text}}</p>
-        </div>
-
-        <div class="mb-8 mt-8 ml-12">
-            <h2 class="mb-8 font-bold text-2xl">Imatge de la capçalera</h2>
-            <img class="h-64" :src="'/img/' + header_img" alt="">
-        </div>
-        
         <div>
-            <h2 class="mb-4 mt-8 ml-12 font-bold text-2xl">Colors principals actuals</h2>
+            <h2 class="mb-4 mt-8 ml-12 font-bold text-2xl">Colors</h2>
 
             <table class="mb-8 mt-4 ml-12">
                 <tr>
-                    <td :class="`px-6 py-6 bg-${main_color}-300`"></td>
-                    <td :class="`px-6 py-6 bg-${main_color}-200`"></td>  
-                    <td :class="`px-6 py-6 bg-${main_color}-100`"></td>  
-                    <td :class="`px-6 py-6 bg-${main_color}-50`"></td>  
+                    <td :class="`px-6 py-6 bg-yellow-300`"></td>
+                    <td :class="`px-6 py-6 bg-yellow-200`"></td>  
+                    <td :class="`px-6 py-6 bg-yellow-100`"></td>  
+                    <td :class="`px-6 py-6 bg-yellow-50`"></td>  
+                </tr> 
+                <tr>
+                    <td :class="`px-6 py-6 bg-red-300`"></td>
+                    <td :class="`px-6 py-6 bg-red-200`"></td>  
+                    <td :class="`px-6 py-6 bg-red-100`"></td>  
+                    <td :class="`px-6 py-6 bg-red-50`"></td>  
+                </tr> 
+                <tr>
+                    <td :class="`px-6 py-6 bg-indigo-300`"></td>
+                    <td :class="`px-6 py-6 bg-indigo-200`"></td>  
+                    <td :class="`px-6 py-6 bg-indigo-100`"></td>  
+                    <td :class="`px-6 py-6 bg-indigo-50`"></td>  
+                </tr> 
+                <tr>
+                    <td :class="`px-6 py-6 bg-green-300`"></td>
+                    <td :class="`px-6 py-6 bg-green-200`"></td>  
+                    <td :class="`px-6 py-6 bg-green-100`"></td>  
+                    <td :class="`px-6 py-6 bg-green-50`"></td>  
+                </tr> 
+                <tr>
+                    <td :class="`px-6 py-6 bg-purple-300`"></td>
+                    <td :class="`px-6 py-6 bg-purple-200`"></td>  
+                    <td :class="`px-6 py-6 bg-purple-100`"></td>  
+                    <td :class="`px-6 py-6 bg-purple-50`"></td>  
+                </tr> 
+            </table>
+
+            <table class="mb-8 mt-4 ml-12">
+                <tr>
+                    <td :class="`px-6 py-6 text-yellow-300`"></td>
+                    <td :class="`px-6 py-6 text-yellow-200`"></td>  
+                    <td :class="`px-6 py-6 text-yellow-100`"></td>  
+                    <td :class="`px-6 py-6 text-yellow-50`"></td>  
+                </tr> 
+                <tr>
+                    <td :class="`px-6 py-6 text-red-300`"></td>
+                    <td :class="`px-6 py-6 text-red-200`"></td>  
+                    <td :class="`px-6 py-6 text-red-100`"></td>  
+                    <td :class="`px-6 py-6 text-red-50`"></td>  
+                </tr> 
+                <tr>
+                    <td :class="`px-6 py-6 text-indigo-300`"></td>
+                    <td :class="`px-6 py-6 text-indigo-200`"></td>  
+                    <td :class="`px-6 py-6 text-indigo-100`"></td>  
+                    <td :class="`px-6 py-6 text-indigo-50`"></td>  
+                </tr> 
+                <tr>
+                    <td :class="`px-6 py-6 text-green-300`"></td>
+                    <td :class="`px-6 py-6 text-green-200`"></td>  
+                    <td :class="`px-6 py-6 text-green-100`"></td>  
+                    <td :class="`px-6 py-6 text-green-50`"></td>  
+                </tr> 
+                <tr>
+                    <td :class="`px-6 py-6 text-purple-300`"></td>
+                    <td :class="`px-6 py-6 text-purple-200`"></td>  
+                    <td :class="`px-6 py-6 text-purple-100`"></td>  
+                    <td :class="`px-6 py-6 text-purple-50`"></td>  
                 </tr> 
             </table>
         </div>
 
         <h2 class="mb-4 mt-8 ml-12 font-bold text-2xl">Tipus de font</h2>
-        <div class="`mb-8 mt-4 ml-12 ${font_family}`">
-            <h1>Títol 1</h1>
-            <h2>Títol 2</h2> 
-            <h3>Títol 3</h3>
+        <div class="mb-8 mt-4 ml-12">
+            <h1 class="font-serif">Títol 1</h1>
+            <h2 class="font-mono">Títol 2</h2> 
+            <h3 class="font-thin">Títol 3</h3>
             <p>Parágraf</p>            
         </div>
 

@@ -39,4 +39,14 @@ class Article extends Model
     public function comment() {
         return $this->hasMany(Comment::class);
     }
+
+    public function favorites()
+    {
+        return $this->belongsToMany(User::class, 'favorites');
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
 }

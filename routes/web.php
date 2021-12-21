@@ -4,9 +4,10 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\WebDesignController;
 use App\Http\Controllers\CommentController;
 
@@ -27,6 +28,7 @@ Route::get('/', [HomeController::class, 'index']);
 
 
 //  Admin Dashboard   
+
 Route::middleware(['auth:sanctum', 'verified', 'admin'])->group(function () {
 
     Route::get('/dashboard', function () {
@@ -35,7 +37,7 @@ Route::middleware(['auth:sanctum', 'verified', 'admin'])->group(function () {
 
     // Users
 
-    Route::get('dashbo/salut/exampleard/users', [UserController::class, 'index'])
+    Route::get('dashboard/users', [UserController::class, 'index'])
         ->name('users');
 
     Route::get('dashboard/users/create', [UserController::class, 'create'])
@@ -87,6 +89,30 @@ Route::middleware(['auth:sanctum', 'verified', 'admin'])->group(function () {
     Route::put('dashboard/webdesign/{id}', [WebDesignController::class, 'update'])
         ->name('webdesign.update');
 
+    // Categories
+
+    Route::get('/{slug}', [CategoryController::class, 'index']);
+
+    Route::get('dashboard/categories', [CategoryController::class, 'index'])
+        ->name('categories');
+
+    Route::get('dashboard/categories/create', [CategoryController::class, 'create'])
+        ->name('categories.create');
+
+    Route::get('dashboard/categories/{category}/edit', [CategoryController::class, 'edit'])
+        ->name('categories.edit');
+
+    Route::delete('dashboard/categories/{id}/delete', [CategoryController::class, 'destroy'])
+        ->name('categories.destroy');
+
+    Route::put('dashboard/categories/{id}', [CategoryController::class, 'update'])
+        ->name('categories.update');
+
+    Route::post('dashboard/categories', [CategoryController::class, 'store'])
+        ->name('categories.store');
+    
+    // Webdesign
+
     Route::post('dashboard/webdesign', [WebDesignController::class, 'store'])
         ->name('webdesign.store');
 
@@ -126,11 +152,26 @@ Route::middleware(['auth:sanctum', 'verified', 'admin'])->group(function () {
         
 });
 
-Route::get('/{slug}', [CategoryController::class, 'index']);
+Route::middleware(['auth:sanctum'])->group(function () {
+    // Favorites
+    Route::get('favorites/list', [FavoriteController::class, 'index'])
+    ->name('favorites');
 
-//send comments
-Route::post('/{id}/comment', [CommentController::class, 'store'])
+    Route::post('favorites/{article_id}/add', [FavoriteController::class, 'add'])
+    ->name('favorite.add');
+
+    Route::post('favorites/{article_id}/rem', [FavoriteController::class, 'rem'])
+    ->name('favorite.rem');
+
+    Route::delete('favorites', [FavoriteController::class, 'destroy'])
+    ->name('favorites.destroy');
+
+    //send comments
+    Route::post('/{id}/comment', [CommentController::class, 'store'])
     ->name('comment.store');
+}); 
+
+
 
 //view articles
 Route::get('/{category}/{article}', [ArticleController::class, 'view'])

@@ -8,8 +8,6 @@
       </div>
     </section>
 
-    
-
     <div class="py-12 md:py-24 bg-gray-50">
       <section class="container mx-auto max-w-7xl text-gray-800">
         <!-- <h3 class="text-3xl md:text-5xl font-semibold">Explorar tràmits</h3> -->
