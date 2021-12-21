@@ -52,7 +52,8 @@
               </div>
             </div>
 
-            <img class="w-full rounded-b-xl" src="/img/article.jpg">
+            <img v-if="article.cover" class="w-full rounded-b-xl" :src="`/articles/${article.id}/cover.jpg`">
+            <img v-else class="w-full rounded-b-xl" src="/img/default.jpg">
           </Link>
         </section>
       </div>

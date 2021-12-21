@@ -181,6 +181,7 @@ class CategoryController extends Controller
         'id' => $article->id,
         'title' => $article->title,
         'slug' => $article->slug,
+        'cover' => file_exists(public_path('articles/' . $article->id . '/cover.jpg')),
       ]);
 
       $webdesign = WebDesign::find(1)
