@@ -4,14 +4,10 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\UserController;
-<<<<<<< HEAD
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\FavoriteController;
-=======
->>>>>>> c50d73da11c3cd20bb9934e7f5ec92eaf1bc1d8a
 use App\Http\Controllers\WebDesignController;
 
 
@@ -91,9 +87,6 @@ Route::middleware(['auth:sanctum', 'verified', 'admin'])->group(function () {
 
     Route::put('dashboard/webdesign/{id}', [WebDesignController::class, 'update'])
         ->name('webdesign.update');
-        salut
-    Route::post('dashboard/webdesign', [WebDesignController::class, 'store'])
-        ->name('webdesign.store');
         
 });
 

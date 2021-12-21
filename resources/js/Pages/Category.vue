@@ -48,7 +48,6 @@
               </div>
             </div>
 
-<<<<<<< HEAD
 
           <!-- Procedure -->
           <!-- <div class="grid md:grid-cols-5 gap-10 mt-8 md:mt-14">
@@ -58,10 +57,6 @@
               <h4 class="mt-6 max-w-full text-xl md:text-2xl overflow-hidden whitespace-nowrap	overflow-ellipsis">{{ category.name }}</h4>
             </div>
           </div> -->
-=======
-            <img class="w-full rounded-b-xl" src="/img/article.jpg">
-          </Link>
->>>>>>> c50d73da11c3cd20bb9934e7f5ec92eaf1bc1d8a
         </section>
       </div>
     </div>
@@ -88,11 +83,7 @@
     props: {
       category: Object,
       subcategories: Object,
-<<<<<<< HEAD
       webdesign: Object,
-=======
-      articles: Object,
->>>>>>> c50d73da11c3cd20bb9934e7f5ec92eaf1bc1d8a
     },
   })
 </script>
