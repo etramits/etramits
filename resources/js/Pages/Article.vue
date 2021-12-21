@@ -107,7 +107,7 @@
       article: Object,
       comments: Object,
       favorite: Object,
-      added: Number
+      added: Number,
       webdesign: Object,
     },
 
