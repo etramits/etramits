@@ -18,20 +18,20 @@
                     <article class="bg-white rounded-xl shadow hover:opacity-75 cursor-pointer">
                         <div class="p-4">
                             <h3 class="text-xl font-semibold text-gray-800">Sol·licitar el certificat COVID-19</h3>
-                                <div class="mt-2 flex items-center gap-4">
-                                    <div class="px-2 py-1 text-sm text-gray-500 bg-gray-100 rounded leading-none">
-                                        <font-awesome-icon icon="book-open" class="mr-1" />
-                                        <span>3 min</span>
-                                    </div>
-                                    <div class="px-2 py-1 text-sm text-gray-500 bg-gray-100 rounded leading-none">
-                                        <font-awesome-icon icon="comments" class="mr-1" />
-                                        <span>10</span>
-                                    </div>
-                                    <div class="px-2 py-1 text-sm text-gray-500 bg-gray-100 rounded leading-none">
-                                        <font-awesome-icon icon="bookmark" class="mr-1" />
-                                        <span>2</span>
-                                    </div>
+                            <div class="mt-2 flex items-center gap-4">
+                                <div class="px-2 py-1 text-sm text-gray-500 bg-gray-100 rounded leading-none">
+                                    <font-awesome-icon icon="book-open" class="mr-1" />
+                                    <span>3 min</span>
                                 </div>
+                                <div class="px-2 py-1 text-sm text-gray-500 bg-gray-100 rounded leading-none">
+                                    <font-awesome-icon icon="comments" class="mr-1" />
+                                    <span>10</span>
+                                </div>
+                                <div class="px-2 py-1 text-sm text-gray-500 bg-gray-100 rounded leading-none">
+                                    <font-awesome-icon icon="bookmark" class="mr-1" />
+                                    <span>2</span>
+                                </div>
+                            </div>
                             </div>
                         <img class="w-full rounded-b-xl" src="/img/article.jpg">
                     </article>
@@ -39,20 +39,20 @@
                     <article class="bg-white rounded-xl shadow hover:opacity-75 cursor-pointer">
                         <div class="p-4">
                             <h3 class="text-xl font-semibold text-gray-800">Sol·licitar el certificat COVID-19</h3>
-                                <div class="mt-2 flex items-center gap-4">
-                                    <div class="px-2 py-1 text-sm text-gray-500 bg-gray-100 rounded leading-none">
-                                        <font-awesome-icon icon="book-open" class="mr-1" />
-                                        <span>3 min</span>
-                                    </div>
-                                    <div class="px-2 py-1 text-sm text-gray-500 bg-gray-100 rounded leading-none">
-                                        <font-awesome-icon icon="comments" class="mr-1" />
-                                        <span>10</span>
-                                    </div>
-                                    <div class="px-2 py-1 text-sm text-gray-500 bg-gray-100 rounded leading-none">
-                                        <font-awesome-icon icon="bookmark" class="mr-1" />
-                                        <span>2</span>
-                                    </div>
+                            <div class="mt-2 flex items-center gap-4">
+                                <div class="px-2 py-1 text-sm text-gray-500 bg-gray-100 rounded leading-none">
+                                    <font-awesome-icon icon="book-open" class="mr-1" />
+                                    <span>3 min</span>
                                 </div>
+                                <div class="px-2 py-1 text-sm text-gray-500 bg-gray-100 rounded leading-none">
+                                    <font-awesome-icon icon="comments" class="mr-1" />
+                                    <span>10</span>
+                                </div>
+                                <div class="px-2 py-1 text-sm text-gray-500 bg-gray-100 rounded leading-none">
+                                    <font-awesome-icon icon="bookmark" class="mr-1" />
+                                    <span>2</span>
+                                </div>
+                            </div>
                             </div>
                         <img class="w-full rounded-b-xl" src="/img/article.jpg">
                     </article>
@@ -60,20 +60,20 @@
                     <article class="bg-white rounded-xl shadow hover:opacity-75 cursor-pointer">
                         <div class="p-4">
                             <h3 class="text-xl font-semibold text-gray-800">Sol·licitar el certificat COVID-19</h3>
-                                <div class="mt-2 flex items-center gap-4">
-                                    <div class="px-2 py-1 text-sm text-gray-500 bg-gray-100 rounded leading-none">
-                                        <font-awesome-icon icon="book-open" class="mr-1" />
-                                        <span>3 min</span>
-                                    </div>
-                                    <div class="px-2 py-1 text-sm text-gray-500 bg-gray-100 rounded leading-none">
-                                        <font-awesome-icon icon="comments" class="mr-1" />
-                                        <span>10</span>
-                                    </div>
-                                    <div class="px-2 py-1 text-sm text-gray-500 bg-gray-100 rounded leading-none">
-                                        <font-awesome-icon icon="bookmark" class="mr-1" />
-                                        <span>2</span>
-                                    </div>
+                            <div class="mt-2 flex items-center gap-4">
+                                <div class="px-2 py-1 text-sm text-gray-500 bg-gray-100 rounded leading-none">
+                                    <font-awesome-icon icon="book-open" class="mr-1" />
+                                    <span>3 min</span>
                                 </div>
+                                <div class="px-2 py-1 text-sm text-gray-500 bg-gray-100 rounded leading-none">
+                                    <font-awesome-icon icon="comments" class="mr-1" />
+                                    <span>10</span>
+                                </div>
+                                <div class="px-2 py-1 text-sm text-gray-500 bg-gray-100 rounded leading-none">
+                                    <font-awesome-icon icon="bookmark" class="mr-1" />
+                                    <span>2</span>
+                                </div>
+                            </div>
                             </div>
                         <img class="w-full rounded-b-xl" src="/img/article.jpg">
                     </article>

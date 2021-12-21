@@ -91,7 +91,7 @@ Route::middleware(['auth:sanctum', 'verified', 'admin'])->group(function () {
 
     Route::put('dashboard/webdesign/{id}', [WebDesignController::class, 'update'])
         ->name('webdesign.update');
-
+        salut
     Route::post('dashboard/webdesign', [WebDesignController::class, 'store'])
         ->name('webdesign.store');
         
@@ -120,14 +120,7 @@ Route::put('dashboard/categories/{id}', [CategoryController::class, 'update'])
     ->name('categories.update');
 
 Route::post('dashboard/categories', [CategoryController::class, 'store'])
-<<<<<<< HEAD
     ->name('categories.store');
     
-=======
-->name('categories.store');
-
-Route::get('/{category}/{article}', [ArticleController::class, 'view']);
-
->>>>>>> c50d73da11c3cd20bb9934e7f5ec92eaf1bc1d8a
 Route::get('/{slug}', [CategoryController::class, 'view'])
   ->name('category.view');
