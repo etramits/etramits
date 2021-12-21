@@ -19,6 +19,7 @@
                     <select v-model="form.role" name='role' class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
                         <option :selected="form.role == 1" :value="1">Usuari</option>
                         <option :selected="form.role == 2" :value="2">Admin</option>
+                        <option :selected="form.role == 3" :value="3">Gestor</option>
                     </select>
                 </div>
 
@@ -81,6 +82,9 @@
                     break;
                 case 2:
                     return "Admin";
+                    break;
+                case 3:
+                    return "Gestor";
                     break;
                 default:
                     return "Usuari";

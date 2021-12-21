@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             CategorySeeder::class,
             WebDesignSeeder::class,
+            ArticleSeeder::class,
         ]);
         
     }
