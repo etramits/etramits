@@ -10,6 +10,7 @@ use Inertia\Inertia;
 use App\Models\Category;
 use App\Models\WebDesign;
 use App\Models\Article;
+use App\Models\Comment;
 
 
 class HomeController extends Controller
@@ -38,10 +39,15 @@ class HomeController extends Controller
             'header_img' => $wd->header_img 
         ])->first();
 
+      $stats = [
+        'articles' => Article::count(),
+        'comments' => Comment::count()
+      ];
+
       return Inertia::render('Home', [
         'categories' => $category,
         'webdesign' => $webdesign,
-
+        'stats' => $stats
       ]);
     }
     

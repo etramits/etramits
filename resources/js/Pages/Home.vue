@@ -24,7 +24,18 @@
       </section>
     </div>
 
-    <div class="w-screen h-80 bg-gray-800" />
+    <!-- Stats -->
+    <section class="bg-gray-800 text-white">
+      <div class="container flex flex-col items-center mx-auto py-20">
+        <div class="grid md:grid-cols-3 gap-10">
+          {{JSON.stringify(stats)}}
+          <div v-for="registry in stats" :key="registry.id" class="flex flex-col items-center p-4 bg-gray-700 rounded-md shadow">
+            <div class="text-5xl font-semibold">{{ registry.articles }}</div>
+            <div class="mt-1 text-xl md:text-2xl">{{ registry.comments }}</div>
+          </div>
+        </div>
+      </div>
+    </section>
 
     <div class="py-12 md:py-24 bg-gray-50 text-gray-800">
       <section class="container mx-auto max-w-7xl">
@@ -97,18 +108,6 @@
         </div>
       </section>
     </div>
-
-    <!-- Stats -->
-    <!-- <section class="bg-gray-800 text-white">
-      <div class="container flex flex-col items-center mx-auto py-20">
-        <div class="grid md:grid-cols-3 gap-10">
-          <div v-for="registry in stats" :key="registry.id" class="flex flex-col items-center p-4 bg-gray-700 rounded-md shadow">
-            <div class="text-5xl font-semibold">{{ registry.value }}</div>
-            <div class="mt-1 text-xl md:text-2xl">{{ registry.label }}</div>
-          </div>
-        </div>
-      </div>
-    </section> -->
   </AppLayout>
 </template>
 
@@ -132,11 +131,12 @@
     props: {
       categories: Object,
       webdesign: Object,
-  
+      stats: Array
     },
 
     data() {
       return {
+        /*
         stats: [
           {
             id: 0,
@@ -154,6 +154,7 @@
             value: 8,
           }
         ],
+        */
 
         header_img: this.webdesign.header_img,
 
