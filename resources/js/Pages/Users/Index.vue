@@ -55,6 +55,9 @@
                 case 2:
                     return "Admin";
                     break;
+                case 3:
+                    return "Gestor";
+                    break;
                 default:
                     return "Usuari";
                 }

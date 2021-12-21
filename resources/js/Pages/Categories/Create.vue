@@ -11,7 +11,7 @@
 
                 <div class="mt-4">
                     <jet-label for="description" value="Descripció (opcional)" />
-                    <jet-textarea id="description" type="textarea" class="mt-1 block w-full" v-model="form.description" autocomplete="description" :maxlength="200"/>
+                    <textarea id="description" type="textarea" class="mt-1 block w-full" v-model="form.description" autocomplete="description" :maxlength="200"/>
                 </div>
 
                 <div class="mt-4">

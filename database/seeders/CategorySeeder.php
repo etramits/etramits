@@ -24,6 +24,7 @@ class CategorySeeder extends Seeder
         'parent' => null,
         'position' => 1,
         'creator_id' => 1,
+        'created_at' => now()
       ],
       [
         'name' => 'Ocupacio',
@@ -32,6 +33,7 @@ class CategorySeeder extends Seeder
         'parent' => null,
         'position' => 2,
         'creator_id' => 1,
+        'created_at' => now()
       ],
       [
         'name' => 'Cites Prèvies',
@@ -40,6 +42,7 @@ class CategorySeeder extends Seeder
         'parent' => null,
         'position' => 3,
         'creator_id' => 1,
+        'created_at' => now()
       ],
       [
         'name' => 'Habitatge',
@@ -48,6 +51,7 @@ class CategorySeeder extends Seeder
         'parent' => null,
         'position' => 4,
         'creator_id' => 1,
+        'created_at' => now()
       ],
       [
         'name' => 'Consell Comarcal',
@@ -56,6 +60,7 @@ class CategorySeeder extends Seeder
         'parent' => null,
         'position' => 5,
         'creator_id' => 1,
+        'created_at' => now()
       ],
       [
         'name' => 'COVID-19',
@@ -64,6 +69,7 @@ class CategorySeeder extends Seeder
         'parent' => 1,
         'position' => 1,
         'creator_id' => 1,
+        'created_at' => now()
       ],
     ];
 

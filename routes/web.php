@@ -7,8 +7,12 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\UserController;
+<<<<<<< HEAD
 use App\Http\Controllers\WebDesignController;
 
+=======
+use App\Http\Controllers\CommentController;
+>>>>>>> feature_commentsSystem
 
 /*
 |--------------------------------------------------------------------------
@@ -25,12 +29,16 @@ use App\Http\Controllers\WebDesignController;
 
 Route::get('/', [HomeController::class, 'index']);
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> feature_commentsSystem
 //  Admin Dashboard   
-Route::middleware(['auth:sanctum', 'verified', 'admin'])->group(function () {
+Route::middleware(['auth:sanctum', 'verified', 'admin', 'gestor'])->group(function () {
 
     Route::get('/dashboard', function () {
         return Inertia::render('Dashboard');
-    })->name('dashboard');
+    })->name('dashboard')->withoutMiddleware(['admin']);
 
     // Users
 
@@ -55,25 +63,25 @@ Route::middleware(['auth:sanctum', 'verified', 'admin'])->group(function () {
     // Articles
 
     Route::get('dashboard/articles', [ArticleController::class, 'index'])
-        ->name('articles');
+        ->name('articles')->withoutMiddleware(['admin']);;
 
     Route::get('dashboard/articles/create', [ArticleController::class, 'create'])
-        ->name('articles.create');
+        ->name('articles.create')->withoutMiddleware(['admin']);;
 
     Route::get('dashboard/articles/{article}/edit', [ArticleController::class, 'edit'])
-        ->name('articles.edit');
+        ->name('articles.edit')->withoutMiddleware(['admin']);;
 
     Route::delete('dashboard/articles/{id}/delete', [ArticleController::class, 'destroy'])
-        ->name('articles.destroy');
+        ->name('articles.destroy')->withoutMiddleware(['admin']);;
 
     Route::put('dashboard/articles/{id}', [ArticleController::class, 'upload'])
-      ->name('articles.upload');
+      ->name('articles.upload')->withoutMiddleware(['admin']);;
 
     Route::put('dashboard/articles/{id}/upload', [ArticleController::class, 'update'])
-        ->name('articles.update');
+        ->name('articles.update')->withoutMiddleware(['admin']);;
 
     Route::post('dashboard/articles', [ArticleController::class, 'store'])
-        ->name('articles.store');
+        ->name('articles.store')->withoutMiddleware(['admin']);;
 
     // WebDesign
 
@@ -109,6 +117,7 @@ Route::delete('dashboard/categories/{id}/delete', [CategoryController::class, 'd
 Route::put('dashboard/categories/{id}', [CategoryController::class, 'update'])
 ->name('categories.update');
 
+<<<<<<< HEAD
 Route::post('dashboard/categories', [CategoryController::class, 'store'])
 ->name('categories.store');
 
@@ -116,3 +125,32 @@ Route::get('/{category}/{article}', [ArticleController::class, 'view']);
 
 Route::get('/{slug}', [CategoryController::class, 'view'])
   ->name('category.view');
+=======
+    Route::post('dashboard/categories', [CategoryController::class, 'store'])
+    ->name('categories.store');
+
+    //Comments
+
+    Route::get('dashboard/comments', [CommentController::class, 'index'])
+    ->name('comments');
+
+    Route::get('dashboard/comments/{id}/update', [CommentController::class, 'update'])
+    ->name('comment.update');
+
+    Route::delete('dashboard/comments/{id}/delete', [CommentController::class, 'destroy'])
+    ->name('comment.destroy');
+        
+});
+
+//send comments
+Route::post('/{id}/comment', [CommentController::class, 'store'])
+    ->name('comment.store');
+
+//view articles
+Route::get('/{category}/{article}', [ArticleController::class, 'view'])
+    ->name('article.view');
+
+//view categories
+Route::get('/{slug}', [CategoryController::class, 'view'])
+    ->name('category.view');
+>>>>>>> feature_commentsSystem

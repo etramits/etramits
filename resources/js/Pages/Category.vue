@@ -78,6 +78,7 @@
     },
 
     props: {
+      articles: Object,
       category: Object,
       subcategories: Object,
       articles: Object,
