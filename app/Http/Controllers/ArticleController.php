@@ -6,7 +6,7 @@ namespace App\Http\Controllers;
 use App\Models\Article;
 use App\Models\Category;
 use App\Models\Comment;
-use App\Models\User;
+use App\Models\WebDesign;
 
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Http\Request;
@@ -67,9 +67,20 @@ class ArticleController extends Controller
         'active' => $comment->active
       ]);
 
+      $webdesign = WebDesign::find(1)
+        ->get()
+        ->map(fn ($wd) => [
+            'main_color' => $wd->main_color,
+            'font_family' => $wd->font_family,
+            'like_button' => $wd->like_button,
+            'header_text' => $wd->header_text,
+            'header_img' => $wd->header_img 
+        ])->first();
+
     return Inertia::render('Article', [
       'article' => $article,
       'comments' => $comments,
+      'webdesign' => $webdesign,
     ]);
   }
 
