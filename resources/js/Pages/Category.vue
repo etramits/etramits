@@ -1,6 +1,6 @@
 <template>
   <AppLayout title="Categoria">
-    <section class="bg-yellow-300">
+    <section :class="`bg-${webdesign.main_color}-300 ${webdesign.font_family}`">
       <div class="container flex items-center justify-center mx-auto py-6 gap-20 text-gray-800">
         <div class="flex flex-col">
           <h2 class="text-7xl font-bold">{{ category.name }}</h2>
@@ -24,7 +24,7 @@
         <!-- Subcategories -->
         <section v-if="subcategories.length" class="mt-10 mb-20 grid md:grid-cols-5 gap-10">
           <div v-for="subcategory in subcategories" :key="subcategory.id" class="flex flex-col items-center p-6 w-50 bg-white rounded-xl shadow hover:opacity-75 cursor-pointer">
-            <font-awesome-icon :icon="!subcategory.icon ? 'file-alt' : subcategory.icon" size="5x" class="text-yellow-300" />
+            <font-awesome-icon :icon="!subcategory.icon ? 'file-alt' : subcategory.icon" size="5x" :class="`text-${webdesign.main_color}-300`" />
             <h4 class="mt-6 max-w-full text-xl md:text-2xl font-medium overflow-hidden whitespace-nowrap	overflow-ellipsis">{{ subcategory.name }}</h4>
           </div>
         </section>
@@ -82,6 +82,7 @@
       category: Object,
       subcategories: Object,
       articles: Object,
+      webdesign: Object,
     },
   })
 </script>

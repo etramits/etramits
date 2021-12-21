@@ -63,7 +63,7 @@ class WebDesignController extends Controller
             'header_img' => Request::get('header_img'),
         ]);
 
-        return Redirect::route('webdesign')->with('success', 'WebDesign created.');
+        return Redirect::route('webdesign.edit', 1)->with('success', 'WebDesign created.');
     }
 
     /**
@@ -128,7 +128,7 @@ class WebDesignController extends Controller
             'header_img' => Request::get('header_img'),
         ]);
         
-        return Redirect::route('webdesign')->with('success', 'Webdesign updated.');
+        return Redirect::route('webdesign.edit', 1)->with('success', 'Webdesign updated.');
     }
 
 }

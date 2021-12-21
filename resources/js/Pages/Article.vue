@@ -1,6 +1,6 @@
 <template>
   <AppLayout title="Categoria">
-    <section class="bg-yellow-300" >
+    <section :class="`bg-${webdesign.main_color}-300 ${webdesign.font_family}`" >
       <div class="container flex flex-col items-center mx-auto py-16 text-gray-800">
         <h2 v-text="article.title" class="text-6xl font-bold" />
         <div class="mt-10 text-gray-800">
@@ -36,7 +36,7 @@
     </section>
 
     <section class="pb-20 bg-gray-50 text-gray-800">
-      <header class="container flex items-center mx-auto max-w-7xl px-10 py-6 gap-2 bg-yellow-300 leading-none rounded-t-xl shadow">
+      <header :class="`container flex items-center mx-auto max-w-7xl px-10 py-6 gap-2 bg-${webdesign.main_color}-300 leading-none rounded-t-xl shadow`">
         <font-awesome-icon icon="comments" size="2x" />
         <span class="text-4xl font-bold">Comentaris</span>
       </header>
@@ -62,11 +62,11 @@
         </div>
         <div v-for="comment in comments" :key="comment.id" class="flex flex-col gap-5">
           <!-- Comment -->
-          <div class="flex flex-col p-4 gap-4 bg-yellow-50 rounded-xl">
+          <div :class="`flex flex-col p-4 gap-4 bg-${webdesign.main_color}-50 rounded-xl`">
             <div class="flex items-center gap-4">
               <div class="flex items-center gap-2">
                 <span class="text-2xl font-bold">{{comment.user_name}}</span>
-                <span v-if="comment.user_role" v-text="selectRole(comment.user_role)" class="p-1 text-md font-semibold bg-yellow-300 rounded leading-none" />
+                <span v-if="comment.user_role" v-text="selectRole(comment.user_role)" :class="`p-1 text-md font-semibold bg-${webdesign.main_color}-300 rounded leading-none`" />
               </div>
             </div>
 
@@ -108,6 +108,7 @@
       comments: Object,
       favorite: Object,
       added: Number
+      webdesign: Object,
     },
 
     data() {
