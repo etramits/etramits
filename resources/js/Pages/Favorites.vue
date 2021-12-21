@@ -1,10 +1,8 @@
 <template>
-    {{ favorites }}
-    {{ webdesign }}
     <AppLayout title="Tràmits preferits">
         <section :class="`bg-${webdesign.main_color}-300 ${webdesign.font_family}`">
             <div class="container flex flex-col items-center justify-center mx-auto py-20 text-gray-800">
-                <h2 class="text-7xl font-bold">Tràmits preferits</h2>
+                <h2 class="text-7xl font-bold">Tràmits favorits</h2>
                 <span class="mt-2 text-xl">
                     Els teus tràmits més importants en un sol clic.
                 </span>
@@ -96,13 +94,14 @@ export default defineComponent({
         Link,
         FontAwesomeIcon,
         AppLayout,
-        
         },
-
     props: {
         favorites: Object,
         webdesign: Object,
         },
+    data() {
+      
+    }
 
 })
 </script>

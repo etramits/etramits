@@ -37,7 +37,7 @@ Route::middleware(['auth:sanctum', 'verified', 'admin'])->group(function () {
 
     // Users
 
-    Route::get('dashbo/salut/exampleard/users', [UserController::class, 'index'])
+    Route::get('dashboard/users', [UserController::class, 'index'])
         ->name('users');
 
     Route::get('dashboard/users/create', [UserController::class, 'create'])
@@ -89,31 +89,29 @@ Route::middleware(['auth:sanctum', 'verified', 'admin'])->group(function () {
     Route::put('dashboard/webdesign/{id}', [WebDesignController::class, 'update'])
         ->name('webdesign.update');
 
-Route::get('favorites', [FavoriteController::class, 'index'])
-    ->name('favorites');
+    // Categories
 
-// Categories
+    Route::get('/{slug}', [CategoryController::class, 'index']);
 
-Route::get('/{slug}', [CategoryController::class, 'index']);
+    Route::get('dashboard/categories', [CategoryController::class, 'index'])
+        ->name('categories');
 
-Route::get('dashboard/categories', [CategoryController::class, 'index'])
-    ->name('categories');
+    Route::get('dashboard/categories/create', [CategoryController::class, 'create'])
+        ->name('categories.create');
 
-Route::get('dashboard/categories/create', [CategoryController::class, 'create'])
-    ->name('categories.create');
+    Route::get('dashboard/categories/{category}/edit', [CategoryController::class, 'edit'])
+        ->name('categories.edit');
 
-Route::get('dashboard/categories/{category}/edit', [CategoryController::class, 'edit'])
-    ->name('categories.edit');
+    Route::delete('dashboard/categories/{id}/delete', [CategoryController::class, 'destroy'])
+        ->name('categories.destroy');
 
-Route::delete('dashboard/categories/{id}/delete', [CategoryController::class, 'destroy'])
-    ->name('categories.destroy');
+    Route::put('dashboard/categories/{id}', [CategoryController::class, 'update'])
+        ->name('categories.update');
 
-Route::put('dashboard/categories/{id}', [CategoryController::class, 'update'])
-    ->name('categories.update');
-
-Route::post('dashboard/categories', [CategoryController::class, 'store'])
-    ->name('categories.store');
+    Route::post('dashboard/categories', [CategoryController::class, 'store'])
+        ->name('categories.store');
     
+    // Webdesign
 
     Route::post('dashboard/webdesign', [WebDesignController::class, 'store'])
         ->name('webdesign.store');
@@ -154,7 +152,19 @@ Route::post('dashboard/categories', [CategoryController::class, 'store'])
         
 });
 
-Route::get('/{slug}', [CategoryController::class, 'index']);
+// Favorites
+
+Route::get('favorites/list', [FavoriteController::class, 'index'])
+    ->name('favorites');
+
+Route::post('favorites/{article_id}/add', [FavoriteController::class, 'add'])
+    ->name('favorite.add');
+
+Route::post('favorites/{article_id}/rem', [FavoriteController::class, 'rem'])
+    ->name('favorite.rem');
+
+Route::delete('favorites', [FavoriteController::class, 'destroy'])
+    ->name('favorites.destroy');
 
 //send comments
 Route::post('/{id}/comment', [CommentController::class, 'store'])

@@ -11,6 +11,7 @@ use Illuminate\Validation\Rule;
 use Inertia\Inertia;
 use App\Models\Favorite;
 use App\Models\WebDesign;
+use App\Models\Article;
 
 class FavoriteController extends Controller
 {
@@ -21,29 +22,30 @@ class FavoriteController extends Controller
      */
     public function index()
     {
+        $favorites = Favorite::orderBy('id', 'DESC')
+        ->where('user_id', Auth::user()->id)
+        ->with('article')
+        ->get()
+        ->map(fn ($favorite) => [
+            'id' => $favorite->id,
+            'user_id' => $favorite->user_id,
+            'article_id' => $favorite->article_id,
+            'article_slug' => $favorite->article->slug,
+        ]);
 
-        return Inertia::render('Favorites', [
-            "favorites" => Favorite::orderBy('id', 'DESC')
-            ->get()
-            ->map(fn ($favorite) => [
-                'id' => $favorite->id,
-                'user_id' => $favorite->user_id,
-                'article_id' => $favorite->article_id,
-            ]),
-
-            "webdesign" => WebDesign::find(1)
+        $webdesign = WebDesign::find(1)
             ->get()
             ->map(fn ($webdesign)=> [
                 'main_color' => $webdesign->main_color,
                 'font_family' => $webdesign->font_family,
-                'like_button' => $webdesign->like_button,
-                'header_text' => $webdesign->header_text,
-                'header_img' => $webdesign->header_img 
-            ])->first()
-        
+            ])
+            ->first();  
+
+        return Inertia::render('Favorites', [
+            "favorites" => $favorites,
+            "webdesign" => $webdesign,           
         ]);
     }
-
 
     /**
      * Show the form for creating a new resource.
@@ -57,53 +59,14 @@ class FavoriteController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store()
+    public function add($article_id)
     {
-        Request::validate([
-            'user_id' => ['required', 'max:200'],
-            'article_id' => ['required', 'max:200'],
+        Favorite::create([
+            'user_id' => Auth::user()->id,
+            'article_id' => $article_id
         ]);
 
-        Auth::user()->account->users()->create([
-            'user_id' => Request::get('user_id'),
-            'article_id' => Request::get('article_id'),
-        ]);
-
-        return Redirect::route('favorites')->with('success', 'Guardat a favorits');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
+        return Redirect::back()->with('success', 'Favorit eliminat');
     }
 
     /**
@@ -112,8 +75,12 @@ class FavoriteController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($favorite)
-    {
+    public function rem($article_id)
+    {   
+        $favorite = Favorite::where('article_id', $article_id)->where('user_id', Auth::user()->id)
+            ->get()
+            ->first();
+
         $favorite->delete();
 
         return Redirect::back()->with('success', 'Favorit eliminat');
