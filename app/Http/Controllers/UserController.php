@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Favorite;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
@@ -138,4 +139,5 @@ class UserController extends Controller
         return Redirect::route('users')->with('success', 'User removed');
 
     }
+
 }

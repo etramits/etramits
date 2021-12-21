@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\URL;
 use Illuminate\Validation\Rule;
 use Inertia\Inertia;
 use App\Models\Favorite;
+use App\Models\WebDesign;
 
 class FavoriteController extends Controller
 {
@@ -20,13 +21,26 @@ class FavoriteController extends Controller
      */
     public function index()
     {
+
         return Inertia::render('Favorites', [
-            "favorites" => Favorite::where('id', 'DESC')
+            "favorites" => Favorite::orderBy('id', 'DESC')
             ->get()
             ->map(fn ($favorite) => [
+                'id' => $favorite->id,
                 'user_id' => $favorite->user_id,
                 'article_id' => $favorite->article_id,
-            ])
+            ]),
+
+            "webdesign" => WebDesign::find(1)
+            ->get()
+            ->map(fn ($webdesign)=> [
+                'main_color' => $webdesign->main_color,
+                'font_family' => $webdesign->font_family,
+                'like_button' => $webdesign->like_button,
+                'header_text' => $webdesign->header_text,
+                'header_img' => $webdesign->header_img 
+            ])->first()
+        
         ]);
     }
 
@@ -43,7 +57,7 @@ class FavoriteController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store()
     {
         Request::validate([
             'user_id' => ['required', 'max:200'],
@@ -98,10 +112,11 @@ class FavoriteController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Favorite $favorite)
+    public function destroy($favorite)
     {
         $favorite->delete();
 
-        return Redirect::back()->with('success', 'User deleted.');
+        return Redirect::back()->with('success', 'Favorit eliminat');
     }
+
 }
