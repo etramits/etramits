@@ -155,6 +155,7 @@ class ArticleController extends Controller
         'slug' => $article->slug,
         'category' => $article->category_id,
         'content' => $article->content,
+        'cover' => file_exists(public_path('articles/' . $article->id . '/cover.jpg')),
         'active' => $article->active,
       ],
       'categories' => $categories,
@@ -182,6 +183,12 @@ class ArticleController extends Controller
         'active' => 'required|boolean',
       ]);
 
+      if ($request->cover)
+      {
+        $cover = $request->cover;
+        $cover->move(public_path('articles/' . $id . '/'), 'cover.jpg');
+      }
+
       $article->update([
         'title' => $request->title,
         'slug' => $request->slug,
@@ -189,7 +196,7 @@ class ArticleController extends Controller
         'content' => $request->content,
         'active' => $request->active,
       ]);
-      
+
       return Redirect::route('articles.edit', $id)->with('success', "L'informació de l'article s'ha actualitzat correctament");
   }
 

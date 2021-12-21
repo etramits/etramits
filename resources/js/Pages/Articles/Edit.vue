@@ -95,6 +95,13 @@
             </div>
 
             <div>
+              <jet-label for="content" value="Portada" />
+              <jet-input @input="form.cover = $event.target.files[0]" type="file" />
+              <img v-if="article.cover" class="mt-2 w-full rounded-b-xl" :src="`/articles/${article.id}/cover.jpg`">
+              <img v-else class="mt-2 w-full rounded-b-xl" src="/img/default.jpg">
+            </div>
+
+            <div>
               <jet-label for="content" value="Imatges" />
 
               <form @submit.prevent="upload" class="flex justify-between">
@@ -170,7 +177,7 @@
               category: this.article.category,
               content: this.article.content,
               active: this.article.active,
-
+              cover: null,
             }),
           }
         },
