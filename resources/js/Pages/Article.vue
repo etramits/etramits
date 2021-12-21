@@ -102,34 +102,35 @@
       </header>
 
       <div class="container flex flex-col gap-10 mx-auto max-w-7xl p-10 bg-white rounded-b-xl shadow">
+        <div>
+          <div v-if="$page.props.user">
+            <form @submit.prevent="submitComment" class="w-3/5 ml-8">
+                <div>
+                    <jet-label for="content" value="Comentari:" />
+                    <textarea id="content" type="text" class="mt-1 block w-full" v-model="form.content" :maxlength="200" required />
+                </div>
+                <div class="flex items-center justify-start mt-4">
+                    <jet-button :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
+                        Enviar
+                    </jet-button>
+                </div>
+            </form>
+          </div>
+          <div v-else>
+              <p><Link :href="route('login')" class="underline">Connectat</Link> per poder deixar un comentari.</p>  
+          </div>
+        </div>
         <div v-for="comment in comments" :key="comment.id" class="flex flex-col gap-5">
           <!-- Comment -->
           <div class="flex flex-col p-4 gap-4 bg-yellow-50 rounded-xl">
             <div class="flex items-center gap-4">
-              <img class="h-14 rounded-full" :src="comment.user.picture" draggable="false">
               <div class="flex items-center gap-2">
-                <span v-text="comment.user.name" class="text-2xl font-bold" />
+                <span class="text-2xl font-bold">{{comment.user_name}}</span>
+                <span v-if="comment.user_role" v-text="selectRole(comment.user_role)" class="p-1 text-md font-semibold bg-yellow-300 rounded leading-none" />
               </div>
             </div>
 
-            <p v-html="comment.message" class="text-xl leading-7" />
-          </div>
-
-          <!-- Replies -->
-          <div v-for="reply in comment.replies" :key="reply.id" class="ml-16 flex flex-col p-4 gap-4 bg-yellow-50 rounded-xl">
-            <div class="flex items-center gap-4">
-              <img class="h-14 rounded-full" :src="reply.user.picture" draggable="false">
-              <div class="flex items-center gap-2">
-                <span v-text="reply.user.name" class="text-2xl font-bold" />
-                <span v-if="reply.user.role" v-text="reply.user.role" class="p-1 text-md font-semibold bg-yellow-300 rounded leading-none" />
-              </div>
-            </div>
-
-            <p class="text-xl leading-7">
-              Bones Marc<br>
-              Per sol·licitar el certificat d'un familiar hauries de sortir del compte actual i accedir amb la del familiar.<br>
-              Salut
-            </p>
+            <p v-html="comment.content" class="text-xl leading-7" />
           </div>
         </div>
       </div>
@@ -142,6 +143,10 @@
   import { Link } from '@inertiajs/inertia-vue3'
   import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
   import { library } from '@fortawesome/fontawesome-svg-core'
+  import JetInput from '@/Jetstream/Input.vue'
+  import JetLabel from '@/Jetstream/Label.vue'
+  import JetButton from '@/Jetstream/Button.vue'
+  import JetTextarea from '@/Jetstream/Textarea.vue'
   import { fas } from '@fortawesome/free-solid-svg-icons'
   import AppLayout from '@/Layouts/AppLayout.vue'
 
@@ -151,74 +156,49 @@
     components: {
       Link,
       FontAwesomeIcon,
-      AppLayout
+      AppLayout,
+      JetInput,
+      JetLabel,
+      JetButton,
+      JetTextarea
     },
 
     props: {
       article: Object,
+      comments: Object,
     },
 
     data() {
       return {
-        // article: {
-        //   title: 'Sol·licitar el certificat COVID-19',
-        //   stats: [
-        //     {
-        //       id: 0,
-        //       icon: 'book-open',
-        //       value: 'Lectura de 3 minuts'
-        //     },
-
-        //     {
-        //       id: 1,
-        //       icon: 'comment',
-        //       value: '12 comentaris'
-        //     },
-
-        //     {
-        //       id: 2,
-        //       icon: 'bookmark',
-        //       value: '3 favorits'
-        //     },
-        //   ]
-        // },
-
-        comments: [
-          {
-            id: 0,
-            message: `Bones!<br>Com podría sol·licitar el certificat d'un altre familiar un cop ja he consultat el meu certificat?<br>Moltes gràcies`,
-            user: {
-              name: 'Marc Bech',
-              picture: 'https://i.imgur.com/8cDKcKg.jpeg',
-              role: null
-            },
-            replies: [
-              {
-                id: 0,
-                message: `Bones Marc<br>Per sol·licitar el certificat d'un familiar hauries de sortir del compte actual i accedir amb la del familiar.<br>Salut`,
-                user: {
-                  name: 'Maria Perez',
-                  picture: 'https://i.imgur.com/5rdp61p.jpeg',
-                  role: 'ADMIN'
-                }
-              }
-            ]
-          },
-
-          {
-            id: 1,
-            message: `Hola!<br>Com puc sol·licitar el certificat de prova COVID-19 negativa?<br>Gràcies`,
-            user: {
-              name: 'Joan Puig',
-              picture: 'https://i.imgur.com/VOW3bzY.jpeg',
-              role: null
-            },
-            replies: []
-          },
-        ]
+        form: this.$inertia.form({
+            user_id: '',
+            content: ''
+        }),
       }
     },
-
+    methods: {
+      selectRole(roleInt) {
+        switch(roleInt) {
+        case 1:
+            return "Usuari";
+            break;
+        case 2:
+            return "Admin";
+            break;
+        case 3:
+            return "Gestor";
+            break;
+        default:
+            return "Usuari";
+        }
+      },
+      submitComment() {
+        this.form.user_id = this.$page.props.user.id;
+        this.form.post(this.route('comment.store', this.article.id), {
+          onFinish: () => this.form.reset('content'),
+        });
+      }
+    },
     mounted() {
       let tags = [
         { name: 'h2', class: 'text-4xl font-bold' },

@@ -11,7 +11,7 @@
 
                 <div class="mt-4">
                     <jet-label for="description" value="Descripció (opcional)" />
-                    <jet-input id="description" type="text" class="mt-1 block w-full" v-model="form.email" />
+                    <textarea id="description" type="text" class="mt-1 block w-full" v-model="form.email" />
                 </div>
 
                 <div class="mt-4">
@@ -42,7 +42,7 @@
                 <div class="flex items-center justify-end mt-4">
 
                     <jet-button type="submit" class="ml-4" :class="{ 'opacity-25': form.processing }" >
-                        Save
+                        Desar
                     </jet-button>
                 </div>
             </form>
