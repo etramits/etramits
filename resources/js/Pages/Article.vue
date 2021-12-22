@@ -23,13 +23,7 @@
         </div>
       </div>
     </section>
-
-    <div class="inline-reverse">
-      <div>
-        
-      </div>
-    </div>
-
+    
     <section class="py-20 bg-gray-50 text-gray-800">
       <div v-html="article.content" class="container flex flex-col gap-6 mx-auto max-w-7xl p-10 bg-white rounded-xl shadow" id="content" />
 
