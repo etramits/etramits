@@ -134,7 +134,7 @@
                     <aside-layout />
                 </div>
 
-                <div class="bg-gradient-to-r from-blue-500 w-4/5">
+                <div class="w-4/5">
                     <slot></slot>
                 </div>
                 

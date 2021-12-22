@@ -50,18 +50,21 @@ class ArticleController extends Controller
       ->where('category_id', $category['id'])
       ->get()
       ->first();
-      
-    $favorite = Favorite::where('user_id', Auth::user()->id)->where('article_id', $article->id)
-    ->get()
-    ->first();
     
-    //Comprovem si l'usuari te afegit l'article a fav
-    if ($favorite === null) {
-      $added = 0;
-    } else {
-      $added = 1;
+    $added = 0;
+    if(Auth::user()) {
+      $favorite = Favorite::where('user_id', Auth::user()->id)->where('article_id', $article->id)
+      ->get()
+      ->first();
+      
+      //Comprovem si l'usuari te afegit l'article a fav
+      if ($favorite === null) {
+        $added = 0;
+      } else {
+        $added = 1;
+      }
     }
-
+    
     $comments = Comment::where('article_id', $article['id'])
       ->where('active', 1)
       ->orderBy('id', 'DESC')

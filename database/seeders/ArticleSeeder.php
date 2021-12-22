@@ -14,7 +14,6 @@ class ArticleSeeder extends Seeder
      */
     public function run()
     {
-        Article::truncate();
 
         $articles = [
             [
