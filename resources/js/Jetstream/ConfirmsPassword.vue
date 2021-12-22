@@ -24,7 +24,7 @@
 
             <template #footer>
                 <jet-secondary-button @click="closeModal">
-                    Cancel
+                    Cancel·lar
                 </jet-secondary-button>
 
                 <jet-button class="ml-2" @click="confirmPassword" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
@@ -48,13 +48,13 @@
 
         props: {
             title: {
-                default: 'Confirm Password',
+                default: 'Confirmar Contrasenya',
             },
             content: {
-                default: 'For your security, please confirm your password to continue.',
+                default: 'Ha de confirmar la seva contrasenya per continuar.',
             },
             button: {
-                default: 'Confirm',
+                default: 'Confirmar',
             }
         },
 
