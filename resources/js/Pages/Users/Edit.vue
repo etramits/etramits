@@ -1,93 +1,98 @@
 <template>
-  <div>
-    <div class="mb-8 flex justify-start max-w-3xl">
-      <h1 class="font-bold text-3xl">
-        <inertia-link class="text-indigo-400 hover:text-indigo-600" :href="route('users')">Users</inertia-link>
-        <span class="text-indigo-400 font-medium">/</span>
-        {{ form.first_name }} {{ form.last_name }}
-      </h1>
-      <img v-if="user.photo" class="block w-8 h-8 rounded-full ml-4" :src="user.photo" />
-    </div>
-    <trashed-message v-if="user.deleted_at" class="mb-6" @restore="restore">
-      This user has been deleted.
-    </trashed-message>
-    <div class="bg-white rounded-md shadow overflow-hidden max-w-3xl">
-      <form @submit.prevent="update">
-        <div class="p-8 -mr-6 -mb-8 flex flex-wrap">
-          <text-input v-model="form.first_name" :error="form.errors.first_name" class="pr-6 pb-8 w-full lg:w-1/2" label="First name" />
-          <text-input v-model="form.last_name" :error="form.errors.last_name" class="pr-6 pb-8 w-full lg:w-1/2" label="Last name" />
-          <text-input v-model="form.email" :error="form.errors.email" class="pr-6 pb-8 w-full lg:w-1/2" label="Email" />
-          <text-input v-model="form.password" :error="form.errors.password" class="pr-6 pb-8 w-full lg:w-1/2" type="password" autocomplete="new-password" label="Password" />
-          <select-input v-model="form.owner" :error="form.errors.owner" class="pr-6 pb-8 w-full lg:w-1/2" label="Owner">
-            <option :value="true">Yes</option>
-            <option :value="false">No</option>
-          </select-input>
-          <file-input v-model="form.photo" :error="form.errors.photo" class="pr-6 pb-8 w-full lg:w-1/2" type="file" accept="image/*" label="Photo" />
+    <dashboard-layout title="Dashboard">
+        
+        <div class="ml-4 mr-4">
+            <h1 class="mb-8 mt-8 ml-8 font-bold text-3xl ">Editar Usuari</h1>
+            <form @submit.prevent="submit" class="w-3/5 ml-8">
+                <div>
+                    <jet-label for="name" value="Nom" />
+                    <jet-input id="name" type="text" class="mt-1 block w-full" v-model="form.name" required autofocus autocomplete="name" />
+                </div>
+
+                <div class="mt-4">
+                    <jet-label for="email" value="Email" />
+                    <jet-input id="email" type="email" class="mt-1 block w-full" v-model="form.email" required />
+                </div>
+                
+                <div class="mt-4">
+                    <jet-label for="role" value="Rol" />
+                    <select v-model="form.role" name='role' class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
+                        <option :selected="form.role == 1" :value="1">Usuari</option>
+                        <option :selected="form.role == 2" :value="2">Admin</option>
+                        <option :selected="form.role == 3" :value="3">Gestor</option>
+                    </select>
+                </div>
+
+                <div class="flex items-center justify-end mt-4">
+
+                    <jet-button type="submit" class="ml-4" :class="{ 'opacity-25': form.processing }" >
+                        Save
+                    </jet-button>
+                </div>
+            </form>
         </div>
-        <div class="px-8 py-4 bg-gray-50 border-t border-gray-100 flex items-center">
-          <button v-if="!user.deleted_at" class="text-red-600 hover:underline" tabindex="-1" type="button" @click="destroy">Delete User</button>
-          <loading-button :loading="form.processing" class="btn-indigo ml-auto" type="submit">Update User</loading-button>
-        </div>
-      </form>
-    </div>
-  </div>
+        
+
+    </dashboard-layout>
 </template>
 
 <script>
-import Layout from '@/Shared/Layout'
-import TextInput from '@/Shared/TextInput'
-import FileInput from '@/Shared/FileInput'
-import SelectInput from '@/Shared/SelectInput'
-import LoadingButton from '@/Shared/LoadingButton'
-import TrashedMessage from '@/Shared/TrashedMessage'
+    import { defineComponent } from 'vue'
+    import JetAuthenticationCard from '@/Jetstream/AuthenticationCard.vue'
+    import JetAuthenticationCardLogo from '@/Jetstream/AuthenticationCardLogo.vue'
+    import JetButton from '@/Jetstream/Button.vue'
+    import JetInput from '@/Jetstream/Input.vue'
+    import JetCheckbox from '@/Jetstream/Checkbox.vue'
+    import JetLabel from '@/Jetstream/Label.vue'
+    import JetValidationErrors from '@/Jetstream/ValidationErrors.vue'
+    import { Head, Link } from '@inertiajs/inertia-vue3';
+    import DashboardLayout from '@/Layouts/DashboardLayout.vue'
 
-export default {
-  metaInfo() {
-    return {
-      title: `${this.form.first_name} ${this.form.last_name}`,
-    }
-  },
-  components: {
-    FileInput,
-    LoadingButton,
-    SelectInput,
-    TextInput,
-    TrashedMessage,
-  },
-  layout: Layout,
-  props: {
-    user: Object,
-  },
-  remember: 'form',
-  data() {
-    return {
-      form: this.$inertia.form({
-        _method: 'put',
-        first_name: this.user.first_name,
-        last_name: this.user.last_name,
-        email: this.user.email,
-        password: null,
-        owner: this.user.owner,
-        photo: null,
-      }),
-    }
-  },
-  methods: {
-    update() {
-      this.form.post(this.route('users.update', this.user.id), {
-        onSuccess: () => this.form.reset('password', 'photo'),
-      })
-    },
-    destroy() {
-      if (confirm('Are you sure you want to delete this user?')) {
-        this.$inertia.delete(this.route('users.destroy', this.user.id))
-      }
-    },
-    restore() {
-      if (confirm('Are you sure you want to restore this user?')) {
-        this.$inertia.put(this.route('users.restore', this.user.id))
-      }
-    },
-  },
-}
+    export default defineComponent({
+        components: {
+            DashboardLayout,
+            Head,
+            JetAuthenticationCard,
+            JetAuthenticationCardLogo,
+            JetButton,
+            JetInput,
+            JetCheckbox,
+            JetLabel,
+            JetValidationErrors,
+            Link,
+        },
+        props: {
+            user: Object,
+        },
+        data() {
+            return {
+                form: this.$inertia.form({
+                    _method: 'PUT',
+                    name: this.user.name,
+                    email: this.user.email,
+                    role: this.user.role,
+                }),
+            }
+        },
+        methods: {
+            selectRole(roleInt) {
+                switch(roleInt) {
+                case 1:
+                    return "Usuari";
+                    break;
+                case 2:
+                    return "Admin";
+                    break;
+                case 3:
+                    return "Gestor";
+                    break;
+                default:
+                    return "Usuari";
+                }
+            },
+            submit() {
+                this.form.post(this.route('users.update',this.user.id));
+            },
+        }
+    })
 </script>

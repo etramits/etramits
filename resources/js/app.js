@@ -1,24 +1,21 @@
-import Vue from 'vue'
-import VueMeta from 'vue-meta'
-import PortalVue from 'portal-vue'
-import { InertiaProgress } from '@inertiajs/progress'
-import { createInertiaApp } from '@inertiajs/inertia-vue'
+require('./bootstrap');
 
-Vue.config.productionTip = false
-Vue.mixin({ methods: { route: window.route } })
-Vue.use(PortalVue)
-Vue.use(VueMeta)
+import { createApp, h } from 'vue';
+import { createInertiaApp } from '@inertiajs/inertia-vue3';
+import { InertiaProgress } from '@inertiajs/progress';
 
-InertiaProgress.init()
+
+const appName = window.document.getElementsByTagName('title')[0]?.innerText || 'TicTac';
 
 createInertiaApp({
-  resolve: name => require(`./Pages/${name}`),
-  setup({ el, app, props }) {
-    new Vue({
-      metaInfo: {
-        titleTemplate: title => (title ? `${title} - TicTac` : 'TicTac'),
-      },
-      render: h => h(app, props),
-    }).$mount(el)
-  },
-})
+    title: (title) => `${title} - ${appName}`,
+    resolve: (name) => require(`./Pages/${name}.vue`),
+    setup({ el, app, props, plugin }) {
+        return createApp({ render: () => h(app, props) })
+            .use(plugin)
+            .mixin({ methods: { route } })
+            .mount(el);
+    },
+});
+
+InertiaProgress.init({ color: '#4B5563' });

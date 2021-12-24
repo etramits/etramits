@@ -1,16 +1,16 @@
 <?php
 
-// Controllers
-use App\Http\Controllers\HomeController;
-
-use App\Http\Controllers\Auth\AuthenticatedSessionController;
-use App\Http\Controllers\ContactsController;
-use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\ImagesController;
-use App\Http\Controllers\OrganizationsController;
-use App\Http\Controllers\ReportsController;
-use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Route;
+use Inertia\Inertia;
+
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\FavoriteController;
+use App\Http\Controllers\WebDesignController;
+use App\Http\Controllers\CommentController;
+use App\Http\Controllers\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,128 +23,142 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Home
+// Public 
 
-Route::get('/', [HomeController::class, 'index']);
+Route::get('/', [HomeController::class, 'index'])
+    ->name('home');
 
 
-// Auth
+//  Admin Dashboard   
 
-Route::get('login', [AuthenticatedSessionController::class, 'create'])
-    ->name('login')
-    ->middleware('guest');
+Route::middleware(['auth:sanctum', 'verified', 'admin'])->group(function () {
 
-Route::post('login', [AuthenticatedSessionController::class, 'store'])
-    ->name('login.store')
-    ->middleware('guest');
 
-Route::delete('logout', [AuthenticatedSessionController::class, 'destroy'])
-    ->name('logout');
+    Route::get('/dashboard', [DashboardController::class, 'index'])
+        ->name('dashboard');
 
-// Dashboard
+    // Users
 
-// Route::get('/', [DashboardController::class, 'index'])
-//     ->name('dashboard')
-//     ->middleware('auth');
+    Route::get('dashboard/users', [UserController::class, 'index'])
+        ->name('users');
 
-// Users
+    Route::get('dashboard/users/create', [UserController::class, 'create'])
+      ->name('users.create');
 
-Route::get('users', [UsersController::class, 'index'])
-    ->name('users')
-    ->middleware('auth');
+    Route::get('dashboard/users/{user}/edit', [UserController::class, 'edit'])
+        ->name('users.edit');
 
-Route::get('users/create', [UsersController::class, 'create'])
-    ->name('users.create')
-    ->middleware('auth');
+    Route::delete('dashboard/users/{id}/delete', [UserController::class, 'destroy'])
+        ->name('users.destroy');
 
-Route::post('users', [UsersController::class, 'store'])
-    ->name('users.store')
-    ->middleware('auth');
+    Route::put('dashboard/users/{id}', [UserController::class, 'update'])
+        ->name('users.update');
 
-Route::get('users/{user}/edit', [UsersController::class, 'edit'])
-    ->name('users.edit')
-    ->middleware('auth');
+    Route::post('dashboard/users', [UserController::class, 'store'])
+        ->name('users.store');
 
-Route::put('users/{user}', [UsersController::class, 'update'])
-    ->name('users.update')
-    ->middleware('auth');
+    // Articles
 
-Route::delete('users/{user}', [UsersController::class, 'destroy'])
-    ->name('users.destroy')
-    ->middleware('auth');
+    Route::get('dashboard/articles', [ArticleController::class, 'index'])
+        ->name('articles')->withoutMiddleware(['admin']);;
 
-Route::put('users/{user}/restore', [UsersController::class, 'restore'])
-    ->name('users.restore')
-    ->middleware('auth');
+    Route::get('dashboard/articles/create', [ArticleController::class, 'create'])
+        ->name('articles.create')->withoutMiddleware(['admin']);;
 
-// Organizations
+    Route::get('dashboard/articles/{article}/edit', [ArticleController::class, 'edit'])
+        ->name('articles.edit')->withoutMiddleware(['admin']);;
 
-Route::get('organizations', [OrganizationsController::class, 'index'])
-    ->name('organizations')
-    ->middleware('auth');
+    Route::delete('dashboard/articles/{id}/delete', [ArticleController::class, 'destroy'])
+        ->name('articles.destroy')->withoutMiddleware(['admin']);;
 
-Route::get('organizations/create', [OrganizationsController::class, 'create'])
-    ->name('organizations.create')
-    ->middleware('auth');
+    Route::put('dashboard/articles/{id}', [ArticleController::class, 'upload'])
+      ->name('articles.upload')->withoutMiddleware(['admin']);;
 
-Route::post('organizations', [OrganizationsController::class, 'store'])
-    ->name('organizations.store')
-    ->middleware('auth');
+    Route::put('dashboard/articles/{id}/upload', [ArticleController::class, 'update'])
+        ->name('articles.update')->withoutMiddleware(['admin']);;
 
-Route::get('organizations/{organization}/edit', [OrganizationsController::class, 'edit'])
-    ->name('organizations.edit')
-    ->middleware('auth');
+    Route::post('dashboard/articles', [ArticleController::class, 'store'])
+        ->name('articles.store')->withoutMiddleware(['admin']);;
 
-Route::put('organizations/{organization}', [OrganizationsController::class, 'update'])
-    ->name('organizations.update')
-    ->middleware('auth');
+    // WebDesign
 
-Route::delete('organizations/{organization}', [OrganizationsController::class, 'destroy'])
-    ->name('organizations.destroy')
-    ->middleware('auth');
+    Route::get('dashboard/webdesign/', [WebDesignController::class, 'index'])
+        ->name('webdesign');
 
-Route::put('organizations/{organization}/restore', [OrganizationsController::class, 'restore'])
-    ->name('organizations.restore')
-    ->middleware('auth');
+    Route::get('dashboard/webdesign/{webdesign}/edit', [WebDesignController::class, 'edit'])
+        ->name('webdesign.edit');
 
-// Contacts
+    Route::put('dashboard/webdesign/{id}', [WebDesignController::class, 'update'])
+        ->name('webdesign.update');
 
-Route::get('contacts', [ContactsController::class, 'index'])
-    ->name('contacts')
-    ->middleware('auth');
+    // Categories
 
-Route::get('contacts/create', [ContactsController::class, 'create'])
-    ->name('contacts.create')
-    ->middleware('auth');
+    Route::get('dashboard/categories', [CategoryController::class, 'index'])
+        ->name('categories');
 
-Route::post('contacts', [ContactsController::class, 'store'])
-    ->name('contacts.store')
-    ->middleware('auth');
+    Route::get('dashboard/categories/create', [CategoryController::class, 'create'])
+        ->name('categories.create');
 
-Route::get('contacts/{contact}/edit', [ContactsController::class, 'edit'])
-    ->name('contacts.edit')
-    ->middleware('auth');
+    Route::get('dashboard/categories/{category}/edit', [CategoryController::class, 'edit'])
+        ->name('categories.edit');
 
-Route::put('contacts/{contact}', [ContactsController::class, 'update'])
-    ->name('contacts.update')
-    ->middleware('auth');
+    Route::delete('dashboard/categories/{id}/delete', [CategoryController::class, 'destroy'])
+        ->name('categories.destroy');
 
-Route::delete('contacts/{contact}', [ContactsController::class, 'destroy'])
-    ->name('contacts.destroy')
-    ->middleware('auth');
+    Route::put('dashboard/categories/{id}', [CategoryController::class, 'update'])
+        ->name('categories.update');
 
-Route::put('contacts/{contact}/restore', [ContactsController::class, 'restore'])
-    ->name('contacts.restore')
-    ->middleware('auth');
+    Route::post('dashboard/categories', [CategoryController::class, 'store'])
+        ->name('categories.store');
+    
+    // Webdesign
 
-// Reports
+    Route::post('dashboard/webdesign', [WebDesignController::class, 'store'])
+        ->name('webdesign.store');
 
-Route::get('reports', [ReportsController::class, 'index'])
-    ->name('reports')
-    ->middleware('auth');
+    //Comments
 
-// Images
+    Route::get('dashboard/comments', [CommentController::class, 'index'])
+    ->name('comments');
 
-Route::get('/img/{path}', [ImagesController::class, 'show'])
-    ->where('path', '.*')
-    ->name('image');
+    Route::get('dashboard/comments/{id}/update', [CommentController::class, 'update'])
+    ->name('comment.update');
+
+    Route::delete('dashboard/comments/{id}/delete', [CommentController::class, 'destroy'])
+    ->name('comment.destroy');
+        
+});
+
+Route::middleware(['auth:sanctum'])->group(function () {
+    // Favorites
+    Route::get('favorites/list', [FavoriteController::class, 'index'])
+    ->name('favorites');
+
+    Route::post('favorites/{article_id}/add', [FavoriteController::class, 'add'])
+    ->name('favorite.add');
+
+    Route::post('favorites/{article_id}/rem', [FavoriteController::class, 'rem'])
+    ->name('favorite.rem');
+
+    Route::delete('favorites', [FavoriteController::class, 'destroy'])
+    ->name('favorites.destroy');
+
+    //send comments
+    Route::post('/{id}/comment', [CommentController::class, 'store'])
+    ->name('comment.store');
+}); 
+
+
+
+//view articles
+Route::get('/{category}/{article}', [ArticleController::class, 'view'])
+    ->name('article.view');
+
+//view categories
+Route::get('/{slug}', [CategoryController::class, 'view'])
+    ->name('category.view');
+
+// Fallback route
+Route::fallback(function() {
+    return route();
+});

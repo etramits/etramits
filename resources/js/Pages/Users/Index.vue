@@ -1,105 +1,71 @@
 <template>
-  <div>
-    <h1 class="mb-8 font-bold text-3xl">Users</h1>
-    <div class="mb-6 flex justify-between items-center">
-      <search-filter v-model="form.search" class="w-full max-w-md mr-4" @reset="reset">
-        <label class="block text-gray-700">Role:</label>
-        <select v-model="form.role" class="mt-1 w-full form-select">
-          <option :value="null" />
-          <option value="user">User</option>
-          <option value="owner">Owner</option>
-        </select>
-        <label class="mt-4 block text-gray-700">Trashed:</label>
-        <select v-model="form.trashed" class="mt-1 w-full form-select">
-          <option :value="null" />
-          <option value="with">With Trashed</option>
-          <option value="only">Only Trashed</option>
-        </select>
-      </search-filter>
-      <inertia-link class="btn-indigo" :href="route('users.create')">
-        <span>Create</span>
-        <span class="hidden md:inline">User</span>
-      </inertia-link>
-    </div>
-    <div class="bg-white rounded-md shadow overflow-x-auto">
-      <table class="w-full whitespace-nowrap">
-        <tr class="text-left font-bold">
-          <th class="px-6 pt-6 pb-4">Name</th>
-          <th class="px-6 pt-6 pb-4">Email</th>
-          <th class="px-6 pt-6 pb-4" colspan="2">Role</th>
-        </tr>
-        <tr v-for="user in users" :key="user.id" class="hover:bg-gray-100 focus-within:bg-gray-100">
-          <td class="border-t">
-            <inertia-link class="px-6 py-4 flex items-center focus:text-indigo-500" :href="route('users.edit', user.id)">
-              <img v-if="user.photo" class="block w-5 h-5 rounded-full mr-2 -my-2" :src="user.photo" />
-              {{ user.name }}
-              <icon v-if="user.deleted_at" name="trash" class="flex-shrink-0 w-3 h-3 fill-gray-400 ml-2" />
-            </inertia-link>
-          </td>
-          <td class="border-t">
-            <inertia-link class="px-6 py-4 flex items-center" :href="route('users.edit', user.id)" tabindex="-1">
-              {{ user.email }}
-            </inertia-link>
-          </td>
-          <td class="border-t">
-            <inertia-link class="px-6 py-4 flex items-center" :href="route('users.edit', user.id)" tabindex="-1">
-              {{ user.owner ? 'Owner' : 'User' }}
-            </inertia-link>
-          </td>
-          <td class="border-t w-px">
-            <inertia-link class="px-4 flex items-center" :href="route('users.edit', user.id)" tabindex="-1">
-              <icon name="cheveron-right" class="block w-6 h-6 fill-gray-400" />
-            </inertia-link>
-          </td>
-        </tr>
-        <tr v-if="users.length === 0">
-          <td class="border-t px-6 py-4" colspan="4">No users found.</td>
-        </tr>
-      </table>
-    </div>
-  </div>
+    <dashboard-layout title="Dashboard">
+        <h1 class="mb-8 mt-8 ml-8 font-bold text-3xl ">Usuaris</h1>
+
+        <Link :href="route('users.create')"><button class="ml-8 p-2 pl-5 pr-5 bg-blue-500 text-gray-100 text-lg rounded-lg focus:border-4 border-blue-300" >+</button></Link>
+
+        <table class="rounded-t-lg m-5 w-5/6 mx-auto bg-gray-200 text-gray-800">
+            <tr class="text-left border-b-2 border-gray-300">
+                <th class="px-4 py-3">Id</th>
+                <th class="px-4 py-3">Nom</th>
+                <th class="px-4 py-3">Correu</th>
+                <th class="px-4 py-3">Rol</th>
+            </tr>
+            
+            <tr v-for="user in users" v-bind:key="user.id" class="bg-gray-100 border-b border-gray-200">
+                <td class="px-4 py-3">{{ user.id }}</td>
+                <td class="px-4 py-3">{{ user.name }}</td>
+                <td class="px-4 py-3">{{ user.email }}</td>
+                <td class="px-4 py-3">{{ selectRole(user.role) }}</td>
+                <td class="px-4 py-3"><Link :href="route('users.edit', user.id)"><font-awesome-icon icon="pencil-alt" class="text-yellow-300" /></Link></td> 
+                <td class="px-4 py-3"><button type="button" @click="destroy(user)"><font-awesome-icon icon="trash-alt" class="text-red-500" /></button></td>   
+            </tr> 
+            <!-- each row -->
+        </table>
+
+    </dashboard-layout>
 </template>
 
 <script>
-import Icon from '@/Shared/Icon'
-import pickBy from 'lodash/pickBy'
-import Layout from '@/Shared/Layout'
-import throttle from 'lodash/throttle'
-import mapValues from 'lodash/mapValues'
-import SearchFilter from '@/Shared/SearchFilter'
+    import { defineComponent } from 'vue'
+    import DashboardLayout from '@/Layouts/DashboardLayout.vue'
+    import { Link } from '@inertiajs/inertia-vue3'
+    import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+    import { library } from '@fortawesome/fontawesome-svg-core'
+    import { fas } from '@fortawesome/free-solid-svg-icons'
 
-export default {
-  metaInfo: { title: 'Users' },
-  components: {
-    Icon,
-    SearchFilter,
-  },
-  layout: Layout,
-  props: {
-    filters: Object,
-    users: Array,
-  },
-  data() {
-    return {
-      form: {
-        search: this.filters.search,
-        role: this.filters.role,
-        trashed: this.filters.trashed,
-      },
-    }
-  },
-  watch: {
-    form: {
-      deep: true,
-      handler: throttle(function() {
-        this.$inertia.get(this.route('users'), pickBy(this.form), { preserveState: true })
-      }, 150),
-    },
-  },
-  methods: {
-    reset() {
-      this.form = mapValues(this.form, () => null)
-    },
-  },
-}
+    library.add(fas)
+
+    export default defineComponent({
+        components: {
+            DashboardLayout,
+            Link,
+            FontAwesomeIcon,
+        },
+        props: {
+            users: Object,
+            modal: false,
+        },
+        methods: {
+            selectRole(roleInt) {
+                switch(roleInt) {
+                case 1:
+                    return "Usuari";
+                    break;
+                case 2:
+                    return "Admin";
+                    break;
+                case 3:
+                    return "Gestor";
+                    break;
+                default:
+                    return "Usuari";
+                }
+            },
+            destroy(user) {
+                user._method = 'DELETE';
+                this.$inertia.post('/dashboard/users/' + user.id + '/delete', user);
+            }
+        }
+    })
 </script>
