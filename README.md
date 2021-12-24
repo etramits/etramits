@@ -16,19 +16,19 @@ Third project of the upper cycle of Development of Web Applications at l'Institu
 
 6. If you want to add sample content you can also run `php artisan db: seed`.
 
-7. Finally, you will have to use the `php artisan serve` command to turn on the local server and compile the application with` npm run dev` or `npm run watch`. If you want to see how it would work in production you can use the `npm run prod` command. You can also see the application running from [here] (https://tictac.seoalexramon.dev/).
+7. Finally, you will have to use the `php artisan serve` command to turn on the local server and compile the application with` npm run dev` or `npm run watch`. If you want to see how it would work in production you can use the `npm run prod` command. You can also see the application running from [here](https://tictac.seoalexramon.dev/).
 
 ## Administration Guide 🔧
 
-1. Con un usuario administrador y gestor puedes acceder al panel de administración. Para ello debes ir arriba a la derecha, donde aparece el nombre de usuario. Hacer click y aparecerá Panell Administració.
+1. With an administrator and manager user you can access the administration panel. To do this you must go to the top right, where the username appears. Click and Panell Administració will appear.
 
-2. Una vez dentro puedes ver en la página principal de administración ciertas métricas que indican las estadísticas de la aplicación.
+2. Once inside you can see on the main administration page certain metrics that indicate the application's statistics.
 
-3. Los usuarios gestor sólo pueden acceder al apartado Validar Comentarios y Artículos. Los administradores tienen acceso a todos los parámetros del proyecto web.
+3. Manager users can only access the Validate Comments and Articles section. Administrators have access to all parameters of the web project.
 
-4. El usuario administrador puede editar, crear y eliminar categorías, usuarios, artículos y comentarios.
+4. The admin user can edit, create and delete categories, users, articles and comments.
 
-5. El usuario administrador también podrá editar el diseño web desde el apartado con el mismo nombre.
+5. The administrator user can also edit the web design from the section with the same name.
 
 ## Autors ✒️
 
