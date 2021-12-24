@@ -1,6 +1,6 @@
 # TicTac
 
-Tercer projecte del cicle superior de Desenvolupament d'Aplicacions Web a l'Institut Cendrassos.
+Third project of the upper cycle of Development of Web Applications at l'Institut Cendrassos, Figueres.
 
 ## Installation Guide 🚀
 
