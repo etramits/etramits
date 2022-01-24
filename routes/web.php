@@ -23,6 +23,7 @@ use App\Http\Controllers\DashboardController;
 |
 */
 
+
 // Public 
 
 Route::get('/', [HomeController::class, 'index'])
