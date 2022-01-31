@@ -1,37 +1,66 @@
-# TicTac
+<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
 
-Third project of the upper cycle of Development of Web Applications at l'Institut Cendrassos, Figueres.
+<p align="center">
+<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+</p>
 
-## Installation Guide 🚀
+## About Laravel
 
-1. The first step is to download the latest version of the project and verify that we have php7.4.2 installed.
+Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
 
-2. Next we will create a database and configure the variables in a `.env` file
+- [Simple, fast routing engine](https://laravel.com/docs/routing).
+- [Powerful dependency injection container](https://laravel.com/docs/container).
+- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
+- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
+- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
+- [Robust background job processing](https://laravel.com/docs/queues).
+- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
 
-3. Once the database is created, we will begin with the steps prior to migration.
+Laravel is accessible, powerful, and provides tools required for large, robust applications.
 
-4. Use the command `composer install` and` npm i` to install all the project dependencies.
+## Learning Laravel
 
-5. Once installed, we will use the `php artisan migrate` command to migrate all the database tables.
+Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
 
-6. If you want to add sample content you can also run `php artisan db: seed`.
+If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
 
-7. Finally, you will have to use the `php artisan serve` command to turn on the local server and compile the application with` npm run dev` or `npm run watch`. If you want to see how it would work in production you can use the `npm run prod` command. You can also see the application running from [here](https://tictac.seoalexramon.dev/).
+## Laravel Sponsors
 
-## Administration Guide 🔧
+We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
 
-1. With an administrator and manager user you can access the administration panel. To do this you must go to the top right, where the username appears. Click and Panell Administració will appear.
+### Premium Partners
 
-2. Once inside you can see on the main administration page certain metrics that indicate the application's statistics.
+- **[Vehikl](https://vehikl.com/)**
+- **[Tighten Co.](https://tighten.co)**
+- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
+- **[64 Robots](https://64robots.com)**
+- **[Cubet Techno Labs](https://cubettech.com)**
+- **[Cyber-Duck](https://cyber-duck.co.uk)**
+- **[Many](https://www.many.co.uk)**
+- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
+- **[DevSquad](https://devsquad.com)**
+- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
+- **[OP.GG](https://op.gg)**
+- **[CMS Max](https://www.cmsmax.com/)**
+- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
+- **[Lendio](https://lendio.com)**
+- **[Romega Software](https://romegasoftware.com)**
 
-3. Manager users can only access the Validate Comments and Articles section. Administrators have access to all parameters of the web project.
+## Contributing
 
-4. The admin user can edit, create and delete categories, users, articles and comments.
+Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
 
-5. The administrator user can also edit the web design from the section with the same name.
+## Code of Conduct
 
-## Autors ✒️
+In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
 
-* **Oriol Bech**  - [Oriol Bech](https://github.com/OriolBech)
-* **Adrián Pons** - [sleyvenn](https://github.com/sleyvenn)
-* **Alex Ramón** - [SEOAlexRamon](https://github.com/SEOAlexRamon)
+## Security Vulnerabilities
+
+If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+
+## License
+
+The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
