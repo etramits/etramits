@@ -1,11 +1,24 @@
 <?php
 
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\LicenseController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
+
+/*
+ * Public
+ */
+
+Route::get("", [HomeController::class, "index"])
+  ->name("home");
+  
+/*
+ * Login
+ */
+
 
 Route::get("acceder", [LoginController::class, "create"])
   ->name("login");
