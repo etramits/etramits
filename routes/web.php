@@ -1,12 +1,19 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+use Inertia\Inertia;
+
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\LicenseController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\RoleController;
-use App\Http\Controllers\UserController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\FavoriteController;
+use App\Http\Controllers\WebDesignController;
+use App\Http\Controllers\CommentController;
+use App\Http\Controllers\DashboardController;
 
 /*
  * Public
@@ -140,4 +147,21 @@ Route::middleware("auth")->group(function ()
 
   Route::delete("/acp/rols/{role}", [RoleController::class, "destroy"])
   ->name("acp.roles.destroy");
+});
+
+//view home
+Route::get('/', [HomeController::class, 'index'])
+    ->name('home');
+
+//view articles/tramits
+Route::get('/{category}/{article}', [ArticleController::class, 'view'])
+    ->name('tramit.view');
+
+//view categories
+Route::get('/{slug}', [CategoryController::class, 'view'])
+    ->name('category.view');
+
+// Fallback route
+Route::fallback(function() {
+    return route();
 });
