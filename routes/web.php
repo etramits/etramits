@@ -155,7 +155,7 @@ Route::get('/', [HomeController::class, 'index'])
 
 //view articles/tramits
 Route::get('/{category}/{article}', [ArticleController::class, 'view'])
-    ->name('tramit.view');
+    ->name('article.view');
 
 //view categories
 Route::get('/{slug}', [CategoryController::class, 'view'])
