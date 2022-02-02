@@ -211,6 +211,25 @@ class ArticleController extends Controller
     return Redirect::route('articles')->with('success', 'User deleted.');
   }
 
+  public function test($article)
+  {
+    $comments = Comment::query()
+        ->where('article_id', $article)
+        ->where('active', 1)
+        ->get()
+        ->map(fn ($comment) => [
+          'id' => $comment->id,
+          'user_id' => $comment->user_id,
+          'user_name' => $comment->user->name,
+          'user_role' => $comment->user->role,
+          'article_id' => $comment->article_id,
+          'content' => $comment->content,
+          'active' => $comment->active
+        ]);
+      
+        dd($comments);
+  }
+
   // public function restore(Article $article)
   // {
   //     $article->restore();

@@ -157,6 +157,10 @@ Route::get('/', [HomeController::class, 'index'])
 Route::get('/{category}/{article}', [ArticleController::class, 'view'])
     ->name('article.view');
 
+//show article test
+Route::get('/article/show/{article}', [ArticleController::class, 'test'])
+    ->name('article.show');
+
 //view categories
 Route::get('/{slug}', [CategoryController::class, 'view'])
     ->name('category.view');
