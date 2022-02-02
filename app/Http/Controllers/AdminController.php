@@ -57,7 +57,8 @@ class AdminController extends Controller
           "id" => $comment->id,
           "content" => $comment->content,
           "active" => $comment->active,
-          "user" => $comment->user
+          "user" => $comment->user,
+          "article" => $comment->article
         ]),
 
       "filters" => Request::only(["search"])
