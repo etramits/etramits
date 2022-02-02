@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\License;
 use App\Models\Role;
-use App\Models\Comment;
 use App\Models\User;
+use App\Models\Comment;
 use Illuminate\Support\Facades\Request;
 use Inertia\Inertia;
 
@@ -52,7 +52,14 @@ class AdminController extends Controller
           $query->where("content", "like", "%{$search}%");
         })
         ->paginate(10)
-        ->withQueryString(),
+        ->withQueryString()
+        ->through(fn ($comment) => [
+          "id" => $comment->id,
+          "content" => $comment->content,
+          "active" => $comment->active,
+          "user" => $comment->user,
+          "article" => $comment->article
+        ]),
 
       "filters" => Request::only(["search"])
     ]);
