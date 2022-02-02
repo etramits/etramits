@@ -11,9 +11,7 @@ class CommentController extends Controller
 {
   public function create()
   {
-    return Inertia::render("ACP/Comments/Create", [
-      "comments" => Comment::where("active", true)->get(),
-    ]);
+    return Inertia::render("ACP/Comments/Create");
   }
 
   public function store()

@@ -49,37 +49,24 @@
 
   let showFlashData = ref(true);
 
-  const getUsersHeaders = computed(() => {
+  const getCommentsHeaders = computed(() => {
     return [
       { label: "Id" },
       { label: "Comentari" },
-      { label: "Actiu" },
+      { label: "Validat" },
+      { label: "Usuari" },
     ];
   });
 
   const getCommentsRows = computed(() => {
     return props.comments.data.map(comment => {
       return {
-        href: `/acp/comentaris/${comment.id}<div class="pr-6 w-1/2">
-          <FormSelect
-            v-model="form.active"
-            :error="form.errors.active"
-            label="Validació"
-          >
-            <option
-              :value="1"
-              v-text="Validat"
-            />
-            <option
-              :value="0"
-              v-text="No_validat"
-            />
-          </FormSelect>
-        </div>    /editar`,
+        href: `/acp/comentaris/${comment.id}/editar`,
         values: [
           comment.id,
           comment.content,
           comment.active,
+          comment.user.name
         ]
       };
     });
