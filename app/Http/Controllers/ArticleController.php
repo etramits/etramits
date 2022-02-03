@@ -68,7 +68,6 @@ class ArticleController extends Controller
     $comments = Comment::where('article_id', $article['id'])
       ->where('active', 1)
       ->orderBy('id', 'DESC')
-      ->with('user')
       ->get()
       ->map(fn ($comment) => [
         'id' => $comment->id,
