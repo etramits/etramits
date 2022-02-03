@@ -14,6 +14,7 @@ use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\WebDesignController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\SettingController;
 
 /*
  * Public
@@ -147,6 +148,15 @@ Route::middleware("auth")->group(function ()
 
   Route::delete("/acp/rols/{role}", [RoleController::class, "destroy"])
   ->name("acp.roles.destroy");
+
+   // ACP > Configuració
+
+   Route::get("acp/configuracio/{setting}/editar", [SettingController::class, "edit"])
+   ->name("acp.settings.edit");
+ 
+   Route::put("/acp/configuracio/{setting}", [SettingController::class, "update"])
+   ->name("acp.settings.update");
+ 
 });
 
 //view home

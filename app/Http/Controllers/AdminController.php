@@ -6,6 +6,7 @@ use App\Models\License;
 use App\Models\Role;
 use App\Models\User;
 use App\Models\Comment;
+use App\Models\Setting;
 use Illuminate\Support\Facades\Request;
 use Inertia\Inertia;
 
@@ -101,6 +102,13 @@ class AdminController extends Controller
         ->withQueryString(),
 
       "filters" => Request::only(["search"])
+    ]);
+  }
+
+  public function settings()
+  {
+    return Inertia::render("ACP/Configuracio/Index", [
+      "settings" => Setting::query()
     ]);
   }
 }
