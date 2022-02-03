@@ -100,12 +100,11 @@
     import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
     import { library } from '@fortawesome/fontawesome-svg-core'
     import { fas } from '@fortawesome/free-solid-svg-icons'
-    import { HeaderComponent } from '../../Shared/Components/Header.vue'
 
   library.add(fas)
 
     export default {
-        components: { Link, FontAwesomeIcon, HeaderComponent },
+        components: { Link, FontAwesomeIcon},
         data() {
             return {
             }
