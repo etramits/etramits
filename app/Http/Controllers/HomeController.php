@@ -19,19 +19,8 @@ class HomeController extends Controller
     public function index()
     {
 
-      $category = Category::where('active', true)
-        ->where('parent', null)
-        ->orderBy('position')
-        ->get()
-        ->map(fn ($category) => [
-            'id' => $category->id,
-            'name' => $category->name,
-            'icon' => $category->icon,
-            'slug' => $category->slug,
-      ]);
-
-      return Inertia::render('Home', [
-        'categories' => $category
+      return Inertia::render('Public/Home', [
+        
       ]);
     }
     
