@@ -3,29 +3,22 @@
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
+/**
+ * Controllers
+**/
+
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
-use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\LicenseController;
 use App\Http\Controllers\RoleController;
-use App\Http\Controllers\FavoriteController;
-use App\Http\Controllers\WebDesignController;
-use App\Http\Controllers\CommentController;
-use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\Auth\LoginController;
 
-/*
- * Public
- */
-
-Route::get("", [HomeController::class, "index"])
-  ->name("home");
-  
-/*
- * Login
- */
-
+/**
+ * Auth
+**/
 
 Route::get("acceder", [LoginController::class, "create"])
   ->name("login");
@@ -67,7 +60,7 @@ Route::middleware("auth")->group(function ()
 
   // ACP > Categories
 
-  Route::get("acp/categories", [AdminController::class, "articles"])
+  Route::get("acp/categories", [AdminController::class, "categories"])
     ->name("acp.apps");
 
   Route::get("acp/categories/crear", [CategoryController::class, "create"])

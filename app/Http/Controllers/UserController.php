@@ -48,8 +48,6 @@ class UserController extends Controller
       "active" => ["required", "boolean"],
     ]);
 
-    // return $attributes;
-
     $user->update($attributes);
 
     return Redirect::back()->with("success", "Usuari actualitzat.");

@@ -5,10 +5,9 @@
     class="mb-2 block text-zinc-700 select-none"
   />
 
-  <input
+  <textarea
     v-bind="{ ...$attrs }"
     :id="id"
-    :type="type"
     :value="modelValue"
     class="p-2 w-full text-zinc-700 border rounded appearance-none focus:outline-none focus:ring"
     :class="!error ? 'focus:border-zinc-900 focus:ring-zinc-700/20' : 'border-red-500 focus:ring-red-200'"
@@ -21,26 +20,29 @@
 </template>
 
 <script>
-import { v4 as uuid } from "uuid";
-
 export default {
   inheritAttrs: false,
-  props: {
-    id: {
-      type: String,
-      default() {
-        return `input-${uuid()}`
-      }
-    },
-    type: {
-      type: String,
-      default: "text",
-    },
-    label: String,
-    modelValue: String,
-    error: String,
-  },
   emits: ["update:modelValue"],
-};
+}
+</script>
+
+<script setup>
+import { v4 as uuid } from "uuid";
+import { Link, useForm } from "@inertiajs/inertia-vue3";
+import { Inertia } from "@inertiajs/inertia";
+
+const props = defineProps({
+  id: {
+    type: String,
+    default() { return `input-${uuid()}` },
+  },
+  type: {
+    type: String,
+    default: "text",
+  },
+  label: String,
+  modelVale: String,
+  error: String,
+});
 
 </script>

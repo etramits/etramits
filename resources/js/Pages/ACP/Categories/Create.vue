@@ -1,19 +1,29 @@
 <template>
-  <FlashData />
-  
+  <FormError :errors="form.errors" />
+
   <h1 class="mb-8 font-bold text-3xl text-zinc-700">
-    <Link as="span" href="/acp/usuaris" class="text-zinc-900 cursor-pointer">Usuaris</Link> / {{ user.username }}
+    <Link as="span" href="/acp/usuaris" class="text-zinc-900 cursor-pointer">Usuaris</Link> / Crear
   </h1>
-  
+
   <div class="bg-white rounded-md shadow overflow-hidden max-w-3xl">
-    <form @submit.prevent="update">
+    <form @submit.prevent="store">
       <div class="p-8 -mr-6 flex flex-wrap gap-y-6">
-        <div class="pr-6 w-full">
+        <div class="pr-6 w-1/2">
           <FormInput
             v-model="form.email"
             :error="form.errors.email"
             type="email"
             label="Correu electrònic"
+            autofocus
+          />
+        </div>
+
+        <div class="pr-6 w-1/2">
+          <FormInput
+            v-model="form.password"
+            :error="form.errors.password"
+            type="password"
+            label="Contrasenya"
           />
         </div>
         
@@ -39,7 +49,7 @@
               v-text="role.label"
             />
           </FormSelect>
-        </div>
+        </div>    
 
         <div class="pr-6 w-1/2">
           <FormSelect
@@ -64,11 +74,9 @@
         </div>
       </div>
 
-      <div class="px-8 py-4 bg-gray-50 border-t border-gray-100 flex justify-between items-center">
-        <button tabindex="-1" type="button" class="text-red-600 hover:underline" @click="destroy">Eliminar Usuari</button>
-        
+      <div class="px-8 py-4 bg-gray-50 border-t border-gray-100 flex justify-end">
         <button class="flex items-center px-6 py-3 rounded bg-zinc-700 text-white text-sm leading-4 font-bold whitespace-nowrap hover:bg-zinc-800 focus:bg-zinc-900" type="submit">
-          Actualitzar Usuari
+          Crear Usuari
         </button>
       </div>
     </form>
@@ -78,42 +86,35 @@
 <script>
   export default {
     layout: Layout,
+    remember: "form",
   };
 </script>
 
 <script setup>
   // Core
-  import { Link, useForm } from "@inertiajs/inertia-vue3";
+  import { useForm, Link } from "@inertiajs/inertia-vue3";
   import { Inertia } from "@inertiajs/inertia";
 
   // Components
   import Layout from "../../../Shared/Layouts/Admin";
-  import FlashData from "../../../Shared/ACP/FlashData";
   import FormInput from "../../../Shared/ACP/FormInput";
   import FormSelect from "../../../Shared/ACP/Form/Select";
+  import FormError from "../../../Shared/ACP/FormError";
 
   const props = defineProps({
-    user: Object,
-    roles: Array,
+    roles: Object,
   });
 
   let form = useForm({
-    username: props.user.username,
-    email: props.user.email,
-    role_id: props.user.role_id,
-    verified: Boolean(props.user.verified),
-    active: Boolean(props.user.active),
+    username: "",
+    email: "",
+    password: "",
+    role_id: 1,
+    verified: false,
+    active: false,
   });
 
-  const update = () => {
-    form.put(`/acp/usuaris/${props.user.id}`, {
-      preserveScroll: true,
-    });
-  };
-
-  const destroy = () => {
-    if (confirm("Estàs segur que vols eliminar aquest usuari?")) {
-      Inertia.delete(`/acp/usuaris/${props.user.id}`);
-    }
+  const store = () => {
+    form.post("/acp/usuaris");
   };
 </script>

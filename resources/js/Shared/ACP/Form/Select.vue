@@ -31,34 +31,38 @@ export default {
 </script>
 
 <script setup>
-  const props = defineProps({
-    id: {
-      type: String,
-      default() {
-        return `input-${uuid()}`
-      }
-    },
-    label: String,
-    modelValue: String,
-    error: String,
-  });
-
-  const formatValue = (event) => {
-    let value;
-
-    switch (event.target.value) {
-      case "true":
-        value = true;
-        break;
-
-      case "false":
-        value = false;
-        break;
-
-      default:
-        value = event.target.value;
+const props = defineProps({
+  id: {
+    type: String,
+    default() {
+      return `input-${uuid()}`
     }
+  },
+  label: String,
+  modelValue: String,
+  error: String,
+});
 
-    return value;
-  };
+const formatValue = (event) => {
+  let value;
+
+  switch (event.target.value) {
+    case "true":
+      value = true;
+      break;
+
+    case "false":
+      value = false;
+      break;
+
+    case "":
+      value = null;
+      break;
+
+    default:
+      value = event.target.value;
+  }
+
+  return value;
+};
 </script>
