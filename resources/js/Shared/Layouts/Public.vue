@@ -1,4 +1,5 @@
 <template>
+<<<<<<< HEAD
     <header-component></header-component>
     <section :style="`background-color: ${settings.main_color}`">
         <div class="container flex flex-col md:flex-row items-center justify-between mx-auto max-w-7xl px-4 gap-20 text-gray-800">
@@ -92,22 +93,21 @@
     </div>
     </section>
 </div>
+=======
+    
+>>>>>>> 6f25e59eca549542121a4dee6e7760cfc2e29537
 </template>
 
 <script>
-    import { Link } from "@inertiajs/inertia-vue3"
-    import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-    import { library } from '@fortawesome/fontawesome-svg-core'
-    import { fas } from '@fortawesome/free-solid-svg-icons'
-
-  library.add(fas)
-
     export default {
+<<<<<<< HEAD
         components: { Link, FontAwesomeIcon },
         
         props: {
             settings: Object,
         },
+=======
+>>>>>>> 6f25e59eca549542121a4dee6e7760cfc2e29537
         data() {
             return {
 

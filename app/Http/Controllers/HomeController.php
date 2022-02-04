@@ -35,11 +35,11 @@ class HomeController extends Controller
           'id' => $popular->article->id,
           'title' => $popular->article->title,
           'slug' => $popular->article->slug,
-          'content' => $popular->article->content,
+          'category_slug' => $popular->article->category->slug,
           'author_id' => $popular->article->author_id,
           'counter' => $popular->total 
         ]);
-
+      
 
       return Inertia::render('Public/Home', [
         'populars' => $populars,
