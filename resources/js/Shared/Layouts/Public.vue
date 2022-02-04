@@ -1,9 +1,9 @@
 <template>
     <header-component></header-component>
-    <section :class="`bg-yellow-300`">
+    <section :style="`background-color: ${settings.main_color}`">
         <div class="container flex flex-col md:flex-row items-center justify-between mx-auto max-w-7xl px-4 gap-20 text-gray-800">
-            <h2 class="text-4xl md:text-8xl font-bold">Consulta els teus tràmits en dos clics</h2>
-            <img class="mt-10 h-64 md:h-80 md:w-auto" src="images/slogan1.svg" draggable="false">
+            <h2 class="text-4xl md:text-8xl font-bold">{{settings.header_text}}</h2>
+            <img class="mt-10 h-64 md:h-80 md:w-auto" :src="'images/' + settings.header_img" draggable="false">
         </div>
     </section>
     <div class="py-12 md:py-24 bg-gray-50">
@@ -25,7 +25,6 @@
 <div class="py-12 md:py-24 bg-gray-50 text-gray-800">
     <section class="container mx-auto max-w-7xl">
     <h3 class="text-4xl font-semibold">Tràmits populars</h3>
-
     <div class="mt-10 grid grid-cols-3 gap-10">
         <!-- Article -->
         <article class="bg-white rounded-xl shadow hover:opacity-75 cursor-pointer">
@@ -104,13 +103,15 @@
   library.add(fas)
 
     export default {
-<<<<<<< HEAD
         components: { Link, FontAwesomeIcon },
-=======
-        components: { Link, FontAwesomeIcon},
->>>>>>> 2b59d42085164d63710d3da60b30c6108763cf9b
+        
+        props: {
+            settings: Object,
+        },
         data() {
             return {
+
+                color_prueba: "bg-[" + this.settings.main_color + "]",
             }
         }
     };

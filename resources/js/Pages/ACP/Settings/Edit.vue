@@ -31,13 +31,13 @@
           />
         </div>
 
-        <div class="pr-6 w-full">
+        <div class="d-flex pr-6 w-full">
           <FormColor
             v-model="form.main_color"
             :error="form.errors.main_color"
             type="color"
             label="Color de la pàgina web"
-            maxlength="100"
+            maxlength="7"
             required
           />
         </div>
@@ -52,10 +52,8 @@
             required
           />
         </div>
-        
       </div>
 
-      
       <div class="px-8 py-4 bg-gray-50 border-t border-gray-100 flex justify-between items-center">
         <div />
         
@@ -64,15 +62,12 @@
         </button>
       </div>
     </form>
-
-    
   </div>
 </template>
 
 <script>
 
 export default {
-  components: {  },
   layout: Layout,
 };
 </script>
@@ -89,6 +84,8 @@ export default {
   import FormInput from "../../../Shared/ACP/FormInput";
   import FormColor from "../../../Shared/ACP/Form/FormColor";
   import FormSelect from "../../../Shared/ACP/Form/Select";
+  import Display from "./Display";
+
 
   const props = defineProps({
     setting: Object,
