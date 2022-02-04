@@ -9,6 +9,11 @@
   <div class="bg-white rounded-md shadow overflow-hidden max-w-3xl">
     <form @submit.prevent="update">
       <div class="p-8 -mr-6 flex flex-wrap gap-y-6">
+       
+        <h2 class="-mr-6 text-2xl font-bold text-zinc-900">
+          Capçalera
+        </h2>
+
         <div class="pr-6 w-full">
           <FormInput
             v-model="form.header_text"
@@ -31,6 +36,11 @@
           />
         </div>
 
+        <h2 class="-mr-6 text-2xl font-bold text-zinc-900">
+          Global
+        </h2>
+
+
         <div class="d-flex pr-6 w-full">
           <FormColor
             v-model="form.main_color"
@@ -41,6 +51,10 @@
             required
           />
         </div>
+
+        <h2 class="-mr-6 text-2xl font-bold text-zinc-900">
+          Peu de pàgina
+        </h2>
 
         <div class="pr-6 w-full">
           <FormInput
@@ -53,7 +67,7 @@
           />
         </div>
       </div>
-
+      
       <div class="px-8 py-4 bg-gray-50 border-t border-gray-100 flex justify-between items-center">
         <div />
         
@@ -84,7 +98,6 @@ export default {
   import FormInput from "../../../Shared/ACP/FormInput";
   import FormColor from "../../../Shared/ACP/Form/FormColor";
   import FormSelect from "../../../Shared/ACP/Form/Select";
-  import Display from "./Display";
 
 
   const props = defineProps({
