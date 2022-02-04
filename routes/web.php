@@ -150,6 +150,10 @@ Route::get('/', [HomeController::class, 'index'])
 Route::get('/{category}/{article}', [ArticleController::class, 'view'])
     ->name('article.view');
 
+//view categories
+Route::get('/{category}', [CategoryController::class, 'view'])
+    ->name('category.view');
+
 //show article test
 Route::get('/article/show/{article}', [ArticleController::class, 'test'])
     ->name('article.show');

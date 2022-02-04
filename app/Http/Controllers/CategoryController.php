@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Article;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Request;
 use Inertia\Inertia;
@@ -60,5 +61,35 @@ class CategoryController extends Controller
     $category->delete();
 
     return Redirect::route("acp.categories")->with("success", "Categoria eliminada.");
+  }
+
+  public function view($slug)
+  {
+    $category = Category::where('slug', $slug)
+      ->where('active', true)
+      ->get()
+      ->map(fn ($category) => [
+        'id' => $category->id,
+        'name' => $category->name,
+        'description' => $category->descripton,
+        'slug' => $category->slug,
+      ])
+      ->first();
+    
+    $articles = Article::where('category_id', $category['id'])
+      ->where('active', true)
+      ->get()
+      ->map(fn ($article) => [
+        'id' => $article->id,
+        'title' => $article->title,
+        'slug' => $article->slug,
+        'cover' => file_exists(public_path('articles/' . $article->id . '/cover.jpg')),
+      ]);
+
+
+    return Inertia::render('Category', [
+      'category' => $category,
+      'articles' => $articles,
+    ]);
   }
 }

@@ -89,7 +89,7 @@ class ArticleController extends Controller
             'header_img' => $wd->header_img 
         ])->first();
 
-    return Inertia::render('Article', [
+    return Inertia::render('Public/Article', [
       'article' => $article,
       'comments' => $comments,
       'added' => $added,
