@@ -104,7 +104,11 @@
   library.add(fas)
 
     export default {
+<<<<<<< HEAD
         components: { Link, FontAwesomeIcon },
+=======
+        components: { Link, FontAwesomeIcon},
+>>>>>>> 2b59d42085164d63710d3da60b30c6108763cf9b
         data() {
             return {
             }

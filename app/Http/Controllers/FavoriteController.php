@@ -24,7 +24,6 @@ class FavoriteController extends Controller
     {
         $favorites = Favorite::orderBy('id', 'DESC')
         ->where('user_id', Auth::user()->id)
-        ->with('article')
         ->get()
         ->map(fn ($favorite) => [
             'id' => $favorite->id,

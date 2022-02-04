@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\License;
+use App\Models\Category;
 use App\Models\Role;
 use App\Models\User;
 use App\Models\Comment;
@@ -30,13 +30,16 @@ class AdminController extends Controller
       "filters" => Request::only(["search"])
     ]);
   }
-  
+
   public function categories()
   {
     return Inertia::render("ACP/Categories/Index", [
       "categories" => Category::query()
         ->when(Request::input("search"), function ($query, $search) {
-          $query->where("label", "like", "%{$search}%");
+          $query->where("id", "like", "%{$search}%");
+          $query->orWhere("name", "like", "%{$search}%");
+          $query->orwhere("slug", "like", "%{$search}%");
+          $query->orwhere("icon", "like", "%{$search}%");
         })
         ->paginate(10)
         ->withQueryString(),
