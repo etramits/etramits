@@ -36,7 +36,7 @@ class FavoriteController extends Controller
 
         $webdesign = WebDesign::find(1)
             ->get()
-            ->map(fn ($webdesign)=> [
+            ->map(fn ($webdesign) => [
                 'main_color' => $webdesign->main_color,
                 'font_family' => $webdesign->font_family,
             ])
