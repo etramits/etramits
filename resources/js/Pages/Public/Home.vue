@@ -11,4 +11,10 @@
 <script setup>
   // Components
   import Layout from "../../Shared/Layouts/Public";
+
+  //Props
+  const props = defineProps({
+    populars: Object,
+    categories: Object
+  });
 </script>
