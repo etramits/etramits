@@ -39,10 +39,33 @@ class HomeController extends Controller
           'nfavorites' => $popular->article->numFavorites($popular->article_id),
         ]);
 
+      $countArticles = Article::count();
+      $countComments = Comment::count();
+      $countUsers = User::count();
+
+      $stats = [
+        [
+          'id' => 1,
+          'value' => $countArticles, 
+          'label' => 'Tràmits'
+        ],
+        [
+          'id' => 2,
+          'value' => $countComments, 
+          'label'=> 'Comentaris'
+        ],
+        [
+          'id' => 3,
+          'value' => $countUsers, 
+          'label'=> 'Usuaris'
+        ],
+      ];
+
 
       return Inertia::render('Public/Home', [
         'populars' => $populars,
-        'categories' => $categories
+        'categories' => $categories,
+        'stats' => $stats
       ]);
     }
     
