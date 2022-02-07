@@ -1,5 +1,4 @@
 <template>
-  <AppLayout title="Categoria">
     <section :class="`bg-${webdesign.main_color}-300 ${webdesign.font_family}`">
       <div class="container flex items-center justify-center mx-auto py-6 gap-20 text-gray-800">
         <div class="flex flex-col">
@@ -58,7 +57,6 @@
         </section>
       </div>
     </div>
-  </AppLayout>
 </template>
 
 <script>
@@ -67,7 +65,6 @@
   import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
   import { library } from '@fortawesome/fontawesome-svg-core'
   import { fas } from '@fortawesome/free-solid-svg-icons'
-  import AppLayout from '@/Layouts/AppLayout.vue'
   library.add(fas)
   export default defineComponent({
     components: {
