@@ -13,6 +13,53 @@ class AdminController extends Controller
 {
   public function index()
   {
+
+    $countArticles = Article::count();
+    $countComments = Comment::count();
+    $countUsers = User::count();
+    $totalComments = Comment::count();
+    $validatedComments = Comment::where('active', 1)->count();
+    $totalArticles = Article::count();
+    $activesArticles = Article::where('active')->count();
+    $totalCategories = Category::count();
+    $activesCategories = Category::where('active', 1)->count();
+
+    $stats = [
+      [ // Total Articles
+        'id' => 1,
+        'value1' => $countArticles, 
+        'label' => 'Tràmits'
+      ],
+      [ //Total comments
+        'id' => 2,
+        'value1' => $countComments, 
+        'label'=> 'Comentaris'
+      ],
+      [ // Total users
+        'id' => 3,
+        'value1' => $countUsers, 
+        'label'=> 'Usuaris'
+      ],
+      [ // Validated Comments
+        'id' => 4,
+        'value1' => $validatedComments,
+        'value2' => $totalComments,
+        'label' => 'Comentaris Validats'
+      ],
+      [ // Active Articles
+        'id' => 5,
+        'value1' => $activesArticles,
+        'value2' => $totalArticles,
+        'label' => 'Tràmits Actius'
+      ],
+      [ // Active Categories
+        'id' => 6,
+        'value1' => $activesCategories,
+        'value2' => $activesCategories,
+        'label' => 'Categories Actives'
+      ]
+    ];
+
     return Inertia::render("ACP/Index");
   }
 
