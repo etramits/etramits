@@ -79,21 +79,10 @@ class ArticleController extends Controller
         'active' => $comment->active
       ]);
 
-      $webdesign = WebDesign::find(1)
-        ->get()
-        ->map(fn ($wd) => [
-            'main_color' => $wd->main_color,
-            'font_family' => $wd->font_family,
-            'like_button' => $wd->like_button,
-            'header_text' => $wd->header_text,
-            'header_img' => $wd->header_img 
-        ])->first();
-
     return Inertia::render('Public/Article', [
       'article' => $article,
       'comments' => $comments,
       'added' => $added,
-      'webdesign' => $webdesign,
     ]);
   }
 
