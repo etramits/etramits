@@ -60,18 +60,20 @@
 </template>
 
 <script>
-    import { Link } from "@inertiajs/inertia-vue3"
-    import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-    import { library } from '@fortawesome/fontawesome-svg-core'
-    import { fas } from '@fortawesome/free-solid-svg-icons'
+  import { Inertia } from "@inertiajs/inertia";
+  import { Link } from "@inertiajs/inertia-vue3"
+  import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+  import { library } from '@fortawesome/fontawesome-svg-core'
+  import { fas } from '@fortawesome/free-solid-svg-icons'
+
   library.add(fas)
-    export default {
-        components: { Link, FontAwesomeIcon}
-    };
+
+  export default {
+      components: { Link, FontAwesomeIcon}
+  };
 </script>
 
 <script setup>
-import { Inertia } from "@inertiajs/inertia";
 
 const props = defineProps({
   categories: Object,

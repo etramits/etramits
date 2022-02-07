@@ -84,10 +84,13 @@ class CategoryController extends Controller
         'title' => $article->title,
         'slug' => $article->slug,
         'cover' => file_exists(public_path('articles/' . $article->id . '/cover.jpg')),
+        'readingTime' => $article->readerTime($article->content),
+        'ncomments' => $article->numComments($article->id),
+        'nfavorites' => $article->numFavorites($article->id),
       ]);
 
 
-    return Inertia::render('Category', [
+    return Inertia::render('Public/Category', [
       'category' => $category,
       'articles' => $articles,
     ]);
