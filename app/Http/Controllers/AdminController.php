@@ -6,6 +6,8 @@ use App\Models\Category;
 use App\Models\Role;
 use App\Models\User;
 use App\Models\Comment;
+use App\Models\Article;
+use App\Models\Favorite;
 use Illuminate\Support\Facades\Request;
 use Inertia\Inertia;
 
@@ -14,53 +16,40 @@ class AdminController extends Controller
   public function index()
   {
 
-    $countArticles = Article::count();
-    $countComments = Comment::count();
-    $countUsers = User::count();
     $totalComments = Comment::count();
     $validatedComments = Comment::where('active', 1)->count();
     $totalArticles = Article::count();
-    $activesArticles = Article::where('active')->count();
+    $activesArticles = Article::where('active', 1)->count();
     $totalCategories = Category::count();
     $activesCategories = Category::where('active', 1)->count();
 
-    $stats = [
-      [ // Total Articles
-        'id' => 1,
-        'value1' => $countArticles, 
-        'label' => 'Tràmits'
-      ],
-      [ //Total comments
-        'id' => 2,
-        'value1' => $countComments, 
-        'label'=> 'Comentaris'
-      ],
-      [ // Total users
-        'id' => 3,
-        'value1' => $countUsers, 
-        'label'=> 'Usuaris'
-      ],
+    $stats1 = [
       [ // Validated Comments
         'id' => 4,
         'value1' => $validatedComments,
         'value2' => $totalComments,
-        'label' => 'Comentaris Validats'
+        'label' => 'Comentaris Validats',
+        'icon' => 'comments'
       ],
       [ // Active Articles
         'id' => 5,
         'value1' => $activesArticles,
         'value2' => $totalArticles,
-        'label' => 'Tràmits Actius'
+        'label' => 'Tràmits Actius',
+        'icon' => 'file-alt'
       ],
       [ // Active Categories
         'id' => 6,
         'value1' => $activesCategories,
         'value2' => $activesCategories,
-        'label' => 'Categories Actives'
+        'label' => 'Categories Actives',
+        'icon' => 'folder-open'
       ]
     ];
 
-    return Inertia::render("ACP/Index");
+    return Inertia::render("ACP/Index", [
+      'stats1' => $stats1
+    ]);
   }
 
   public function articles()
