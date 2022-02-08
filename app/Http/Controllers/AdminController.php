@@ -28,6 +28,7 @@ class AdminController extends Controller
         'id' => 4,
         'value1' => $validatedComments,
         'value2' => $totalComments,
+        'percent' => round($validatedComments * 100 / $totalComments, 0, PHP_ROUND_HALF_EVEN),
         'label' => 'Comentaris Validats',
         'icon' => 'comments'
       ],
@@ -35,20 +36,36 @@ class AdminController extends Controller
         'id' => 5,
         'value1' => $activesArticles,
         'value2' => $totalArticles,
+        'percent' => round($activesArticles * 100 / $totalArticles, 0, PHP_ROUND_HALF_EVEN),
         'label' => 'Tràmits Actius',
         'icon' => 'file-alt'
       ],
       [ // Active Categories
         'id' => 6,
         'value1' => $activesCategories,
-        'value2' => $activesCategories,
+        'value2' => $totalCategories,
+        'percent' => round($activesCategories * 100 / $totalCategories, 0, PHP_ROUND_HALF_EVEN),
         'label' => 'Categories Actives',
         'icon' => 'folder-open'
       ]
     ];
 
+
+    $adminUsers = User::where('role_id', '!=' , 1)
+      ->paginate(10)
+      ->withQueryString()
+      ->through(fn ($user) => [
+        "id" => $user->id,
+        "username" => $user->username,
+        "email" => $user->email,
+        "role" => $user->role->label,
+        "verified" => $user->verified,
+        "active" => $user->active,
+        ]);
+
     return Inertia::render("ACP/Index", [
-      'stats1' => $stats1
+      'stats1' => $stats1,
+      'users' => $adminUsers
     ]);
   }
 
