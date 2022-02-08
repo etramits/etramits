@@ -78,7 +78,7 @@ class ArticleController extends Controller
         'active' => $comment->active
       ]);
 
-    return Inertia::render('Article', [
+    return Inertia::render('Public/Article', [
       'article' => $article,
       'comments' => $comments,
       'added' => $added,

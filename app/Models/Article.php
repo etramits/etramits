@@ -36,6 +36,22 @@ class Article extends Model
 
     }
 
+    public function readerTime($content) {
+        $nwords = explode(" ", $content);
+        $time = round(sizeof($nwords) / 180, 0, PHP_ROUND_HALF_UP);
+        return intval($time);
+    }
+
+    public function numComments($id) {
+        $num = Article::where('id', $id)->first()->comments->count();
+        return $num;
+    }
+
+    public function numFavorites($id) {
+        $num = Article::where('id', $id)->first()->favorites->count();
+        return $num;
+    }
+
     public function comments() {
         return $this->hasMany(Comment::class);
     }

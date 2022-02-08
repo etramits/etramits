@@ -37,14 +37,39 @@ class HomeController extends Controller
           'slug' => $popular->article->slug,
           'category_slug' => $popular->article->category->slug,
           'author_id' => $popular->article->author_id,
-          'counter' => $popular->total 
+          'counter' => $popular->total,
+          'readingTime' => $popular->article->readerTime($popular->article->content),
+          'ncomments' => $popular->article->numComments($popular->article_id),
+          'nfavorites' => $popular->article->numFavorites($popular->article_id),
         ]);
-      
+
+      $countArticles = Article::count();
+      $countComments = Comment::count();
+      $countUsers = User::count();
+
+      $stats = [
+        [
+          'id' => 1,
+          'value' => $countArticles, 
+          'label' => 'Tràmits'
+        ],
+        [
+          'id' => 2,
+          'value' => $countComments, 
+          'label'=> 'Comentaris'
+        ],
+        [
+          'id' => 3,
+          'value' => $countUsers, 
+          'label'=> 'Usuaris'
+        ],
+      ];
+
 
       return Inertia::render('Public/Home', [
         'populars' => $populars,
         'categories' => $categories,
-        "settings" => $settings
+        'stats' => $stats
       ]);
     }
     
