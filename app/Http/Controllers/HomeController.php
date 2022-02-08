@@ -69,7 +69,8 @@ class HomeController extends Controller
       return Inertia::render('Public/Home', [
         'populars' => $populars,
         'categories' => $categories,
-        'stats' => $stats
+        'stats' => $stats,
+        'settings' => $settings
       ]);
     }
     

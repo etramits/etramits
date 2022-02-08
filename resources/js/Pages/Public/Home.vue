@@ -1,5 +1,4 @@
 <template>
-<<<<<<< HEAD
     <section :style="`background-color: ${settings.main_color}`">
         <div class="container flex flex-col md:flex-row items-center justify-between mx-auto max-w-7xl px-4 gap-20 text-gray-800">
             <h2 class="text-4xl md:text-8xl font-bold">{{settings.header_text}}</h2>
@@ -22,29 +21,6 @@
         </div>
       </section>
     </div>
-=======
-  <section :class="`bg-yellow-300`">
-      <div class="container flex flex-col md:flex-row items-center justify-between mx-auto max-w-7xl px-4 gap-20 text-gray-800">
-          <h2 class="text-4xl md:text-8xl font-bold">Consulta els teus tràmits en dos clics</h2>
-          <img class="mt-10 h-64 md:h-80 md:w-auto" src="images/slogan1.svg" draggable="false">
-      </div>
-  </section>
-  
-  <div class="py-12 md:py-24 bg-gray-50">
-    <section class="container mx-auto max-w-7xl text-gray-800">
-        <!-- <h3 class="text-3xl md:text-5xl font-semibold">Explorar tràmits</h3> -->
-        <h3 class="text-4xl font-semibold">Categories</h3>
-
-        <!-- Procedure -->
-        <div class="grid md:grid-cols-5 gap-10 mt-8 md:mt-10">
-          <Link as="div" v-for="category in categories" :key="category.id" :href="`/${category.slug}`" class="flex flex-col items-center p-5 w-50 bg-white rounded-xl shadow hover:opacity-60 cursor-pointer">
-            <font-awesome-icon v-bind:icon="!category.icon ? 'file-alt' : category.icon" size="5x" :class="`text-black-300`" />
-            <h4 class="mt-6 max-w-full text-xl md:text-2xl font-medium overflow-hidden whitespace-nowrap	overflow-ellipsis">{{ category.name }}</h4>
-          </Link>
-        </div>
-    </section>
-  </div>
->>>>>>> 547d7a6d3395a88e729738aa3db192b9a961e2c1
 
   <!-- Stats -->
   <section class="bg-gray-800 text-white">
@@ -89,32 +65,30 @@
 </template>
 
 <script>
-    import { Link } from "@inertiajs/inertia-vue3"
-    import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-    import { library } from '@fortawesome/fontawesome-svg-core'
-    import { fas } from '@fortawesome/free-solid-svg-icons'
+  import { Inertia } from "@inertiajs/inertia";
+  import { Link } from "@inertiajs/inertia-vue3"
+  import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+  import { library } from '@fortawesome/fontawesome-svg-core'
+  import { fas } from '@fortawesome/free-solid-svg-icons'
 
   library.add(fas)
 
-    export default {
-        components: { Link, FontAwesomeIcon},
-
-        layout: Layout,
-    };
+  export default {
+      components: { Link, FontAwesomeIcon},
+      layout: Layout,
+  };
 </script>
 
 <script setup>
-import { Inertia } from "@inertiajs/inertia";
-import Layout from "../../Shared/Layouts/Public"
+
+import Layout from "../../Shared/Layouts/Public";
+
 
 const props = defineProps({
   categories: Object,
   populars: Object,
-<<<<<<< HEAD
   settings: Object,
-=======
   stats: Object
->>>>>>> 547d7a6d3395a88e729738aa3db192b9a961e2c1
 });
 
 function changeColor(color, v) {
