@@ -9,7 +9,22 @@
   <div class="bg-white rounded-md shadow overflow-hidden max-w-3xl">
     <form @submit.prevent="update">
       <div class="p-8 -mr-6 flex flex-wrap gap-y-6">
-       
+        
+        <h2 class="-mr-6 text-2xl font-bold text-zinc-900">
+          Global
+        </h2>
+
+        <div class="d-flex pr-6 w-full">
+          <FormColor
+            v-model="form.main_color"
+            :error="form.errors.main_color"
+            type="color"
+            label="Color de la pàgina web"
+            maxlength="7"
+            required
+          />
+        </div>
+
         <h2 class="-mr-6 text-2xl font-bold text-zinc-900">
           Capçalera
         </h2>
@@ -37,35 +52,19 @@
         </div>
 
         <h2 class="-mr-6 text-2xl font-bold text-zinc-900">
-          Global
-        </h2>
-
-
-        <div class="d-flex pr-6 w-full">
-          <FormColor
-            v-model="form.main_color"
-            :error="form.errors.main_color"
-            type="color"
-            label="Color de la pàgina web"
-            maxlength="7"
-            required
-          />
-        </div>
-
-        <h2 class="-mr-6 text-2xl font-bold text-zinc-900">
           Peu de pàgina
         </h2>
 
         <div class="pr-6 w-full">
           <FormInput
-            v-model="form.footer"
-            :error="form.errors.footer"
+            v-model="form.logo_consellcomarcal"
+            :error="form.errors.logo_consellcomarcal"
             type="text"
-            label="Peu de pàgina"
-            maxlength="100"
+            label="Logo del Consell Comarcal"
             required
           />
         </div>
+        
       </div>
       
       <div class="px-8 py-4 bg-gray-50 border-t border-gray-100 flex justify-between items-center">
@@ -76,7 +75,8 @@
         </button>
       </div>
     </form>
-  </div>
+  </div>           
+
 </template>
 
 <script>
@@ -99,18 +99,17 @@ export default {
   import FormColor from "../../../Shared/ACP/Form/FormColor";
   import FormSelect from "../../../Shared/ACP/Form/Select";
 
-
   const props = defineProps({
     setting: Object,
+
   });
 
   let form = useForm({
     header_text: props.setting.header_text,
     header_img: props.setting.header_img,
     main_color: props.setting.main_color,
-    footer: props.setting.footer,
-
-
+    social_media: props.setting.social_media,
+    logo_consellcomarcal: props.setting.logo_consellcomarcal,
   });
 
   const update = () => {

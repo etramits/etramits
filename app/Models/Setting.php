@@ -13,6 +13,6 @@ class Setting extends Model
         "header_text",
         "header_img",
         "main_color",
-        "footer",
+        "logo_consellcomarcal"
       ];
 }

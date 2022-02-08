@@ -11,15 +11,19 @@ class SettingController extends Controller
 {
     public function edit(Setting $setting)
     {
+
+     //dd($setting->social_media);
+
       return Inertia::render("ACP/Settings/Edit", [
         "setting" => [
             "header_text" => $setting->header_text,
             "header_img" => $setting->header_img,
             "main_color" => $setting->main_color,
-            "footer" => $setting->footer,
+            "logo_consellcomarcal" => $setting->logo_consellcomarcal
         ],
       ]);
     }
+    
   
     public function update(Setting $setting)
     { 
@@ -27,7 +31,7 @@ class SettingController extends Controller
         "header_text" => ["required"],
         "header_img" => ["required"],
         "main_color" => ["required"],
-        "footer" => ["required"],
+        "logo_consellcomarcal" => ["required"],
       ]);
   
       $setting->update($attributes);

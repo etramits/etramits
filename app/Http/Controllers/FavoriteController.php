@@ -10,7 +10,6 @@ use Illuminate\Support\Facades\URL;
 use Illuminate\Validation\Rule;
 use Inertia\Inertia;
 use App\Models\Favorite;
-use App\Models\WebDesign;
 use App\Models\Article;
 
 class FavoriteController extends Controller
@@ -34,17 +33,9 @@ class FavoriteController extends Controller
             'article_category' => $favorite->article->category->slug,
         ]);
 
-        $webdesign = WebDesign::find(1)
-            ->get()
-            ->map(fn ($webdesign) => [
-                'main_color' => $webdesign->main_color,
-                'font_family' => $webdesign->font_family,
-            ])
-            ->first();  
 
         return Inertia::render('Favorites', [
-            "favorites" => $favorites,
-            "webdesign" => $webdesign,           
+            "favorites" => $favorites
         ]);
     }
     

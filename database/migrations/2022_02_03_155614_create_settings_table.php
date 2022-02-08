@@ -19,9 +19,11 @@ class CreateSettingsTable extends Migration
             $table->string('header_text');
             $table->string('header_img');
             $table->string('main_color');
-            $table->longText('footer');
+            $table->string('logo_consellcomarcal');
             
         });
+
+        
     }
 
     /**
