@@ -35,14 +35,12 @@
                                 Tràmits preferits
                             </Link>
                         </MenuItem>
-                        <form method="POST" action="#">
-                            <MenuItem v-slot="{ active }">
-                                <button type="submit" :class="[active ? 'bg-gray-100 text-gray-900' : 'text-gray-700', 'block w-full text-left px-4 py-2 text-sm']">
-                                    <font-awesome-icon icon="sign-out-alt" class="mr-2"/>
-                                    Desconectar-se
-                                </button>
-                            </MenuItem>
-                        </form>
+                        <MenuItem v-slot="{ active }">
+                            <Link  href="/logout" method="post" as="button" type="button" :class="[active ? 'bg-gray-100 text-gray-900' : 'text-gray-700', 'block px-4 py-2 text-sm']">
+                                <font-awesome-icon icon="sign-out-alt" class="mr-2"/>
+                                Desconectar-se
+                            </Link>
+                        </MenuItem>
                         </div>
                     </MenuItems>
                     </transition>
@@ -113,6 +111,12 @@
                 year: new Date().getFullYear(),
             }
         },
+
+        methods:{
+        logout() {
+            this.$inertia.post(route('logout'));
+        },
+    }
 
     };
 
