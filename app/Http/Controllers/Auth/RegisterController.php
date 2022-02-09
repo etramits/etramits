@@ -34,6 +34,6 @@ class RegisterController extends Controller
 
     User::create($attributes);
 
-    return Redirect::route("home")->with("success", "Usuari creat.");
+    return Redirect::route("verification.notice")->with("success", "Usuari creat.");
   }
 }

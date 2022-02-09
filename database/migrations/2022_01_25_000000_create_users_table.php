@@ -16,7 +16,6 @@ class CreateUsersTable extends Migration
       $table->string("password");
       $table->rememberToken();
       $table->integer("role_id")->index()->default(1); // 1) user | 2) editor | 3) moderator | 4) admin
-      $table->boolean("verified")->default(false);
       $table->boolean("active")->default(true);
       $table->timestamps();
     });
