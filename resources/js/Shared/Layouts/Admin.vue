@@ -25,7 +25,7 @@
                   <div class="py-1">
                   <MenuItem v-if="$page.props.user.role_id != 1">
                       <Link href="/" :class="[active ? 'bg-gray-100 text-gray-900' : 'text-gray-700', 'block px-4 py-2 text-sm']">
-                          <font-awesome-icon icon="cog" class="mr-2"/>
+                          <font-awesome-icon icon="home" class="mr-2"/>
                           Pàgina inicial
                       </Link>
                   </MenuItem>

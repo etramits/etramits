@@ -19,6 +19,8 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\RegisterController;
+
 
 
 /*
@@ -32,15 +34,21 @@ Route::get("", [HomeController::class, "index"])
  * Login
  */
 
-/**
- * Auth
-**/
-
 Route::get("acceder", [LoginController::class, "create"])
   ->name("login");
 
 Route::post("acceder", [LoginController::class, "store"])
   ->name("login.store");
+
+/*
+ * Registre
+ */
+
+Route::get("registrarse", [RegisterController::class, "create"])
+->name("register");
+
+Route::post("registrarse", [RegisterController::class, "store"])
+->name("register.store");
 
 /*
  * ACP

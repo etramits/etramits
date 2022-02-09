@@ -22,8 +22,6 @@ class HomeController extends Controller
 
       $settings = Setting::first();
 
-      //dd($settings);
-
       $categories = Category::where('active', 1)->get();
 
       $populars = Favorite::groupBy('article_id')

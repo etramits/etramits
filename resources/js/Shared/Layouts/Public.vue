@@ -1,10 +1,9 @@
 <template>
-    
      <section class="bg-gray-800 text-gray-200">
         <div class="flex justify-between container mx-auto max-w-7xl py-5">
-            <div :style="`color: ${settings.main_color}`">
+            <Link href="/" :style="`color: ${settings.main_color}`" class="content-center py-2">
                  <font-awesome-icon icon="check" class="mr-3" /><strong >TicTac</strong>
-            </div>
+            </Link>
             <template v-if="$page.props.user">
                 <Menu as="div" class="relative inline-block text-left">
                     <div>
@@ -47,12 +46,12 @@
                 </Menu>
             </template>
             <template v-else>   
-                <div class="flex justify-between">
+                <div :style="`color: ${settings.main_color}`" class="flex justify-between">
                     <div class="hidden sm:flex sm:items-center sm:ml-6">
                         
                         <Link href="/acceder" >Iniciar Sessio</Link>
                     
-                        <Link class="ml-3" href="/" >Registrar-se</Link>
+                        <Link class="ml-3" href="/registrarse" >Registrar-se</Link>
 
                     </div>
                 </div>
@@ -65,8 +64,7 @@
     <section class="bg-white container mx-auto max-w-7xl">
         <div class="container flex flex-row mx-auto py-12 justify-center">
              <img class="w-2/6" src="/images/logo.png" draggable="false">
-        </div>
-        
+        </div>   
     </section>
 
     <section class="bg-gray-800 text-gray-200">
@@ -107,7 +105,6 @@
 
         data() {
             return {
-
                 year: new Date().getFullYear(),
             }
         },
@@ -119,19 +116,16 @@
     }
 
     };
-
 </script>
 
 
 <script setup>
 
-import Layout from "../../Shared/Layouts/Public";
+    const props = defineProps({
+    categories: Object,
+    populars: Object,
+    settings: Object,
+    stats: Object
+    });
 
-
-const props = defineProps({
-  categories: Object,
-  populars: Object,
-  settings: Object,
-  stats: Object
-});
 </script>
