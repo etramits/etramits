@@ -35,8 +35,8 @@ class HomeController extends Controller
           'author_id' => $popular->article->author_id,
           'counter' => $popular->total,
           'readingTime' => $popular->article->readerTime($popular->article->content),
-          'ncomments' => $popular->article->numComments($popular->article_id),
-          'nfavorites' => $popular->article->numFavorites($popular->article_id),
+          'ncomments' => $popular->article->comments->count(),
+          'nfavorites' => $popular->article->favorites->count(),
         ]);
 
       $countArticles = Article::count();

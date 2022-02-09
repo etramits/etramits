@@ -20,4 +20,8 @@ class Category extends Authenticatable
     "user_id",
     "active",
   ];
+
+  public function articles() {
+    return $this->hasMany(Article::class);
+  }
 }

@@ -8,7 +8,7 @@ use App\Models\User;
 use App\Models\Comment;
 use App\Models\Article;
 use App\Models\Favorite;
-use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Facades\Request; 
 use Inertia\Inertia;
 
 class AdminController extends Controller
@@ -52,7 +52,7 @@ class AdminController extends Controller
 
 
     $adminUsers = User::where('role_id', '!=' , 1)
-      ->paginate(10)
+      ->paginate(10, ["*"], "users")
       ->withQueryString()
       ->through(fn ($user) => [
         "id" => $user->id,
@@ -63,9 +63,23 @@ class AdminController extends Controller
         "active" => $user->active,
         ]);
 
+    $loadCategories = Category::paginate(10, ["*"], "categories")
+      ->withQueryString()
+      ->through(fn ($category) => [
+        "id" => $category->id,
+        "name" => $category->name,
+        "numArticles" => $category->articles->count(),
+        "percentage" => round($category->articles->count() * 100 / $totalArticles, 0, PHP_ROUND_HALF_EVEN),
+        "active" => $category->active,
+      ])
+      ->sortByDesc('numArticles')
+      ->values();
+
+
     return Inertia::render("ACP/Index", [
       'stats1' => $stats1,
-      'users' => $adminUsers
+      'users' => $adminUsers,
+      'loadCategories' => $loadCategories
     ]);
   }
 

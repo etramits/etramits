@@ -85,8 +85,8 @@ class CategoryController extends Controller
         'slug' => $article->slug,
         'cover' => file_exists(public_path('articles/' . $article->id . '/cover.jpg')),
         'readingTime' => $article->readerTime($article->content),
-        'ncomments' => $article->numComments($article->id),
-        'nfavorites' => $article->numFavorites($article->id),
+        'ncomments' => $popular->article->comments->count(),
+        'nfavorites' => $popular->article->favorites->count(),
       ]);
 
 

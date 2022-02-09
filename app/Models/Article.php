@@ -42,16 +42,6 @@ class Article extends Model
         return intval($time);
     }
 
-    public function numComments($id) {
-        $num = Article::where('id', $id)->first()->comments->count();
-        return $num;
-    }
-
-    public function numFavorites($id) {
-        $num = Article::where('id', $id)->first()->favorites->count();
-        return $num;
-    }
-
     public function comments() {
         return $this->hasMany(Comment::class);
     }
