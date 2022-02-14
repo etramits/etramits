@@ -1,7 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\Request;
+
 
 /**
  * Controllers
@@ -20,17 +23,11 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
-use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use App\Http\Controllers\Auth\ProfileController;
 
 
 
-/*
- * Public
- */
 
-Route::get("", [HomeController::class, "index"])
-  ->name("home");
-  
 /*
  * Login
  */
@@ -55,21 +52,21 @@ Route::post("registrarse", [RegisterController::class, "store"])
  * Email de verificació
  */
 
-Route::get('/email/verify', function () {
-  return view('auth.verify-email');
-})->middleware('auth')->name('verification.notice');
+// Route::get('/email/verify', function () {
+//   return view('auth.verify-email');
+// })->middleware('auth')->name('verification.notice');
 
-Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
-  $request->fulfill();
+// Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+//   $request->fulfill();
 
-  return redirect('/home');
-})->middleware(['auth', 'signed'])->name('verification.verify');
+//   return redirect('/home');
+// })->middleware(['auth', 'signed'])->name('verification.verify');
 
-Route::post('/email/verification-notification', function (Request $request) {
-  $request->user()->sendEmailVerificationNotification();
+// Route::post('/email/verification-notification', function (Request $request) {
+//   $request->user()->sendEmailVerificationNotification();
 
-  return back()->with('message', 'Verification link sent!');
-})->middleware(['auth', 'throttle:6,1'])->name('verification.send');
+//   return back()->with('message', 'Verification link sent!');
+// })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
 
 /*
  * ACP
@@ -77,7 +74,16 @@ Route::post('/email/verification-notification', function (Request $request) {
 
 Route::middleware("auth")->group(function ()
 {
+
+  // Perfil d'Usuari
+  Route::get('/perfil/{user}/editar', [ProfileController::class, 'profile'])
+    ->name('profile');
+
+  Route::put('/perfil/{user}', [ProfileController::class, 'update'])
+    ->name('profile.update');
   
+  // ACP
+
   Route::get("acp", [AdminController::class, "index"])
     ->name("acp");
 
@@ -196,11 +202,11 @@ Route::middleware("auth")->group(function ()
  
 });
 
-//view home
+// Pàgina inicial
 Route::get('/', [HomeController::class, 'index'])
     ->name('home');
 
-//view articles/tramits
+// Tràmit
 Route::get('/{category}/{article}', [ArticleController::class, 'view'])
     ->name('article.view');
 
@@ -208,7 +214,7 @@ Route::get('/{category}/{article}', [ArticleController::class, 'view'])
 Route::get('/article/show/{article}', [ArticleController::class, 'test'])
     ->name('article.show');
 
-//view categories
+// Categories
 Route::get('/{slug}', [CategoryController::class, 'view'])
     ->name('category.view');
 

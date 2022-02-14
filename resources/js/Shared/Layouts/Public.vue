@@ -4,7 +4,7 @@
             <Link href="/" :style="`color: ${settings.main_color}`" class="content-center py-2">
                  <font-awesome-icon icon="check" class="mr-3" /><strong >TicTac</strong>
             </Link>
-            <template v-if="$page.props.user">
+            <template v-if="$page.props.user" >
                 <UserMenu />
             </template>
             <template v-else>   

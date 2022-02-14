@@ -15,6 +15,7 @@ use App\Models\User;
 use App\Models\Favorite;
 
 
+
 class HomeController extends Controller
 {
     public function index()
