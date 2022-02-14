@@ -55,5 +55,4 @@ export default {
     pagination: Object,
   });
 
-  console.log(props.data)
 </script>

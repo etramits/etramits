@@ -17,12 +17,12 @@
   </div>
 
   
-  <div class="grid grid-cols-4 gap-12 content-center justify-center" v-if="users.data.length">
-    <div class="grid content-center justify-center md:col-span-2">
+  <div class="grid grid-cols-2 gap-12 content-center justify-center" v-if="users.data.length">
+    <div class="grid content-center justify-center col-span-1">
       <h3 class="my-8 font-medium text-zinc-700 text-2xl">Usuaris amb permisos</h3>
       <Table :data="adminUsersTableData" :pagination="users.links"/>
     </div>
-    <div class="grid content-center justify-center md:col-span-2" v-if="users.data.length">
+    <div class="grid content-center justify-center col-span-1" v-if="users.data.length">
       <h3 class="my-8 font-medium text-zinc-700 text-2xl">Carrega Categories</h3>
       <Table :data="loadCategoriesTableData" :pagination="loadCategories.links"/>
     </div>
