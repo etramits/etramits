@@ -1,7 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\Request;
+
 
 /**
  * Controllers
@@ -14,11 +17,20 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\LicenseController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\FavoriteController;
+use App\Http\Controllers\CommentController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\SettingController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Auth\ProfileController;
 
-/**
- * Auth
-**/
+
+
+
+/*
+ * Login
+ */
 
 Route::get("acceder", [LoginController::class, "create"])
   ->name("login");
@@ -27,12 +39,51 @@ Route::post("acceder", [LoginController::class, "store"])
   ->name("login.store");
 
 /*
+ * Registre
+ */
+
+Route::get("registrarse", [RegisterController::class, "create"])
+->name("register");
+
+Route::post("registrarse", [RegisterController::class, "store"])
+->name("register.store");
+
+/*
+ * Email de verificació
+ */
+
+// Route::get('/email/verify', function () {
+//   return view('auth.verify-email');
+// })->middleware('auth')->name('verification.notice');
+
+// Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+//   $request->fulfill();
+
+//   return redirect('/home');
+// })->middleware(['auth', 'signed'])->name('verification.verify');
+
+// Route::post('/email/verification-notification', function (Request $request) {
+//   $request->user()->sendEmailVerificationNotification();
+
+//   return back()->with('message', 'Verification link sent!');
+// })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
+
+/*
  * ACP
  */
 
 Route::middleware("auth")->group(function ()
 {
+
+  // Perfil d'Usuari
+  Route::get('/perfil/{user}/editar', [ProfileController::class, 'profile'])
+    ->name('profile');
+
+  Route::put('/perfil/{user}', [ProfileController::class, 'update'])
+    ->name('profile.update');
   
+  // ACP
+
   Route::get("acp", [AdminController::class, "index"])
     ->name("acp");
 
@@ -140,13 +191,22 @@ Route::middleware("auth")->group(function ()
 
   Route::delete("/acp/rols/{role}", [RoleController::class, "destroy"])
   ->name("acp.roles.destroy");
+
+   // ACP > Configuració
+
+   Route::get("acp/configuracio/{setting}/editar", [SettingController::class, "edit"])
+   ->name("acp.settings.edit");
+ 
+   Route::put("/acp/configuracio/{setting}", [SettingController::class, "update"])
+   ->name("acp.settings.update");
+ 
 });
 
-//view home
+// Pàgina inicial
 Route::get('/', [HomeController::class, 'index'])
     ->name('home');
 
-//view articles/tramits
+// Tràmit
 Route::get('/{category}/{article}', [ArticleController::class, 'view'])
     ->name('article.view');
 
@@ -154,7 +214,7 @@ Route::get('/{category}/{article}', [ArticleController::class, 'view'])
 Route::get('/article/show/{article}', [ArticleController::class, 'test'])
     ->name('article.show');
 
-//view categories
+// Categories
 Route::get('/{slug}', [CategoryController::class, 'view'])
     ->name('category.view');
 

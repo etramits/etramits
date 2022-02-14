@@ -3,7 +3,6 @@
     <header class="md:flex md:flex-shrink-0">
       <div class="flex md:flex-shrink-0 items-center justify-between md:justify-center px-6 py-4 md:w-56 bg-zinc-900">
         <img class="w-1/2 md:w-full" src="/images/logo-white.png" draggable="false">
-
         <button type="button" class="md:hidden">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" class="fill-white w-6 h-6">
             <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/>
@@ -12,15 +11,9 @@
       </div>
       <div class="flex justify-between items-center    w-full p-4 md:py-0 md:px-12  bg-white border-b">
         <div class="bg-zinc-800 font-semibold text-white px-2 py-1 rounded-md leading-none" v-text="version" />
-
-        <button class="flex items-center gap-1 cursor-pointer select-none group" type="button">
-          <div class="text-zinc-700 group-hover:text-zinc-900 whitespace-nowrap">
-            {{$page.props.user.username}}
-          </div>
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" class="w-5 h-5 group-hover:fill-zinc-900 fill-zinc-700">
-            <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
-          </svg>
-        </button>
+        <template v-if="$page.props.user">
+          <UserMenu />
+      </template>
       </div>
     </header>
 
@@ -101,20 +94,17 @@
             Rols
           </Link>
 
-          <Link href="/acp/disseny" class="flex items-center gap-2 group" :class="$page.component === 'ACP/Apps' ? 'text-white' : 'text-zinc-300'">
-            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brush" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-            <path d="M3 21v-4a4 4 0 1 1 4 4h-4" />
-            <path d="M21 3a16 16 0 0 0 -12.8 10.2" />
-            <path d="M21 3a16 16 0 0 1 -10.2 12.8" />
-            <path d="M10.6 9a9 9 0 0 1 4.4 4.4" />
-          </svg>
+          <Link href="/acp/configuracio/1/editar" class="flex items-center gap-2 group" :class="$page.component === 'ACP/Settings/1/Edit' ? 'text-white' : 'text-zinc-300'">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-settings" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+              <path d="M10.325 4.317c.426 -1.756 2.924 -1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543 -.94 3.31 .826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.756 .426 1.756 2.924 0 3.35a1.724 1.724 0 0 0 -1.066 2.573c.94 1.543 -.826 3.31 -2.37 2.37a1.724 1.724 0 0 0 -2.572 1.065c-.426 1.756 -2.924 1.756 -3.35 0a1.724 1.724 0 0 0 -2.573 -1.066c-1.543 .94 -3.31 -.826 -2.37 -2.37a1.724 1.724 0 0 0 -1.065 -2.572c-1.756 -.426 -1.756 -2.924 0 -3.35a1.724 1.724 0 0 0 1.066 -2.573c-.94 -1.543 .826 -3.31 2.37 -2.37c1 .608 2.296 .07 2.572 -1.065z" />
+              <circle cx="12" cy="12" r="3" />
+            </svg>
 
-            Disseny Web
+            Configuració
           </Link>
         </div>
       </div>
-      
       
       <div scroll-region="" class="md:flex-1 px-4 py-8 md:p-12 bg-zinc-100 md:overflow-y-auto">
         <slot />
@@ -123,14 +113,32 @@
   </div>
 </template>
 
-<script>
-import { Link } from "@inertiajs/inertia-vue3"
+  <script>
+    import { Link } from "@inertiajs/inertia-vue3"
+    import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+    import { library } from '@fortawesome/fontawesome-svg-core'
+    import { fas } from '@fortawesome/free-solid-svg-icons'
+    import { fab } from '@fortawesome/free-brands-svg-icons'
+    import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue'
+    import UserMenu from "../Public/UserMenu"
+
+    library.add(fas, fab)
+
+
 
 export default {
-  components: { Link },
+  components: { 
+    Link, 
+    FontAwesomeIcon, 
+    Menu,
+    MenuButton,
+    MenuItem,
+    MenuItems,
+    UserMenu
+  },
   data() {
     return {
-      version: "DEV 1.0.0",
+      version: "Panell d'administració",
     }
   }
 };

@@ -3,15 +3,26 @@
       <div class="w-full max-w-md">      
       <form @submit.prevent="submit" class="mt-8 bg-white rounded-lg shadow-xl overflow-hidden">
         <div class="p-10">
-          <h1 class="text-3xl font-bold text-zinc-700 text-center">Iniciar sesion</h1>
+          <h1 class="text-3xl font-bold text-zinc-700 text-center">Registrar-se</h1>
 
           <div class="flex flex-col mt-6 mx-auto gap-y-6">
+            
+            <div>
+              <FormInput
+                v-model="form.username"
+                :error="form.errors.username"
+                type="text"
+                label="Nom d'usuari"
+                autofocus
+              />
+            </div>
+
             <div>
               <FormInput
                 v-model="form.email"
                 :error="form.errors.email"
                 type="text"
-                label="Correo electrónico"
+                label="Correu electrónico"
                 autofocus
               />
             </div>
@@ -21,7 +32,16 @@
                 v-model="form.password"
                 :error="form.errors.password"
                 type="password"
-                label="Contraseña"
+                label="Contrasenya"
+              />
+            </div>
+
+             <div>
+              <FormInput
+                v-model="form.password_confirmation"
+                :error="form.errors.password_confirmation"
+                type="password"
+                label="Torna a escriure la contrasenya"
               />
             </div>
           
@@ -65,12 +85,14 @@
     import { useForm } from "@inertiajs/inertia-vue3";
 
     let form = useForm({
+        username: "",
         email: "",
         password: "",
+        password_confirmation: ""
     });
 
     let submit = () => {
-        form.post("/acceder");
+        form.post("/registrarse");
     };
 
 

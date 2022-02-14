@@ -106,7 +106,7 @@
   });
 
   const update = () => {
-    form.put(`/acp/usuaris/${props.user.id}`, {
+    form.put(`/perfil/${props.user.id}`, {
       preserveScroll: true,
     });
   };

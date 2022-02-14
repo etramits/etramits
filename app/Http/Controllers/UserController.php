@@ -15,6 +15,7 @@ class UserController extends Controller
     return Inertia::render("ACP/Users/Create", [
       "roles" => Role::where("visible", true)->get(),
     ]);
+    
   }
 
   public function store()

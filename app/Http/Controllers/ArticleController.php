@@ -9,7 +9,6 @@ use App\Models\Comment;
 use App\Models\User;
 use App\Models\Favorite;
 use Illuminate\Support\Facades\Auth;
-use App\Models\WebDesign;
 
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Http\Request;
