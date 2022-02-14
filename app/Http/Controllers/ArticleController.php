@@ -9,6 +9,7 @@ use App\Models\Comment;
 use App\Models\User;
 use App\Models\Favorite;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Setting;
 
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Http\Request;
@@ -35,6 +36,8 @@ class ArticleController extends Controller
 
   public function view($category_slug, $article_slug)
   {
+    $settings = Setting::first();
+
     $category = Category::where('slug', $category_slug)
       ->where('active', true)
       ->get()
@@ -71,17 +74,19 @@ class ArticleController extends Controller
       ->map(fn ($comment) => [
         'id' => $comment->id,
         'user_id' => $comment->user_id,
-        'user_name' => $comment->user->name,
-        'user_role' => $comment->user->role,
+        'username' => $comment->user->username,
+        'user_role' => $comment->user->role->id,
         'article_id' => $comment->article_id,
         'content' => $comment->content,
         'active' => $comment->active
       ]);
 
+
     return Inertia::render('Public/Article', [
       'article' => $article,
       'comments' => $comments,
       'added' => $added,
+      'settings' => $settings
     ]);
   }
 
