@@ -12,6 +12,7 @@
           class="px-6 pt-5 pb-3"
         />
       </tr>
+      
 
       <Link
         v-for="row in data.rows"
