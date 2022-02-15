@@ -19,7 +19,7 @@ class SettingSeeder extends Seeder
             "header_text" => "Consulta els teus tràmits en dos clics",
             "header_img" => "slogan1.svg",
             "main_color" => "#FDE047",
-            "footer" => "",
+            "logo_consellcomarcal" => "logo.png"
           ]);
     }
 }

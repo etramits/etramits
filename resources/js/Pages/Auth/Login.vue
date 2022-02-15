@@ -1,62 +1,105 @@
 <template>
+    <Head title="Iniciar sessió" />
+
     <div class="flex items-center justify-center p-6 md:py-24 bg-gray-50">
-      <div class="w-full max-w-md">      
-      <form @submit.prevent="submit" class="mt-8 bg-white rounded-lg shadow-xl overflow-hidden">
-        <div class="p-10">
-          <h1 class="text-3xl font-bold text-zinc-700 text-center">Iniciar sesion</h1>
+        <div class="w-full max-w-md">      
+            <form @submit.prevent="submit" class="mt-8 bg-white rounded-lg shadow-xl overflow-hidden">
+                <div class="p-10">
+                    <h1 class="text-3xl font-bold text-zinc-700 text-center">Iniciar sessió</h1>
+                    <div class="mt-4">
+                        <FormInput
+                            v-model="form.email"
+                            :error="form.errors.email"
+                            type="email"
+                            label="Correu electrònic"
+                            required
+                            autofocus
+                        />
+                    </div>
 
-          <div class="flex flex-col mt-6 mx-auto gap-y-6">
-            <div>
-              <FormInput
-                v-model="form.email"
-                :error="form.errors.email"
-                type="text"
-                label="Correo electrónico"
-                autofocus
-              />
-            </div>
+                    <div class="mt-4">
+                        <FormInput
+                            v-model="form.password"
+                            :error="form.errors.password"
+                            type="password"
+                            label="Contrasenya"
+                            required autocomplete="current-password"
+                        />
+                    </div>
 
-            <div>
-              <FormInput
-                v-model="form.password"
-                :error="form.errors.password"
-                type="password"
-                label="Contraseña"
-              />
-            </div>
-          
-            <!-- <label class="flex items-center mt-6 select-none" for="remember">
-              <input id="remember" class="mr-1" type="checkbox" />
-              <span class="text-sm">Remember Me</span>
-            </label> -->
-          </div>
+                    <div class="block mt-4">
+                        <label class="flex items-center">
+                            <jet-checkbox name="remember" v-model:checked="form.remember" />
+                            <span class="ml-2 text-sm text-gray-600">Recordar</span>
+                        </label>
+                    </div>
+
+                    <div class="flex items-center justify-end mt-4">
+                        <Link v-if="canResetPassword" :href="route('password.request')" class="underline text-sm text-gray-600 hover:text-gray-900">
+                            Has oblidat la teva contrasenya?
+                        </Link>
+                    <button class="ml-auto px-6 py-3 text-sm font-bold text-white leading-4 rounded shadow bg-zinc-700 whitespace-nowrap hover:bg-zinc-800 focus:outline-none focus:ring focus:ring-zinc-700/20" type="submit">Acceder</button>
+
+                    </div>
+                </div>
+            </form>
         </div>
-        
-        <div class="flex px-10 py-4 bg-zinc-100 border-t border-zinc-100">
-          <!-- <loading-button :loading="form.processing" class="btn-indigo ml-auto" type="submit">Login</loading-button> -->
-          <!-- <button class="ml-auto px-6 py-3 text-sm font-bold leading-4 text-white bg-zinc-700 rounded" type="submit">Acceder</button> -->
-          <button class="ml-auto px-6 py-3 text-sm font-bold text-white leading-4 rounded shadow bg-zinc-700 whitespace-nowrap hover:bg-zinc-800 focus:outline-none focus:ring focus:ring-zinc-700/20" type="submit">Acceder</button>
-          <!-- px-6 py-3 rounded bg-indigo-600 text-white text-sm leading-4 font-bold whitespace-nowrap hover:bg-orange-400 focus:bg-orange-400; -->
-        </div>
-      </form>
-    </div>
     </div>
 </template>
 
 <script>
-  import { Inertia } from "@inertiajs/inertia";
-  import { Link } from "@inertiajs/inertia-vue3"
+  import { Inertia } from "@inertiajs/inertia"
   import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
   import { library } from '@fortawesome/fontawesome-svg-core'
   import { fas } from '@fortawesome/free-solid-svg-icons'
   import FormInput from "../../Shared/ACP/FormInput.vue"
 
+  import { defineComponent } from 'vue'
+  import JetCheckbox from '@/Jetstream/Checkbox.vue'
+  import JetValidationErrors from '@/Jetstream/ValidationErrors.vue'
+  import { Head, Link } from '@inertiajs/inertia-vue3'
+  
   library.add(fas)
 
   export default {
-      components: { Link, FontAwesomeIcon, FormInput},
-      layout: Layout,
+    components: { 
+        Head,
+        JetCheckbox,
+        JetValidationErrors,
+        Link,
+        FontAwesomeIcon, 
+        FormInput
+    },
+    layout: Layout,
+    props: {
+        canResetPassword: Boolean,
+        status: String
+    },
+
+    data() {
+        return {
+            form: this.$inertia.form({
+                email: '',
+                password: '',
+                remember: false
+            })
+        }
+    },
+
+    methods: {
+        submit() {
+            this.form
+                .transform(data => ({
+                    ... data,
+                    remember: this.form.remember ? 'on' : ''
+                }))
+                .post(this.route('login'), {
+                    onFinish: () => this.form.reset('password'),
+                })
+        }
+    },
   };
+  
 </script>
 
 <script setup>
@@ -64,17 +107,4 @@
     import Layout from "../../Shared/Layouts/Public";
     import { useForm } from "@inertiajs/inertia-vue3";
 
-    let form = useForm({
-        email: "",
-        password: "",
-    });
-
-    let submit = () => {
-        form.post("/acceder");
-    };
-
-
-    const props = defineProps({
-    settings: Object,
-    });
 </script>

@@ -11,9 +11,9 @@
                 <div :style="`color: ${settings.main_color}`" class="flex justify-between">
                     <div class="hidden sm:flex sm:items-center sm:ml-6">
                         
-                        <Link href="/acceder" >Iniciar Sessio</Link>
+                        <Link href="/login" >Iniciar Sessio</Link>
                     
-                        <Link class="ml-3" href="/registrarse" >Registrar-se</Link>
+                        <Link class="ml-3" href="/register" >Registrar-se</Link>
 
                     </div>
                 </div>

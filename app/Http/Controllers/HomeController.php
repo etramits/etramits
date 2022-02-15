@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Foundation\Application;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -64,12 +66,15 @@ class HomeController extends Controller
         ],
       ];
 
-
       return Inertia::render('Public/Home', [
         'populars' => $populars,
         'categories' => $categories,
         'stats' => $stats,
-        'settings' => $settings
+        'settings' => $settings,
+        'canLogin' => Route::has('login'),
+        'canRegister' => Route::has('register'),
+        'laravelVersion' => Application::VERSION,
+        'phpVersion' => PHP_VERSION,
       ]);
     }
     

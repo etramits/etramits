@@ -1,87 +1,44 @@
 <?php
 
+use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Inertia\Inertia;
-use Illuminate\Support\Facades\Request;
-
-
-/**
- * Controllers
-**/
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\LicenseController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\SettingController;
-use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\Auth\RegisterController;
-use App\Http\Controllers\Auth\ProfileController;
-
-
+use App\Http\Controllers\UserProfileController;
 
 
 /*
- * Login
- */
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register web routes for your application. These
+| routes are loaded by the RouteServiceProvider within a group which
+| contains the "web" middleware group. Now create something great!
+|
+*/
 
-Route::get("acceder", [LoginController::class, "create"])
-  ->name("login");
-
-Route::post("acceder", [LoginController::class, "store"])
-  ->name("login.store");
-
-/*
- * Registre
- */
-
-Route::get("registrarse", [RegisterController::class, "create"])
-->name("register");
-
-Route::post("registrarse", [RegisterController::class, "store"])
-->name("register.store");
-
-/*
- * Email de verificació
- */
-
-// Route::get('/email/verify', function () {
-//   return view('auth.verify-email');
-// })->middleware('auth')->name('verification.notice');
-
-// Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
-//   $request->fulfill();
-
-//   return redirect('/home');
-// })->middleware(['auth', 'signed'])->name('verification.verify');
-
-// Route::post('/email/verification-notification', function (Request $request) {
-//   $request->user()->sendEmailVerificationNotification();
-
-//   return back()->with('message', 'Verification link sent!');
-// })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
-
-/*
- * ACP
- */
+Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
+    return Inertia::render('Dashboard');
+})->name('dashboard');
 
 Route::middleware("auth")->group(function ()
 {
 
   // Perfil d'Usuari
-  Route::get('/perfil/{user}/editar', [ProfileController::class, 'profile'])
+  Route::get('/perfil', [UserProfileController::class, 'show'])
     ->name('profile');
 
-  Route::put('/perfil/{user}', [ProfileController::class, 'update'])
-    ->name('profile.update');
-  
   // ACP
 
   Route::get("acp", [AdminController::class, "index"])

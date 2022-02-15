@@ -12,8 +12,6 @@ class SettingController extends Controller
     public function edit(Setting $setting)
     {
 
-     //dd($setting->social_media);
-
       return Inertia::render("ACP/Settings/Edit", [
         "setting" => [
             "header_text" => $setting->header_text,

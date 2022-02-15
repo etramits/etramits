@@ -20,7 +20,7 @@ class CategoryController extends Controller
   public function store()
   {
     $attributes = Request::validate([
-      "username" => ["required", "max:24"],
+      "name" => ["required", "max:24"],
       "email" => ["required", "email"],
       "password" => ["required"],
     ]);
