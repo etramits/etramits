@@ -29,7 +29,7 @@ class AdminController extends Controller
         'id' => 4,
         'value1' => $validatedComments,
         'value2' => $totalComments,
-        'percent' => round($validatedComments * 100 / $totalComments, 0, PHP_ROUND_HALF_EVEN),
+        'percent' => $result = $totalComments != 0 ? round($validatedComments * 100 / $totalComments, 0, PHP_ROUND_HALF_EVEN) : 0,
         'label' => 'Comentaris Validats',
         'icon' => 'comments'
       ],
@@ -37,7 +37,7 @@ class AdminController extends Controller
         'id' => 5,
         'value1' => $activesArticles,
         'value2' => $totalArticles,
-        'percent' => round($activesArticles * 100 / $totalArticles, 0, PHP_ROUND_HALF_EVEN),
+        'percent' => $result = $totalComments != 0 ? round($activesArticles * 100 / $totalArticles, 0, PHP_ROUND_HALF_EVEN) : 0,
         'label' => 'Tràmits Actius',
         'icon' => 'file-alt'
       ],
@@ -45,7 +45,7 @@ class AdminController extends Controller
         'id' => 6,
         'value1' => $activesCategories,
         'value2' => $totalCategories,
-        'percent' => round($activesCategories * 100 / $totalCategories, 0, PHP_ROUND_HALF_EVEN),
+        'percent' => $result = $totalComments != 0 ? round($activesCategories * 100 / $totalCategories, 0, PHP_ROUND_HALF_EVEN) : 0,
         'label' => 'Categories Actives',
         'icon' => 'folder-open'
       ]
@@ -70,7 +70,7 @@ class AdminController extends Controller
         "id" => $category->id,
         "name" => $category->name,
         "numArticles" => $category->articles->count(),
-        "percentage" => round($category->articles->count() * 100 / $totalArticles, 0, PHP_ROUND_HALF_EVEN),
+        "percentage" => $result = $totalComments != 0 ? round($category->articles->count() * 100 / $totalArticles, 0, PHP_ROUND_HALF_EVEN) : 0,
         "active" => $category->active,
       ])
       ->sortByDesc('numArticles')
