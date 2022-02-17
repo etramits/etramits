@@ -1,12 +1,12 @@
 <template>
-  <div v-if="$page.props.flash.success && showFlashSuccess" class="mb-8 flex items-center justify-between bg-green-500 rounded max-w-3xl">
+  <div v-if="$page.props.jetstream.flash.success && showFlashSuccess" class="mb-8 flex items-center justify-between bg-green-500 rounded max-w-3xl">
     <div class="flex items-center">
       <svg xmlns="http://www.w3.org/2000/svg" class="ml-4 mr-2 flex-shrink-0 text-white" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
         <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
         <path d="M5 12l5 5l10 -10"></path>
       </svg>
 
-      <div v-text="$page.props.flash.success" class="py-4 text-white text-sm font-medium" />
+      <div v-text="$page.props.jetstream.flash.success" class="py-4 text-white text-sm font-medium" />
     </div>
 
     <button
@@ -20,7 +20,7 @@
     </button>
   </div>
 
-  <div v-if="$page.props.flash.error && showFlashErrors" class="mb-8 flex items-center justify-between p-4 bg-red-400 rounded max-w-3xl">
+  <div v-if="$page.props.jetstream.flash.error && showFlashErrors" class="mb-8 flex items-center justify-between p-4 bg-red-400 rounded max-w-3xl">
     <div class="flex items-center text-white">
       <svg xmlns="http://www.w3.org/2000/svg" class="mr-2 flex-shrink-0" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
         <path stroke="none" d="M0 0h24v24H0z" fill="none" />
@@ -29,7 +29,7 @@
         <line x1="12" y1="16" x2="12.01" y2="16" />
       </svg>
 
-      <div v-text="$page.props.flash.error" class="text-sm font-medium" />
+      <div v-text="$page.props.jetstream.flash.error" class="text-sm font-medium" />
     </div>
 
     <button

@@ -1,5 +1,6 @@
 <template>
   <FlashData />
+  
 
   <h1 class="mb-8 text-3xl font-bold text-zinc-700">Comentaris</h1>
 
