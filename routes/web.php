@@ -175,6 +175,26 @@ Route::get('/article/show/{article}', [ArticleController::class, 'test'])
 Route::get('/{slug}', [CategoryController::class, 'view'])
     ->name('category.view');
 
+// Favorites and comments
+Route::middleware(['auth:sanctum'])->group(function () {
+  // Favorites
+  Route::get('favorites/list', [FavoriteController::class, 'index'])
+  ->name('favorites');
+
+  Route::post('favorites/{article_id}/add', [FavoriteController::class, 'add'])
+  ->name('favorite.add');
+
+  Route::post('favorites/{article_id}/rem', [FavoriteController::class, 'rem'])
+  ->name('favorite.rem');
+
+  Route::delete('favorites', [FavoriteController::class, 'destroy'])
+  ->name('favorites.destroy');
+
+  //send comments
+  Route::post('/{id}/comment', [CommentController::class, 'store'])
+  ->name('comment.store');
+}); 
+
 // Fallback route
 Route::fallback(function() {
     return route();

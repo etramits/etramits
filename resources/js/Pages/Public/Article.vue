@@ -1,5 +1,5 @@
 <template>
-    <section :class="`bg-yellow-300`" >
+    <section :style="`background-color: ${settings.main_color}`" >
       <div class="container flex flex-col items-center mx-auto py-16 text-gray-800">
         <h2 v-text="article.title" class="text-6xl font-bold" />
         <div v-if="$page.props.user" class="mt-10 text-gray-800 hover:text-gray-500">
@@ -29,7 +29,7 @@
     </section>
 
     <section class="pb-20 bg-gray-50 text-gray-800">
-      <header :class="`container flex items-center mx-auto max-w-7xl px-10 py-6 gap-2 bg-yellow-300 leading-none rounded-t-xl shadow`">
+      <header :style="`background-color: ${settings.main_color}`" :class="`container flex items-center mx-auto max-w-7xl px-10 py-6 gap-2 leading-none rounded-t-xl shadow`">
         <font-awesome-icon icon="comments" size="2x" />
         <span class="text-4xl font-bold">Comentaris</span>
       </header>
@@ -39,13 +39,13 @@
           <div v-if="$page.props.user">
             <form @submit.prevent="submitComment" class="w-3/5 ml-8">
                 <div>
-                    <div for="content" value="Comentari:" />
-                    <Textarea id="content" type="text" class="mt-1 block w-full" v-model="form.content" :maxlength="200" required />
+                    <jet-label for="content" value="Comentari:" />
+                    <textarea id="content" type="text" class="mt-1 block w-full" v-model="form.content" :maxlength="200" required />
                 </div>
                 <div class="flex items-center justify-start mt-4">
-                    <button :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
+                    <jet-button :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
                         Enviar
-                    </button>
+                    </jet-button>
                 </div>
             </form>
           </div>
@@ -55,11 +55,11 @@
         </div>
         <div v-for="comment in comments" :key="comment.id" class="flex flex-col gap-5">
           <!-- Comment -->
-          <div :class="`flex flex-col p-4 gap-4 bg-yellow-50 rounded-xl`">
+          <div :style="`background-color: ${settings.main_color}`" :class="`flex flex-col p-4 gap-4 rounded-xl`">
             <div class="flex items-center gap-4">
               <div class="flex items-center gap-2">
-                <span class="text-2xl font-bold">{{comment.username}}</span>
-                <span v-if="comment.user_role" v-text="selectRole(comment.username)" :class="`p-1 text-md font-semibold bg-yellow-300 rounded leading-none`" />
+                <span class="text-2xl font-bold">{{comment.user_name}}</span>
+                <span v-if="comment.user_role" v-text="selectRole(comment.user_role)" :style="`background-color: ${settings.main_color}`" :class="`p-1 text-md font-semibold rounded leading-none`" />
               </div>
             </div>
 
@@ -75,25 +75,31 @@
   import { Link } from '@inertiajs/inertia-vue3'
   import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
   import { library } from '@fortawesome/fontawesome-svg-core'
-  import Input from '../../Shared/ACP/FormInput.vue'
-  import Textarea from '../../Shared/ACP/Form/TextArea.vue'
+  import JetInput from '@/Jetstream/Input.vue'
+  import JetLabel from '@/Jetstream/Label.vue'
+  import JetButton from '@/Jetstream/Button.vue'
+  import JetTextarea from '@/Jetstream/Textarea.vue'
   import { fas } from '@fortawesome/free-solid-svg-icons'
-  import Layout from '../../Shared/Layouts/Public.vue'
+  import Layout from "../../Shared/Layouts/Public";
+
   library.add(fas)
 
   export default defineComponent({
     components: {
       Link,
       FontAwesomeIcon,
-      Layout,
-      Input,
-      Textarea
+      JetInput,
+      JetLabel,
+      JetButton,
+      JetTextarea
     },
+    layout: Layout,
     props: {
       article: Object,
       comments: Object,
       favorite: Object,
       added: Number,
+      settings: Object,
     },
     data() {
       return {
@@ -136,6 +142,7 @@
         this.fav.user_id = this.$page.props.user.id;
         this.fav.post(this.route('favorite.rem', this.article.id));
       },
-    }
+    },
+    
   })
 </script>
