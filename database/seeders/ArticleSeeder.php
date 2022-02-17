@@ -6,7 +6,7 @@ use App\Models\Article;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
-class CategorySeeder extends Seeder
+class ArticleSeeder extends Seeder
 {
   public function run()
   {
