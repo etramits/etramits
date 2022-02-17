@@ -11,8 +11,8 @@ class CategorySeeder extends Seeder
   public function run()
   {
     Category::create([
-      "name" => "Salut",
-      "slug" => "salut",
+      "name" => "Salud",
+      "slug" => "salud",
       "icon" => "stethoscope",
       "description" => null,
       "parent" => null,
