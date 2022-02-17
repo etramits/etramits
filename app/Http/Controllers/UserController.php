@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Request;
 use Inertia\Inertia;
+use Carbon\Carbon;
 
 class UserController extends Controller
 {
@@ -36,6 +37,7 @@ class UserController extends Controller
     return Inertia::render("ACP/Users/Edit", [
       "user" => $user,
       "roles" => Role::where("visible", true)->get(),
+      "timestamp" => Carbon::now(),
     ]);
   }
 
@@ -45,8 +47,6 @@ class UserController extends Controller
       "name" => ["required", "max:255"],
       "email" => ["required", "email"],
       "role_id" => ["required", "integer"],
-      "verified" => ["required", "boolean"],
-      "active" => ["required", "boolean"],
     ]);
 
     $user->update($attributes);

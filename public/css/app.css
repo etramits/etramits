@@ -496,6 +496,9 @@ Ensure the default browser behavior of the `hidden` attribute.
 .col-span-6 {
   grid-column: span 6 / span 6;
 }
+.col-span-2 {
+  grid-column: span 2 / span 2;
+}
 .mx-auto {
   margin-left: auto;
   margin-right: auto;
@@ -507,6 +510,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 .my-6 {
   margin-top: 1.5rem;
   margin-bottom: 1.5rem;
+}
+.my-2 {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
 }
 .mt-5 {
   margin-top: 1.25rem;
@@ -556,11 +563,11 @@ Ensure the default browser behavior of the `hidden` attribute.
 .mb-4 {
   margin-bottom: 1rem;
 }
-.ml-2 {
-  margin-left: 0.5rem;
-}
 .ml-auto {
   margin-left: auto;
+}
+.ml-2 {
+  margin-left: 0.5rem;
 }
 .mt-10 {
   margin-top: 2.5rem;
@@ -586,14 +593,11 @@ Ensure the default browser behavior of the `hidden` attribute.
 .mt-12 {
   margin-top: 3rem;
 }
-.-mb-6 {
-  margin-bottom: -1.5rem;
-}
-.-mb-8 {
-  margin-bottom: -2rem;
-}
 .ml-6 {
   margin-left: 1.5rem;
+}
+.mr-10 {
+  margin-right: 2.5rem;
 }
 .block {
   display: block;
@@ -648,6 +652,9 @@ Ensure the default browser behavior of the `hidden` attribute.
 }
 .h-10 {
   height: 2.5rem;
+}
+.h-48 {
+  height: 12rem;
 }
 .min-h-screen {
   min-height: 100vh;
@@ -834,6 +841,12 @@ Ensure the default browser behavior of the `hidden` attribute.
 .justify-between {
   justify-content: space-between;
 }
+.justify-items-end {
+  justify-items: end;
+}
+.justify-items-center {
+  justify-items: center;
+}
 .gap-6 {
   gap: 1.5rem;
 }
@@ -911,6 +924,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 .rounded-b-xl {
   border-bottom-right-radius: 0.75rem;
   border-bottom-left-radius: 0.75rem;
+}
+.rounded-b-lg {
+  border-bottom-right-radius: 0.5rem;
+  border-bottom-left-radius: 0.5rem;
 }
 .border {
   border-width: 1px;
@@ -1059,9 +1076,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 .fill-white {
   fill: #fff;
 }
-.fill-yellow-800 {
-  fill: #854d0e;
-}
 .object-cover {
   -o-object-fit: cover;
      object-fit: cover;
@@ -1183,17 +1197,20 @@ Ensure the default browser behavior of the `hidden` attribute.
 .pt-8 {
   padding-top: 2rem;
 }
+.pt-10 {
+  padding-top: 2.5rem;
+}
 .pb-20 {
   padding-bottom: 5rem;
 }
 .pr-6 {
   padding-right: 1.5rem;
 }
-.pb-8 {
-  padding-bottom: 2rem;
-}
 .pb-3 {
   padding-bottom: 0.75rem;
+}
+.pl-6 {
+  padding-left: 1.5rem;
 }
 .text-left {
   text-align: left;
@@ -1278,9 +1295,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 .leading-none {
   line-height: 1;
 }
-.leading-normal {
-  line-height: 1.5;
-}
 .tracking-widest {
   letter-spacing: 0.1em;
 }
@@ -1360,10 +1374,6 @@ Ensure the default browser behavior of the `hidden` attribute.
   --tw-text-opacity: 1;
   color: rgb(24 24 27 / var(--tw-text-opacity));
 }
-.text-yellow-800 {
-  --tw-text-opacity: 1;
-  color: rgb(133 77 14 / var(--tw-text-opacity));
-}
 .text-red-500 {
   --tw-text-opacity: 1;
   color: rgb(239 68 68 / var(--tw-text-opacity));
@@ -1436,6 +1446,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 }
 .ring-opacity-5 {
   --tw-ring-opacity: 0.05;
+}
+.drop-shadow-md {
+  --tw-drop-shadow: drop-shadow(0 4px 3px rgb(0 0 0 / 0.07)) drop-shadow(0 2px 2px rgb(0 0 0 / 0.06));
+  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
 }
 .transition {
   transition-property: color, background-color, border-color, fill, stroke, opacity, box-shadow, transform, filter, -webkit-text-decoration-color, -webkit-backdrop-filter;
@@ -1936,10 +1950,6 @@ Ensure the default browser behavior of the `hidden` attribute.
     width: 100%;
   }
 
-  .md\:w-1\/2 {
-    width: 50%;
-  }
-
   .md\:flex-1 {
     flex: 1 1 0%;
   }
@@ -2037,12 +2047,13 @@ Ensure the default browser behavior of the `hidden` attribute.
     font-size: 1.5rem;
     line-height: 2rem;
   }
+
+  .md\:text-4xl {
+    font-size: 2.25rem;
+    line-height: 2.5rem;
+  }
 }
 @media (min-width: 1024px) {
-
-  .lg\:w-1\/2 {
-    width: 50%;
-  }
 
   .lg\:px-8 {
     padding-left: 2rem;

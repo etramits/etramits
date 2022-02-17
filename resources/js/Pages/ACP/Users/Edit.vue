@@ -1,6 +1,5 @@
 <template>
   <FlashData />
-  
   <h1 class="mb-8 font-bold text-3xl text-zinc-700">
     <Link as="span" href="/acp/usuaris" class="text-zinc-900 cursor-pointer">Usuaris</Link> / {{ user.username }}
   </h1>
@@ -19,10 +18,10 @@
         
         <div class="pr-6 w-1/2">
           <FormInput
-            v-model="form.username"
-            :error="form.errors.username"
+            v-model="form.name"
+            :error="form.errors.name"
             type="text"
-            label="Usuari"
+            label="Nom"
           />
         </div>
 
@@ -41,26 +40,11 @@
           </FormSelect>
         </div>
 
-        <div class="pr-6 w-1/2">
-          <FormSelect
-            v-model="form.verified"
-            :error="form.errors.verified"
-            label="Verificat"
-          >
-            <option :value="true">Si</option>
-            <option :value="false">No</option>
-          </FormSelect>
+        <div v-if="props.user.email_verified_at" class="pr-6">
+         <strong>Aquest Usuari està verificat.</strong>
         </div>
-
-        <div class="pr-6 w-1/2">
-          <FormSelect
-            v-model="form.active"
-            :error="form.errors.active"
-            label="Actiu"
-          >
-            <option :value="true">Si</option>
-            <option :value="false">No</option>
-          </FormSelect>
+        <div v-else class="pr-6">
+           <strong class="text-red-600">Aquest Usuari no està verificat.</strong>
         </div>
       </div>
 
@@ -98,15 +82,14 @@
   });
 
   let form = useForm({
-    username: props.user.username,
+    name: props.user.name,
     email: props.user.email,
     role_id: props.user.role_id,
-    verified: Boolean(props.user.verified),
-    active: Boolean(props.user.active),
+    email_verified_at: props.user.email_verified_at,
   });
 
   const update = () => {
-    form.put(`/perfil/${props.user.id}`, {
+    form.put(`/acp/usuaris/${props.user.id}`, {
       preserveScroll: true,
     });
   };
@@ -116,4 +99,5 @@
       Inertia.delete(`/acp/usuaris/${props.user.id}`);
     }
   };
+
 </script>

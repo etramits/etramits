@@ -151,7 +151,7 @@ Route::middleware("auth")->group(function ()
 
    // ACP > Configuració
 
-   Route::get("acp/configuracio/{setting}/editar", [SettingController::class, "edit"])
+   Route::get("acp/configuracio/", [SettingController::class, "edit"])
    ->name("acp.settings.edit");
  
    Route::put("/acp/configuracio/{setting}", [SettingController::class, "update"])

@@ -15,7 +15,7 @@
         <!-- Procedure -->
         <div class="grid md:grid-cols-5 gap-10 mt-8 md:mt-10">
           <Link as="div" v-for="category in categories" :key="category.id" :href="`/${category.slug}`" class="flex flex-col items-center p-5 w-50 bg-white rounded-xl shadow hover:opacity-60 cursor-pointer">
-            <font-awesome-icon v-bind:icon="!category.icon ? 'file-alt' : category.icon" size="5x" :color="changeColor(settings.main_color,20)" />
+            <font-awesome-icon v-bind:icon="!category.icon ? 'file-alt' : category.icon" size="5x" :color="changeColor(settings.main_color,0)" />
             <h4 class="mt-6 max-w-full text-xl md:text-2xl font-medium overflow-hidden whitespace-nowrap	overflow-ellipsis">{{ category.name }}</h4>
           </Link>
         </div>

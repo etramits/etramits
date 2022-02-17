@@ -12,13 +12,10 @@ class SettingController extends Controller
     public function edit(Setting $setting)
     {
 
+     
+
       return Inertia::render("ACP/Settings/Edit", [
-        "setting" => [
-            "header_text" => $setting->header_text,
-            "header_img" => $setting->header_img,
-            "main_color" => $setting->main_color,
-            "logo_consellcomarcal" => $setting->logo_consellcomarcal
-        ],
+        "setting" => Setting::first(),
       ]);
     }
     
@@ -33,8 +30,8 @@ class SettingController extends Controller
       ]);
   
       $setting->update($attributes);
-  
-      return Redirect::route("acp.settings.edit", 1)->with("success", "Configuració actualitzada.");
-    }
+
+      return Redirect::back()->with("success", "Configuració actualitzat.");
+      }
   
 }

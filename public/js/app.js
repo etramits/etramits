@@ -27070,30 +27070,6 @@ var map = {
 		"./resources/js/Pages/ACP/Index.vue",
 		"resources_js_Pages_ACP_Index_vue"
 	],
-	"./ACP/Licenses/Create": [
-		"./resources/js/Pages/ACP/Licenses/Create.vue",
-		"resources_js_Pages_ACP_Licenses_Create_vue"
-	],
-	"./ACP/Licenses/Create.vue": [
-		"./resources/js/Pages/ACP/Licenses/Create.vue",
-		"resources_js_Pages_ACP_Licenses_Create_vue"
-	],
-	"./ACP/Licenses/Edit": [
-		"./resources/js/Pages/ACP/Licenses/Edit.vue",
-		"resources_js_Pages_ACP_Licenses_Edit_vue"
-	],
-	"./ACP/Licenses/Edit.vue": [
-		"./resources/js/Pages/ACP/Licenses/Edit.vue",
-		"resources_js_Pages_ACP_Licenses_Edit_vue"
-	],
-	"./ACP/Licenses/Index": [
-		"./resources/js/Pages/ACP/Licenses/Index.vue",
-		"resources_js_Pages_ACP_Licenses_Index_vue"
-	],
-	"./ACP/Licenses/Index.vue": [
-		"./resources/js/Pages/ACP/Licenses/Index.vue",
-		"resources_js_Pages_ACP_Licenses_Index_vue"
-	],
 	"./ACP/Platforms": [
 		"./resources/js/Pages/ACP/Platforms.vue",
 		"resources_js_Pages_ACP_Platforms_vue"
@@ -27483,7 +27459,7 @@ module.exports = JSON.parse('{"name":"axios","version":"0.21.4","description":"P
 /******/ 		// This function allow to reference async chunks
 /******/ 		__webpack_require__.u = (chunkId) => {
 /******/ 			// return url for filenames not based on template
-/******/ 			if ({"resources_js_Pages_ACP_Apps_vue":1,"resources_js_Pages_ACP_Categories_Create_vue":1,"resources_js_Pages_ACP_Categories_Edit_vue":1,"resources_js_Pages_ACP_Categories_Index_vue":1,"resources_js_Pages_ACP_Comments_Create_vue":1,"resources_js_Pages_ACP_Comments_Edit_vue":1,"resources_js_Pages_ACP_Comments_Index_vue":1,"resources_js_Pages_ACP_Index_vue":1,"resources_js_Pages_ACP_Licenses_Create_vue":1,"resources_js_Pages_ACP_Licenses_Edit_vue":1,"resources_js_Pages_ACP_Licenses_Index_vue":1,"resources_js_Pages_ACP_Platforms_vue":1,"resources_js_Pages_ACP_Roles_Create_vue":1,"resources_js_Pages_ACP_Roles_Edit_vue":1,"resources_js_Pages_ACP_Roles_Index_vue":1,"resources_js_Pages_ACP_Settings_Edit_vue":1,"resources_js_Pages_ACP_Users_Create_vue":1,"resources_js_Pages_ACP_Users_Edit_vue":1,"resources_js_Pages_ACP_Users_Index_vue":1,"resources_js_Pages_API_Index_vue":1,"resources_js_Pages_API_Partials_ApiTokenManager_vue":1,"resources_js_Pages_Auth_ConfirmPassword_vue":1,"resources_js_Pages_Auth_ForgotPassword_vue":1,"resources_js_Pages_Auth_Login_vue":1,"resources_js_Pages_Auth_Register_vue":1,"resources_js_Pages_Auth_ResetPassword_vue":1,"resources_js_Pages_Auth_TwoFactorChallenge_vue":1,"resources_js_Pages_Auth_VerifyEmail_vue":1,"resources_js_Pages_Dashboard_vue":1,"resources_js_Pages_PrivacyPolicy_vue":1,"resources_js_Pages_Profile_Partials_DeleteUserForm_vue":1,"resources_js_Pages_Profile_Partials_LogoutOtherBrowserSessionsForm_vue":1,"resources_js_Pages_Profile_Partials_TwoFactorAuthenticationForm_vue":1,"resources_js_Pages_Profile_Partials_UpdatePasswordForm_vue":1,"resources_js_Pages_Profile_Partials_UpdateProfileInformationForm_vue":1,"resources_js_Pages_Profile_Show_vue":1,"resources_js_Pages_Public_Article_vue":1,"resources_js_Pages_Public_Category_vue":1,"resources_js_Pages_Public_Home_vue":1,"resources_js_Pages_TermsOfService_vue":1,"resources_js_Pages_Welcome_vue":1}[chunkId]) return "js/" + chunkId + ".js";
+/******/ 			if ({"resources_js_Pages_ACP_Apps_vue":1,"resources_js_Pages_ACP_Categories_Create_vue":1,"resources_js_Pages_ACP_Categories_Edit_vue":1,"resources_js_Pages_ACP_Categories_Index_vue":1,"resources_js_Pages_ACP_Comments_Create_vue":1,"resources_js_Pages_ACP_Comments_Edit_vue":1,"resources_js_Pages_ACP_Comments_Index_vue":1,"resources_js_Pages_ACP_Index_vue":1,"resources_js_Pages_ACP_Platforms_vue":1,"resources_js_Pages_ACP_Roles_Create_vue":1,"resources_js_Pages_ACP_Roles_Edit_vue":1,"resources_js_Pages_ACP_Roles_Index_vue":1,"resources_js_Pages_ACP_Settings_Edit_vue":1,"resources_js_Pages_ACP_Users_Create_vue":1,"resources_js_Pages_ACP_Users_Edit_vue":1,"resources_js_Pages_ACP_Users_Index_vue":1,"resources_js_Pages_API_Index_vue":1,"resources_js_Pages_API_Partials_ApiTokenManager_vue":1,"resources_js_Pages_Auth_ConfirmPassword_vue":1,"resources_js_Pages_Auth_ForgotPassword_vue":1,"resources_js_Pages_Auth_Login_vue":1,"resources_js_Pages_Auth_Register_vue":1,"resources_js_Pages_Auth_ResetPassword_vue":1,"resources_js_Pages_Auth_TwoFactorChallenge_vue":1,"resources_js_Pages_Auth_VerifyEmail_vue":1,"resources_js_Pages_Dashboard_vue":1,"resources_js_Pages_PrivacyPolicy_vue":1,"resources_js_Pages_Profile_Partials_DeleteUserForm_vue":1,"resources_js_Pages_Profile_Partials_LogoutOtherBrowserSessionsForm_vue":1,"resources_js_Pages_Profile_Partials_TwoFactorAuthenticationForm_vue":1,"resources_js_Pages_Profile_Partials_UpdatePasswordForm_vue":1,"resources_js_Pages_Profile_Partials_UpdateProfileInformationForm_vue":1,"resources_js_Pages_Profile_Show_vue":1,"resources_js_Pages_Public_Article_vue":1,"resources_js_Pages_Public_Category_vue":1,"resources_js_Pages_Public_Home_vue":1,"resources_js_Pages_TermsOfService_vue":1,"resources_js_Pages_Welcome_vue":1}[chunkId]) return "js/" + chunkId + ".js";
 /******/ 			// return url for filenames based on template
 /******/ 			return undefined;
 /******/ 		};

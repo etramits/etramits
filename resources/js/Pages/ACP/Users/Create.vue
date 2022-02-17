@@ -29,10 +29,10 @@
         
         <div class="pr-6 w-1/2">
           <FormInput
-            v-model="form.username"
-            :error="form.errors.username"
+            v-model="form.name"
+            :error="form.errors.name"
             type="text"
-            label="Usuari"
+            label="Nom"
           />
         </div>
 
@@ -50,28 +50,6 @@
             />
           </FormSelect>
         </div>    
-
-        <div class="pr-6 w-1/2">
-          <FormSelect
-            v-model="form.verified"
-            :error="form.errors.verified"
-            label="Verificat"
-          >
-            <option :value="true">Si</option>
-            <option :value="false">No</option>
-          </FormSelect>
-        </div>
-
-        <div class="pr-6 w-1/2">
-          <FormSelect
-            v-model="form.active"
-            :error="form.errors.active"
-            label="Actiu"
-          >
-            <option :value="true">Si</option>
-            <option :value="false">No</option>
-          </FormSelect>
-        </div>
       </div>
 
       <div class="px-8 py-4 bg-gray-50 border-t border-gray-100 flex justify-end">
@@ -106,12 +84,10 @@
   });
 
   let form = useForm({
-    username: "",
+    name: "",
     email: "",
     password: "",
     role_id: 1,
-    verified: false,
-    active: false,
   });
 
   const store = () => {

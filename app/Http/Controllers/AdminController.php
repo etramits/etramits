@@ -60,7 +60,7 @@ class AdminController extends Controller
         "name" => $user->name,
         "email" => $user->email,
         "role" => $user->role->label,
-        "verified" => $user->verified,
+        "email_verified_at" => $user->email_verified_at,
         "active" => $user->active,
         ]);
 
@@ -148,10 +148,10 @@ class AdminController extends Controller
         ->withQueryString()
         ->through(fn ($user) => [
           "id" => $user->id,
-          "username" => $user->username,
+          "name" => $user->name,
           "email" => $user->email,
           "role" => $user->role ? $user->role->only("label") : null,
-          "verified" => $user->verified,
+          "email_verified_at" => $user->email_verified_at,
           "active" => $user->active,
       ]),
       
