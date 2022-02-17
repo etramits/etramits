@@ -49,6 +49,12 @@ class JetstreamServiceProvider extends ServiceProvider
                 'settings' => Setting::first()
             ]);
         });
+
+        Fortify::requestPasswordResetLinkView(function () {
+            return Inertia::render('Auth/ForgotPassword', [
+                'settings' => Setting::first()
+            ]);
+        });
     }
 
     /**
