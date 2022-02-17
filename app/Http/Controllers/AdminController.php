@@ -117,22 +117,33 @@ class AdminController extends Controller
 
   public function comments()
   {
-    return Inertia::render("ACP/Comments/Index", [
-      "comments" => Comment::query()
-        ->when(Request::input("search"), function ($query, $search) {
-          $query->where("content", "like", "%{$search}%");
-        })
-        ->paginate(10)
-        ->withQueryString()
-        ->through(fn ($comment) => [
-          "id" => $comment->id,
-          "content" => $comment->content,
-          "active" => $comment->active,
-          "user" => $comment->user,
-          "article" => $comment->article
-        ]),
+    $commentsValidated = Comment::query()
+      ->where('active', 1)
+      ->paginate(10)
+      ->withQueryString()
+      ->through(fn ($comment) => [
+        "id" => $comment->id,
+        "content" => $comment->content,
+        "active" => $comment->active,
+        "user" => $comment->user,
+        "article" => $comment->article
+      ]);
 
-      "filters" => Request::only(["search"])
+    $commentsNoValidated = Comment::query()
+      ->where('active', 0)
+      ->paginate(10)
+      ->withQueryString()
+      ->through(fn ($comment) => [
+        "id" => $comment->id,
+        "content" => $comment->content,
+        "active" => $comment->active,
+        "user" => $comment->user,
+        "article" => $comment->article
+      ]);
+
+    return Inertia::render("ACP/Comments/Index", [
+      "commentsValidated" => $commentsValidated,
+      "commentsNoValidated" => $commentsNoValidated,
     ]);
   }
 

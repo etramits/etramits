@@ -47,6 +47,17 @@ class CommentController extends Controller
     return Redirect::back()->with("success", "Comentari actualitzat.");
   }
 
+  public function updateState($id)
+  {
+      $comment = Comment::find($id);
+
+      $comment->update([
+        'active' => 1,
+      ]);
+
+      return Redirect::back()->with('msg', 'Comment validated succefully');
+  }
+
   public function destroy(Comment $comment)
   { 
     $comment->delete();

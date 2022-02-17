@@ -98,6 +98,9 @@ Route::middleware("auth")->group(function ()
   Route::post("/acp/comentaris", [CommentController::class, "store"])
     ->name("acp.comments.store");
 
+  Route::get("/acp/comentaris/{id}/validate", [CommentController::class, "updateState"])
+    ->name("acp.comments.validate");
+
   Route::get("acp/comentaris/{license}/editar", [CommentController::class, "edit"])
     ->name("acp.comments.edit");
 

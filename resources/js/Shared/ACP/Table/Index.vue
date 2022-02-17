@@ -14,9 +14,8 @@
       <Link
         v-for="row in rows"
         :key="row"
-        :href="row.href"
         as="tr"
-        class="cursor-pointer hover:bg-zinc-100 focus-within:bg-zinc-100"
+        class=" hover:bg-zinc-100 focus-within:bg-zinc-100"
       >
         <td
           v-for="record in row.values"
