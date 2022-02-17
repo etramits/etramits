@@ -15807,13 +15807,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _Platforms_vue_vue_type_template_id_74248fa6__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Platforms.vue?vue&type=template&id=74248fa6 */ "./resources/js/Pages/ACP/Platforms.vue?vue&type=template&id=74248fa6");
 /* harmony import */ var _Platforms_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Platforms.vue?vue&type=script&lang=js */ "./resources/js/Pages/ACP/Platforms.vue?vue&type=script&lang=js");
+<<<<<<< HEAD
 /* harmony import */ var _home_apons_DAW_Tictac_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+=======
+/* harmony import */ var _home_obech_DAWProjects_test_tic_Tictac_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+>>>>>>> 15ec12166881877c1804479128d18a26f164295b
 
 
 
 
 ;
+<<<<<<< HEAD
 const __exports__ = /*#__PURE__*/(0,_home_apons_DAW_Tictac_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_Platforms_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_Platforms_vue_vue_type_template_id_74248fa6__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Pages/ACP/Platforms.vue"]])
+=======
+const __exports__ = /*#__PURE__*/(0,_home_obech_DAWProjects_test_tic_Tictac_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_Platforms_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_Platforms_vue_vue_type_template_id_74248fa6__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Pages/ACP/Platforms.vue"]])
+>>>>>>> 15ec12166881877c1804479128d18a26f164295b
 /* hot reload */
 if (false) {}
 
@@ -15834,13 +15842,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _Admin_vue_vue_type_template_id_476171fd__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Admin.vue?vue&type=template&id=476171fd */ "./resources/js/Shared/Layouts/Admin.vue?vue&type=template&id=476171fd");
 /* harmony import */ var _Admin_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Admin.vue?vue&type=script&lang=js */ "./resources/js/Shared/Layouts/Admin.vue?vue&type=script&lang=js");
+<<<<<<< HEAD
 /* harmony import */ var _home_apons_DAW_Tictac_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+=======
+/* harmony import */ var _home_obech_DAWProjects_test_tic_Tictac_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+>>>>>>> 15ec12166881877c1804479128d18a26f164295b
 
 
 
 
 ;
+<<<<<<< HEAD
 const __exports__ = /*#__PURE__*/(0,_home_apons_DAW_Tictac_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_Admin_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_Admin_vue_vue_type_template_id_476171fd__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Shared/Layouts/Admin.vue"]])
+=======
+const __exports__ = /*#__PURE__*/(0,_home_obech_DAWProjects_test_tic_Tictac_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_Admin_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_Admin_vue_vue_type_template_id_476171fd__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Shared/Layouts/Admin.vue"]])
+>>>>>>> 15ec12166881877c1804479128d18a26f164295b
 /* hot reload */
 if (false) {}
 
@@ -15861,13 +15877,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _UserMenu_vue_vue_type_template_id_590aa024__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./UserMenu.vue?vue&type=template&id=590aa024 */ "./resources/js/Shared/Public/UserMenu.vue?vue&type=template&id=590aa024");
 /* harmony import */ var _UserMenu_vue_vue_type_script_setup_true_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./UserMenu.vue?vue&type=script&setup=true&lang=js */ "./resources/js/Shared/Public/UserMenu.vue?vue&type=script&setup=true&lang=js");
+<<<<<<< HEAD
 /* harmony import */ var _home_apons_DAW_Tictac_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+=======
+/* harmony import */ var _home_obech_DAWProjects_test_tic_Tictac_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+>>>>>>> 15ec12166881877c1804479128d18a26f164295b
 
 
 
 
 ;
+<<<<<<< HEAD
 const __exports__ = /*#__PURE__*/(0,_home_apons_DAW_Tictac_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_UserMenu_vue_vue_type_script_setup_true_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_UserMenu_vue_vue_type_template_id_590aa024__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Shared/Public/UserMenu.vue"]])
+=======
+const __exports__ = /*#__PURE__*/(0,_home_obech_DAWProjects_test_tic_Tictac_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_UserMenu_vue_vue_type_script_setup_true_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_UserMenu_vue_vue_type_template_id_590aa024__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Shared/Public/UserMenu.vue"]])
+>>>>>>> 15ec12166881877c1804479128d18a26f164295b
 /* hot reload */
 if (false) {}
 
