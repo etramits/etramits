@@ -1,5 +1,5 @@
 <template>
-    <section :class="`bg-yellow-300`">
+    <section :style="`background-color: ${settings.main_color}`">
       <div class="container flex items-center justify-center mx-auto py-6 gap-20 text-gray-800">
         <div class="flex flex-col">
           <h2 class="text-7xl font-bold">{{ category.name }}</h2>
@@ -67,6 +67,11 @@
       category: Object,
       subcategories: Object,
       articles: Object,
+      settings: Object
     },
+    layout: Layout
   })
+</script>
+<script setup>
+import Layout from "../../Shared/Layouts/Public";
 </script>

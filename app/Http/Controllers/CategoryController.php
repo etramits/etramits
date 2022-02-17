@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Article;
+use App\Models\Setting;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Request;
 use Inertia\Inertia;
+
 
 class CategoryController extends Controller
 {
@@ -14,6 +16,7 @@ class CategoryController extends Controller
   {
     return Inertia::render("ACP/Categories/Create", [
       "categories" => Category::where("active", true)->get(),
+      
     ]);
   }
 
@@ -93,6 +96,7 @@ class CategoryController extends Controller
     return Inertia::render('Public/Category', [
       'category' => $category,
       'articles' => $articles,
+      'settings' => Setting::first(),
     ]);
   }
 }

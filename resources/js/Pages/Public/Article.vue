@@ -1,5 +1,5 @@
 <template>
-    <section :class="`bg-yellow-300`" >
+    <section :style="`background-color: ${settings.main_color}`">
       <div class="container flex flex-col items-center mx-auto py-16 text-gray-800">
         <h2 v-text="article.title" class="text-6xl font-bold" />
         <div v-if="$page.props.user" class="mt-10 text-gray-800 hover:text-gray-500">
@@ -78,14 +78,12 @@
   import Input from '../../Shared/ACP/FormInput.vue'
   import Textarea from '../../Shared/ACP/Form/TextArea.vue'
   import { fas } from '@fortawesome/free-solid-svg-icons'
-  import Layout from '../../Shared/Layouts/Public.vue'
   library.add(fas)
 
   export default defineComponent({
     components: {
       Link,
       FontAwesomeIcon,
-      Layout,
       Input,
       Textarea
     },
@@ -94,7 +92,9 @@
       comments: Object,
       favorite: Object,
       added: Number,
+      settings: Object
     },
+    layout: Layout,
     data() {
       return {
         form: this.$inertia.form({
@@ -138,4 +138,10 @@
       },
     }
   })
+</script>
+
+<script setup>
+
+import Layout from "../../Shared/Layouts/Public"
+
 </script>
