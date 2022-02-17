@@ -92,23 +92,11 @@ Route::middleware("auth")->group(function ()
   Route::get("acp/comentaris", [AdminController::class, "comments"])
     ->name("acp.comments");
 
-  Route::get("acp/comentaris/crear", [CommentController::class, "create"])
-    ->name("acp.comments.create");
-
-  Route::post("/acp/comentaris", [CommentController::class, "store"])
-    ->name("acp.comments.store");
-
   Route::get("/acp/comentaris/{id}/validate", [CommentController::class, "updateState"])
     ->name("acp.comments.validate");
 
-  Route::get("acp/comentaris/{license}/editar", [CommentController::class, "edit"])
-    ->name("acp.comments.edit");
-
-  Route::put("/acp/comentaris/{license}", [CommentController::class, "update"])
-    ->name("acp.comments.update");
-
-  Route::delete("/acp/comentaris/{license}", [CommentController::class, "destroy"])
-    ->name("acp.comments.destroy");
+  Route::delete('/deleteComment/{id}', [CommentController::class, 'destroy'])
+  ->name('comment.destroy');
 
 
   // ACP > Usuaris
@@ -194,7 +182,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
   ->name('favorites.destroy');
 
   //send comments
-  Route::post('/{id}/comment', [CommentController::class, 'store'])
+  Route::post('/newComment/{id}', [CommentController::class, 'store'])
   ->name('comment.store');
 }); 
 

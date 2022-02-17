@@ -55,7 +55,7 @@
         </div>
         <div v-for="comment in comments" :key="comment.id" class="flex flex-col gap-5">
           <!-- Comment -->
-          <div :style="`background-color: ${settings.main_color}`" :class="`flex flex-col p-4 gap-4 rounded-xl`">
+          <div :class="`flex flex-col p-4 gap-4 rounded-xl bg-zinc-100`">
             <div class="flex items-center gap-4">
               <div class="flex items-center gap-2">
                 <span class="text-2xl font-bold">{{comment.user_name}}</span>
@@ -104,11 +104,11 @@
     data() {
       return {
         form: this.$inertia.form({
-            user_id: '',
+            user_id: this.$page.props.user.id,
             content: ''
         }),
         fav: this.$inertia.form({
-            user_id: '',
+            user_id: this.$page.props.user.id,
         }),
       }
     },
@@ -129,17 +129,17 @@
         }
       },
       submitComment() {
-        this.form.user_id = this.$page.props.user.id;
         this.form.post(this.route('comment.store', this.article.id), {
-          onFinish: () => this.form.reset('content'),
+          onFinish: () => {
+            this.form.reset('content');
+            alert("Hello! I am an alert box!!");
+          },
         });
       },
       addFavorite() {
-        this.fav.user_id = this.$page.props.user.id;
         this.fav.post(this.route('favorite.add', this.article.id));
       },
       removeFavorite() {
-        this.fav.user_id = this.$page.props.user.id;
         this.fav.post(this.route('favorite.rem', this.article.id));
       },
     },
