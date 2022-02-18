@@ -837,9 +837,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 .gap-12 {
   gap: 3rem;
 }
-.gap-8 {
-  gap: 2rem;
-}
 .gap-2 {
   gap: 0.5rem;
 }
