@@ -120,7 +120,7 @@ class AdminController extends Controller
     $commentsValidated = Comment::query()
       ->where('active', 1)
       ->orderBy('id', 'DESC')
-      ->paginate(10)
+      ->paginate(10, ["*"], "validated")
       ->withQueryString()
       ->through(fn ($comment) => [
         "id" => $comment->id,
@@ -133,7 +133,7 @@ class AdminController extends Controller
     $commentsNoValidated = Comment::query()
       ->where('active', 0)
       ->orderBy('id', 'DESC')
-      ->paginate(10)
+      ->paginate(15, ["*"], "noValidated")
       ->withQueryString()
       ->through(fn ($comment) => [
         "id" => $comment->id,

@@ -14,12 +14,6 @@
             </button>
           </div>
         </div>
-        <div class="mt-3 flex items-center gap-8">
-          <!-- <span v-for="entry in article.stats" :key="entry.id" class="text-xl">
-            <font-awesome-icon :icon="entry.icon" />
-            {{ entry.value }}
-          </span> -->
-        </div>
       </div>
     </section>
     
@@ -37,16 +31,20 @@
       <div class="container flex flex-col gap-10 mx-auto max-w-7xl p-10 bg-white rounded-b-xl shadow">
         <div>
           <div v-if="$page.props.user">
-            <form @submit.prevent="submitComment" class="w-3/5 ml-8">
+            <form @submit.prevent="submitComment" class="w-full">
                 <div>
-                    <jet-label for="content" value="Comentari:" />
-                    <textarea id="content" type="text" class="mt-1 block w-full" v-model="form.content" :maxlength="200" required />
+                  <jet-label for="content" value="Comentari:" />
+                  <textarea id="content" type="text" class="mt-4 block w-full bg-zinc-100 border border-zinc-200 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm p-2" v-model="form.content" :maxlength="200" required />
                 </div>
+                <vue-recaptcha ref="recaptcha" class="mt-4"
+                  @verify="onVerify" sitekey="6Ldk04geAAAAAOY7dXZeKLPjfy9Y0buP9cTnpe2V">
+                </vue-recaptcha>
                 <div class="flex items-center justify-start mt-4">
-                    <jet-button :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                        Enviar
-                    </jet-button>
+                  <jet-button :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
+                    Enviar
+                  </jet-button>
                 </div>
+                <alert class="mt-4" v-if="errorRobot != false" value="Falta seleccionar el ReCaptcha"/>
             </form>
           </div>
           <div v-else>
@@ -58,8 +56,8 @@
           <div :class="`flex flex-col p-4 gap-4 rounded-xl bg-zinc-100`">
             <div class="flex items-center gap-4">
               <div class="flex items-center gap-2">
-                <span class="text-2xl font-bold">{{comment.user_name}}</span>
-                <span v-if="comment.user_role" v-text="selectRole(comment.user_role)" :style="`background-color: ${settings.main_color}`" :class="`p-1 text-md font-semibold rounded leading-none`" />
+                <span class="text-2xl font-bold">{{comment.username}}</span>
+                <span :style="`background-color: ${settings.main_color}`" :class="`p-1 text-md font-semibold rounded leading-none`">{{comment.user_role}}</span>
               </div>
             </div>
 
@@ -71,16 +69,17 @@
 </template>
 
 <script>
-  import { defineComponent } from 'vue'
-  import { Link } from '@inertiajs/inertia-vue3'
-  import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-  import { library } from '@fortawesome/fontawesome-svg-core'
-  import JetInput from '@/Jetstream/Input.vue'
-  import JetLabel from '@/Jetstream/Label.vue'
-  import JetButton from '@/Jetstream/Button.vue'
-  import JetTextarea from '@/Jetstream/Textarea.vue'
-  import { fas } from '@fortawesome/free-solid-svg-icons'
+  import { defineComponent } from "vue"
+  import { Link } from "@inertiajs/inertia-vue3"
+  import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome"
+  import { library } from "@fortawesome/fontawesome-svg-core"
+  import JetInput from "@/Jetstream/Input.vue"
+  import JetLabel from "@/Jetstream/Label.vue"
+  import JetButton from "@/Jetstream/Button.vue"
+  import { fas } from "@fortawesome/free-solid-svg-icons"
   import Layout from "../../Shared/Layouts/Public";
+  import { VueRecaptcha } from "vue-recaptcha";
+  import alert from "../../Shared/Public/Alert.vue"
 
   library.add(fas)
 
@@ -91,7 +90,8 @@
       JetInput,
       JetLabel,
       JetButton,
-      JetTextarea
+      VueRecaptcha,
+      alert
     },
     layout: Layout,
     props: {
@@ -104,42 +104,43 @@
     data() {
       return {
         form: this.$inertia.form({
-            user_id: this.$page.props.user.id,
+            robot: false,
+            user_id: '',
             content: ''
         }),
         fav: this.$inertia.form({
-            user_id: this.$page.props.user.id,
+            user_id: '',
         }),
+        errorRobot: false,
       }
     },
     methods: {
-      selectRole(roleInt) {
-        switch(roleInt) {
-        case 1:
-            return "Usuari";
-            break;
-        case 2:
-            return "Admin";
-            break;
-        case 3:
-            return "Gestor";
-            break;
-        default:
-            return "Usuari";
+      submitComment() {
+        if (this.form.robot) {
+          this.form.user_id = this.$page.props.user.id;
+          this.form.post(this.route('comment.store', this.article.id), {
+            onFinish: () => {
+              this.form.reset('content');
+            },
+          });
+        } else {
+          this.errorRobot = true
         }
       },
-      submitComment() {
-        this.form.post(this.route('comment.store', this.article.id), {
-          onFinish: () => {
-            this.form.reset('content');
-            alert("Hello! I am an alert box!!");
-          },
-        });
+      onVerify(response) {
+        if (response) {
+          this.form.robot = true
+          this.errorRobot = false
+        } else {
+          this.errorRobot = true
+        }
       },
       addFavorite() {
+        this.fav.user_id = this.$page.props.user.id;
         this.fav.post(this.route('favorite.add', this.article.id));
       },
       removeFavorite() {
+        this.fav.user_id = this.$page.props.user.id;
         this.fav.post(this.route('favorite.rem', this.article.id));
       },
     },

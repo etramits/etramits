@@ -32,7 +32,7 @@
               <div class="mt-2 flex items-center gap-4">
                 <div class="px-2 py-1 text-sm text-gray-500 bg-gray-100 rounded leading-none">
                   <font-awesome-icon icon="book-open" class="mr-1" />
-                  <span>{{article.readingTime}}</span>
+                  <span>{{article.readingTime}} min</span>
                 </div>
                 <div class="px-2 py-1 text-sm text-gray-500 bg-gray-100 rounded leading-none">
                   <font-awesome-icon icon="comments" class="mr-1" />

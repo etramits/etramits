@@ -30,7 +30,7 @@
   </div>
 
 
-  <h3 class="my-8 font-medium text-zinc-700 text-2xl">Comentaris revisats</h3>
+  <h3 class="my-8 font-medium text-zinc-700 text-2xl">Historial Comentaris</h3>
   <div class="bg-white rounded-md shadow overflow-x-auto">
     <table class="w-full text-zinc-700 whitespace-nowrap">
       <tr class="text-left font-bold">
@@ -52,7 +52,7 @@
       </tr>
     </table>
 
-    <Pagination :links="commentsValidated" />
+    <Pagination :links="commentsValidated.links" />
   </div>
   
   
