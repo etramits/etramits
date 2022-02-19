@@ -59,7 +59,7 @@ class FavoriteController extends Controller
             'article_id' => $article_id
         ]);
 
-        return Redirect::back()->with('success', 'Favorit eliminat');
+        return Redirect::back()->with('success', 'Favorit afegit');
     }
 
     /**

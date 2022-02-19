@@ -92,20 +92,11 @@ Route::middleware("auth")->group(function ()
   Route::get("acp/comentaris", [AdminController::class, "comments"])
     ->name("acp.comments");
 
-  Route::get("acp/comentaris/crear", [CommentController::class, "create"])
-    ->name("acp.comments.create");
+  Route::get("/acp/comentaris/{id}/validate", [CommentController::class, "updateState"])
+    ->name("acp.comments.validate");
 
-  Route::post("/acp/comentaris", [CommentController::class, "store"])
-    ->name("acp.comments.store");
-
-  Route::get("acp/comentaris/{license}/editar", [CommentController::class, "edit"])
-    ->name("acp.comments.edit");
-
-  Route::put("/acp/comentaris/{license}", [CommentController::class, "update"])
-    ->name("acp.comments.update");
-
-  Route::delete("/acp/comentaris/{license}", [CommentController::class, "destroy"])
-    ->name("acp.comments.destroy");
+  Route::delete('/deleteComment/{id}', [CommentController::class, 'destroy'])
+  ->name('comment.destroy');
 
 
   // ACP > Usuaris
@@ -175,7 +166,27 @@ Route::get('/article/show/{article}', [ArticleController::class, 'test'])
 Route::get('/{slug}', [CategoryController::class, 'view'])
     ->name('category.view');
 
+// Favorites and comments
+Route::middleware(['auth:sanctum'])->group(function () {
+  // Favorites
+  Route::get('favorites/list', [FavoriteController::class, 'index'])
+  ->name('favorites');
+
+  Route::post('favorites/{article_id}/add', [FavoriteController::class, 'add'])
+  ->name('favorite.add');
+
+  Route::post('favorites/{article_id}/rem', [FavoriteController::class, 'rem'])
+  ->name('favorite.rem');
+
+  Route::delete('favorites', [FavoriteController::class, 'destroy'])
+  ->name('favorites.destroy');
+
+  //send comments
+  Route::post('/newComment/{id}', [CommentController::class, 'store'])
+  ->name('comment.store');
+}); 
+
 // Fallback route
 Route::fallback(function() {
-    return route();
+    return route('/');
 });

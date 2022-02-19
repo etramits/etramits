@@ -36,11 +36,11 @@ return [
     'mailers' => [
         'smtp' => [
             'transport' => 'smtp',
-            'host' => env('MAIL_HOST', 'smtp.mailgun.org'),
-            'port' => env('MAIL_PORT', 587),
-            'encryption' => env('MAIL_ENCRYPTION', 'tls'),
-            'username' => env('MAIL_USERNAME'),
-            'password' => env('MAIL_PASSWORD'),
+            'host' => 'etramits-cat.correoseguro.dinaserver.com',
+            'port' => 465,
+            'encryption' => 'ssl',
+            'username' => 'noreply@etramits.cat',
+            'password' => '6/y60O8unw&X',
             'timeout' => null,
             'auth_mode' => null,
         ],

@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Comment;
 use Illuminate\Support\Facades\Redirect;
-use Illuminate\Support\Facades\Request;
+use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class CommentController extends Controller
@@ -14,16 +14,17 @@ class CommentController extends Controller
     return Inertia::render("ACP/Comments/Create");
   }
 
-  public function store()
+  public function store(Request $request, $id)
   {
-    $attributes = Request::validate([
-      "content" => ["required"],
-      "active" => ["required", "boolean"],
+
+    Comment::create([
+        'content' => $request->content,
+        'user_id' => $request->user_id,
+        'article_id' => $id,
+        'active' => 0
     ]);
 
-    Comment::create($attributes);
-
-    return Redirect::route("acp.comments")->with("success", "Comentari creat.");
+    return Redirect::back()->with('msg', 'Comment sended succefully');
   }
 
   public function edit(Comment $comment)
@@ -33,24 +34,24 @@ class CommentController extends Controller
     ]);
   }
 
-  public function update(Comment $comment)
-  { 
-    $attributes = Request::validate([
-      "content" => ["required"],
-      "active" => ["required", "boolean"],
+  public function updateState($id)
+  {
+    $comment = Comment::find($id);
+
+    $comment->update([
+      'active' => 1,
     ]);
 
-    // return $attributes;
-
-    $comment->update($attributes);
-
-    return Redirect::back()->with("success", "Comentari actualitzat.");
+    return Redirect::back()->with('msg', 'Comment validated succefully');
   }
 
-  public function destroy(Comment $comment)
+  public function destroy($id)
   { 
+
+    $comment = Comment::find($id);
+
     $comment->delete();
 
-    return Redirect::route("acp.comments")->with("success", "Comentari eliminat.");
+    return Redirect::back()->with('msg', 'Comment removed succefully');
   }
 }

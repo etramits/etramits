@@ -74,8 +74,8 @@ class ArticleController extends Controller
       ->map(fn ($comment) => [
         'id' => $comment->id,
         'user_id' => $comment->user_id,
-        'name' => $comment->user->name,
-        'user_role' => $comment->user->role->id,
+        'username' => $comment->user->name,
+        'user_role' => $comment->user->role->label,
         'article_id' => $comment->article_id,
         'content' => $comment->content,
         'active' => $comment->active
