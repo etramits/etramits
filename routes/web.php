@@ -188,5 +188,5 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
 // Fallback route
 Route::fallback(function() {
-    return route();
+    return route('/');
 });

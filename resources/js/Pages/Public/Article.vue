@@ -34,7 +34,7 @@
             <form @submit.prevent="submitComment" class="w-full">
                 <div>
                   <jet-label for="content" value="Comentari:" />
-                  <textarea id="content" type="text" class="mt-4 block w-full bg-zinc-100 border border-zinc-200 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm p-2" v-model="form.content" :maxlength="200" required />
+                  <textarea id="content" placeholder="Deixa aquí el teu comentari." type="text" class="mt-4 block w-full bg-zinc-100 border border-zinc-200 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm p-2" v-model="form.content" :maxlength="200" required />
                 </div>
                 <vue-recaptcha ref="recaptcha" class="mt-4"
                   @verify="onVerify" sitekey="6Ldk04geAAAAAOY7dXZeKLPjfy9Y0buP9cTnpe2V">
@@ -53,15 +53,16 @@
         </div>
         <div v-for="comment in comments" :key="comment.id" class="flex flex-col gap-5">
           <!-- Comment -->
-          <div :class="`flex flex-col p-4 gap-4 rounded-xl bg-zinc-100`">
-            <div class="flex items-center gap-4">
+          <div :class="`flex flex-col p-4 gap-2 rounded-xl bg-zinc-100`">
+            <div class="flex items-center">
               <div class="flex items-center gap-2">
-                <span class="text-2xl font-bold">{{comment.username}}</span>
+                <span class="text-xl font-bold">{{comment.username}}</span>
                 <span :style="`background-color: ${settings.main_color}`" :class="`p-1 text-md font-semibold rounded leading-none`">{{comment.user_role}}</span>
+                <div v-if="$page.props.user.role_id == 3 || $page.props.user.role_id == 4"><a class="cursor-pointer"  v-on:click="destroy(comment.id)"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg></a></div>
               </div>
             </div>
 
-            <p v-html="comment.content" class="text-xl leading-7" />
+            <p v-html="comment.content" class="text-md leading-2" />
           </div>
         </div>
       </div>
@@ -80,6 +81,7 @@
   import Layout from "../../Shared/Layouts/Public";
   import { VueRecaptcha } from "vue-recaptcha";
   import alert from "../../Shared/Public/Alert.vue"
+  import { Inertia } from "@inertiajs/inertia";
 
   library.add(fas)
 
@@ -120,7 +122,7 @@
           this.form.user_id = this.$page.props.user.id;
           this.form.post(this.route('comment.store', this.article.id), {
             onFinish: () => {
-              this.form.reset('content');
+              this.form.content = '';
             },
           });
         } else {
@@ -143,6 +145,9 @@
         this.fav.user_id = this.$page.props.user.id;
         this.fav.post(this.route('favorite.rem', this.article.id));
       },
+      destroy(id) {
+        Inertia.delete(`/deleteComment/${id}`);
+      }
     },
     
   })

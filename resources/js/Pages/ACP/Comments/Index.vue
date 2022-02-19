@@ -21,8 +21,8 @@
         <td class="px-6 py-3 border-t last:w-px">{{row.user.email}}</td>
         <td class="px-6 py-3 border-t last:w-px">{{row.article.title}}</td>
         <td class="px-6 py-3 border-t last:w-px">{{row.content}}</td>
-        <td class="px-6 py-3 border-t last:w-px"><a href="/acp/comentaris/${comment.id}/validate"><svg width="24" height="24" stroke-width="1.5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 13L9 17L19 7" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg></a></td>
-        <td class="px-6 py-3 border-t last:w-px"><a class="cursor-pointer"  v-on:click="destroy(row.id)"><svg width="24" height="24" stroke-width="1.5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9.17218 14.8284L12.0006 12M14.829 9.17157L12.0006 12M12.0006 12L9.17218 9.17157M12.0006 12L14.829 14.8284" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg></a></td>
+        <td class="px-6 py-3 border-t last:w-px"><a :href="`/acp/comentaris/${row.id}/validate`"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg></a></td>
+        <td class="px-6 py-3 border-t last:w-px"><a class="cursor-pointer"   v-on:click="destroy(row.id)"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg></a></td>
       </tr>
     </table>
 
@@ -38,7 +38,6 @@
         <th class="px-6 pt-5 pb-3">Usuari</th>
         <th class="px-6 pt-5 pb-3">Tràmit</th>
         <th class="px-6 pt-5 pb-3">Comentari</th>
-        <th class="px-6 pt-5 pb-3">Validar</th>
         <th class="px-6 pt-5 pb-3">Esborrar</th>
       </tr>
 
@@ -47,8 +46,7 @@
         <td class="px-6 py-3 border-t last:w-px">{{row.user.email}}</td>
         <td class="px-6 py-3 border-t last:w-px">{{row.article.title}}</td>
         <td class="px-6 py-3 border-t last:w-px">{{row.content}}</td>
-        <td class="px-6 py-3 border-t last:w-px"><a href="/acp/comentaris/${comment.id}/validate"><svg width="24" height="24" stroke-width="1.5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 13L9 17L19 7" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg></a></td>
-        <td class="px-6 py-3 border-t last:w-px"><a class="cursor-pointer"   v-on:click="destroy(row.id)"><svg width="24" height="24" stroke-width="1.5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9.17218 14.8284L12.0006 12M14.829 9.17157L12.0006 12M12.0006 12L9.17218 9.17157M12.0006 12L14.829 14.8284" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg></a></td>
+        <td class="px-6 py-3 border-t last:w-px"><a class="cursor-pointer"   v-on:click="destroy(row.id)"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg></a></td>
       </tr>
     </table>
 
