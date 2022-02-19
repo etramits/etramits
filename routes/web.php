@@ -32,12 +32,9 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->name('dashboard');
 
+//ACP
 Route::middleware("auth")->group(function ()
 {
-
-  // Perfil d'Usuari
-  Route::get('/perfil', [UserProfileController::class, 'show'])
-    ->name('profile');
 
   // ACP
 
@@ -150,26 +147,14 @@ Route::middleware("auth")->group(function ()
  
 });
 
-// Pàgina inicial
-Route::get('/', [HomeController::class, 'index'])
-    ->name('home');
-
-// Tràmit
-Route::get('/{category}/{article}', [ArticleController::class, 'view'])
-    ->name('article.view');
-
-//show article test
-Route::get('/article/show/{article}', [ArticleController::class, 'test'])
-    ->name('article.show');
-
-// Categories
-Route::get('/{slug}', [CategoryController::class, 'view'])
-    ->name('category.view');
-
 // Favorites and comments
 Route::middleware(['auth:sanctum'])->group(function () {
+  // Perfil d'Usuari
+  Route::get('/perfil', [UserProfileController::class, 'show'])
+    ->name('profile');
+    
   // Favorites
-  Route::get('favorites/list', [FavoriteController::class, 'index'])
+  Route::get('favorites/index', [FavoriteController::class, 'index'])
   ->name('favorites');
 
   Route::post('favorites/{article_id}/add', [FavoriteController::class, 'add'])
@@ -185,6 +170,22 @@ Route::middleware(['auth:sanctum'])->group(function () {
   Route::post('/newComment/{id}', [CommentController::class, 'store'])
   ->name('comment.store');
 }); 
+
+// Pàgina inicial
+Route::get('/', [HomeController::class, 'index'])
+    ->name('home');
+
+// Tràmit
+Route::get('/{category}/{article}', [ArticleController::class, 'view'])
+    ->name('article.view');
+
+//show article test
+Route::get('/article/show/{article}', [ArticleController::class, 'test'])
+    ->name('article.show');
+
+// Categories
+Route::get('/{slug}', [CategoryController::class, 'view'])
+    ->name('category.view');
 
 // Fallback route
 Route::fallback(function() {

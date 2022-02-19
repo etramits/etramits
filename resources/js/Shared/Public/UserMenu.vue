@@ -28,8 +28,8 @@
                         Panell d'Usuari
                     </Link>
                 </MenuItem>
-                <MenuItem  v-if="$page.url != '/preferits'" v-slot="{ active }">
-                    <Link href="/preferits" :class="[active ? 'bg-gray-100 text-gray-900' : 'text-gray-700', 'block px-4 py-2 text-sm']">
+                <MenuItem  v-if="$page.url != 'favorites/index'" v-slot="{ active }">
+                    <Link href="favorites/index" :class="[active ? 'bg-gray-100 text-gray-900' : 'text-gray-700', 'block px-4 py-2 text-sm']">
                         <font-awesome-icon icon="star" class="mr-2"/>
                         Tràmits preferits
                     </Link>
