@@ -23,9 +23,12 @@ class CategoryController extends Controller
   public function store()
   {
     $attributes = Request::validate([
-      "name" => ["required", "max:24"],
-      "email" => ["required", "email"],
-      "password" => ["required"],
+      "name" => ["required"],
+      "slug" => ["required"],
+      "icon" => ["required"],
+      "description" => ["required"],
+      "parent" => ["required"],
+      "active" => ["required"],
     ]);
 
     Category::create($attributes);
