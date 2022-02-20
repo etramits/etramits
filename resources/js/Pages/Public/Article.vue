@@ -86,10 +86,9 @@
   import JetLabel from "@/Jetstream/Label.vue"
   import JetButton from "@/Jetstream/Button.vue"
   import { fas } from "@fortawesome/free-solid-svg-icons"
-  import Layout from "../../Shared/Layouts/Public";
-  import { VueRecaptcha } from "vue-recaptcha";
+  import { VueRecaptcha } from "vue-recaptcha"
   import alert from "../../Shared/Public/Alert.vue"
-  import { Inertia } from "@inertiajs/inertia";
+  import { Inertia } from "@inertiajs/inertia"
 
   library.add(fas)
 
@@ -98,7 +97,7 @@
       Link,
       FontAwesomeIcon,
       Input,
-      Textarea
+      Textarea,
       JetInput,
       JetLabel,
       JetButton,
