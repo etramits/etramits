@@ -2,28 +2,58 @@
   <FlashData />
   
 
-  <h1 class="mb-8 text-3xl font-bold text-zinc-700">Comentaris</h1>
+  <h1 class="mb-8 text-3xl font-bold text-zinc-700">Gestió Comentaris</h1>
 
-  <div class="mb-6 flex justify-between items-center">
-    <input
-      v-model="search"
-      autocomplete="off"
-      type="text"
-      name="search"
-      placeholder="Cercar..."
-      class="relative w-1/5 px-6 py-3 rounded shadow text-zinc-700 focus:outline-none focus:ring focus:ring-zinc-700/20 focus:border-zinc-900"
-    >
+  <h3 class="my-8 font-medium text-zinc-700 text-2xl">Comentaris pendents de revisar</h3>
+  <div class="bg-white rounded-md shadow overflow-x-auto">
+    <table class="w-full text-zinc-700 whitespace-nowrap">
+      <tr class="text-left font-bold">
+        <th class="px-6 pt-5 pb-3">Id</th>
+        <th class="px-6 pt-5 pb-3">Usuari</th>
+        <th class="px-6 pt-5 pb-3">Tràmit</th>
+        <th class="px-6 pt-5 pb-3">Comentari</th>
+        <th class="px-6 pt-5 pb-3">Validar</th>
+        <th class="px-6 pt-5 pb-3">Esborrar</th>
+      </tr>
 
-    <!-- <Link href="/acp/comentaris/crear" class="px-6 py-3 text-sm font-bold text-white leading-4 rounded shadow bg-zinc-700 whitespace-nowrap hover:bg-zinc-800 focus:outline-none focus:ring focus:ring-zinc-700/20">
-      <span>Crear</span> <span class="hidden md:inline">Comentari</span>
-    </Link> -->
+      <tr v-for="row in commentsNoValidated.data" :key="row.id" class=" hover:bg-zinc-100 focus-within:bg-zinc-100">
+        <td class="px-6 py-3 border-t last:w-px">{{row.id}}</td>
+        <td class="px-6 py-3 border-t last:w-px">{{row.user.email}}</td>
+        <td class="px-6 py-3 border-t last:w-px">{{row.article.title}}</td>
+        <td class="px-6 py-3 border-t last:w-px">{{row.content}}</td>
+        <td class="px-6 py-3 border-t last:w-px"><a :href="`/acp/comentaris/${row.id}/validate`"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg></a></td>
+        <td class="px-6 py-3 border-t last:w-px"><a class="cursor-pointer"   v-on:click="destroy(row.id)"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg></a></td>
+      </tr>
+    </table>
+
+    <Pagination :links="commentsNoValidated.links" />
   </div>
 
-  <Table
-    :header="getCommentsHeaders"
-    :rows="getCommentsRows"
-    :pagination="comments.links"
-  />
+
+  <h3 class="my-8 font-medium text-zinc-700 text-2xl">Historial Comentaris</h3>
+  <div class="bg-white rounded-md shadow overflow-x-auto">
+    <table class="w-full text-zinc-700 whitespace-nowrap">
+      <tr class="text-left font-bold">
+        <th class="px-6 pt-5 pb-3">Id</th>
+        <th class="px-6 pt-5 pb-3">Usuari</th>
+        <th class="px-6 pt-5 pb-3">Tràmit</th>
+        <th class="px-6 pt-5 pb-3">Comentari</th>
+        <th class="px-6 pt-5 pb-3">Esborrar</th>
+      </tr>
+
+      <tr v-for="row in commentsValidated.data" :key="row.id" class=" hover:bg-zinc-100 focus-within:bg-zinc-100">
+        <td class="px-6 py-3 border-t last:w-px">{{row.id}}</td>
+        <td class="px-6 py-3 border-t last:w-px">{{row.user.email}}</td>
+        <td class="px-6 py-3 border-t last:w-px">{{row.article.title}}</td>
+        <td class="px-6 py-3 border-t last:w-px">{{row.content}}</td>
+        <td class="px-6 py-3 border-t last:w-px"><a class="cursor-pointer"   v-on:click="destroy(row.id)"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg></a></td>
+      </tr>
+    </table>
+
+    <Pagination :links="commentsValidated.links" />
+  </div>
+  
+  
 </template>
 
 <script>
@@ -34,9 +64,11 @@
 
 <script setup>
   import { ref, watch, computed } from "vue";
-  import { Link } from "@inertiajs/inertia-vue3";
+  import { Link, useForm} from "@inertiajs/inertia-vue3";
   import { Inertia } from "@inertiajs/inertia";
   import debounce from "lodash/debounce";
+  import Pagination from "../../../Shared/ACP/Table/Pagination";
+  
 
   // Components
   import Layout from "../../../Shared/Layouts/Admin";
@@ -44,47 +76,68 @@
   import Table from "../../../Shared/ACP/Table/Index";
 
   const props = defineProps({
-    comments: Object,
-    filters: Object,
+    commentsValidated: Object,
+    commentsNoValidated: Object,
   });
 
   let showFlashData = ref(true);
 
-  const getCommentsHeaders = computed(() => {
+  const headers1 = computed(() => {
     return [
       { label: "Id" },
       { label: "Usuari" },
       { label: "Tràmit" },
       { label: "Comentari"},
-      { label: "Validat",  attrs: { colspan: 2 } },
+      { label: "Validar"},
+      { label: "Esborrar"},
     ];
   });
 
-  const getCommentsRows = computed(() => {
-    return props.comments.data.map(comment => {
+  const headers2 = computed(() => {
+    return [
+      { label: "Id" },
+      { label: "Usuari" },
+      { label: "Tràmit" },
+      { label: "Comentari"},
+      { label: "Esborrar"},
+    ];
+  });
+
+
+
+  const commentsNoValidatedRows = computed(() => {
+    return props.commentsNoValidated.data.map(comment => {
       return {
-        href: `/acp/comentaris/${comment.id}/editar`,
+        href: '',
         values: [
           comment.id,
           comment.user.email,
           comment.article.title,
           comment.content,
-          comment.active
-            ? '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><circle cx="12" cy="12" r="2" /><path d="M22 12c-2.667 4.667 -6 7 -10 7s-7.333 -2.333 -10 -7c2.667 -4.667 6 -7 10 -7s7.333 2.333 10 7" />'
-            : '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><line x1="3" y1="3" x2="21" y2="21" /><path d="M10.584 10.587a2 2 0 0 0 2.828 2.83" /><path d="M9.363 5.365a9.466 9.466 0 0 1 2.637 -.365c4 0 7.333 2.333 10 7c-.778 1.361 -1.612 2.524 -2.503 3.488m-2.14 1.861c-1.631 1.1 -3.415 1.651 -5.357 1.651c-4 0 -7.333 -2.333 -10 -7c1.369 -2.395 2.913 -4.175 4.632 -5.341" />',
-          '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" class="block w-6 h-6 fill-gray-400"><polygon points="12.95 10.707 13.657 10 8 4.343 6.586 5.757 10.828 10 6.586 14.243 8 15.657 12.95 10.707" /></svg>',
+          `<a href="/acp/comentaris/${comment.id}/validate"><svg width="24" height="24" stroke-width="1.5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 13L9 17L19 7" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg></a>`,
+          `<a class="cursor-pointer"  @click.prevent='alert("yo")'><svg width="24" height="24" stroke-width="1.5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9.17218 14.8284L12.0006 12M14.829 9.17157L12.0006 12M12.0006 12L9.17218 9.17157M12.0006 12L14.829 14.8284" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg></a>`,
         ]
       };
     });
   });
 
-  let search = ref(props.filters.search);
-
-  watch(search, debounce(function (value) {
-    Inertia.get("/acp/comentaris", { search: value }, {
-      preserveState: true,
-      replace: true,
+  const commentsValidatedRows = computed(() => {
+    return props.commentsValidated.data.map(comment => {
+      return {
+        href: '',
+        values: [
+          comment.id,
+          comment.user.email,
+          comment.article.title,
+          comment.content,
+          `<a class="cursor-pointer" @click="destroy(${comment.id})"><svg width="24" height="24" stroke-width="1.5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9.17218 14.8284L12.0006 12M14.829 9.17157L12.0006 12M12.0006 12L9.17218 9.17157M12.0006 12L14.829 14.8284" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg></a>`,
+        ]
+      };
     });
-  }, 500));
+  });
+
+  const destroy = (id) => {
+    Inertia.delete(`/deleteComment/${id}`);
+  };
 
 </script>

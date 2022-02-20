@@ -14,12 +14,6 @@
             </button>
           </div>
         </div>
-        <div class="mt-3 flex items-center gap-8">
-          <!-- <span v-for="entry in article.stats" :key="entry.id" class="text-xl">
-            <font-awesome-icon :icon="entry.icon" />
-            {{ entry.value }}
-          </span> -->
-        </div>
       </div>
     </section>
     
@@ -29,7 +23,7 @@
     </section>
 
     <section class="pb-20 bg-gray-50 text-gray-800">
-      <header :class="`container flex items-center mx-auto max-w-7xl px-10 py-6 gap-2 bg-yellow-300 leading-none rounded-t-xl shadow`">
+      <header :style="`background-color: ${settings.main_color}`" :class="`container flex items-center mx-auto max-w-7xl px-10 py-6 gap-2 leading-none rounded-t-xl shadow`">
         <font-awesome-icon icon="comments" size="2x" />
         <span class="text-4xl font-bold">Comentaris</span>
       </header>
@@ -37,16 +31,20 @@
       <div class="container flex flex-col gap-10 mx-auto max-w-7xl p-10 bg-white rounded-b-xl shadow">
         <div>
           <div v-if="$page.props.user">
-            <form @submit.prevent="submitComment" class="w-3/5 ml-8">
+            <form @submit.prevent="submitComment" class="w-full">
                 <div>
-                    <div for="content" value="Comentari:" />
-                    <Textarea id="content" type="text" class="mt-1 block w-full" v-model="form.content" :maxlength="200" required />
+                  <jet-label for="content" value="Comentari:" />
+                  <textarea id="content" placeholder="Deixa aquí el teu comentari." type="text" class="mt-4 block w-full bg-zinc-100 border border-zinc-200 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm p-2" v-model="form.content" :maxlength="200" required />
                 </div>
+                <vue-recaptcha ref="recaptcha" class="mt-4"
+                  @verify="onVerify" sitekey="6Ldk04geAAAAAOY7dXZeKLPjfy9Y0buP9cTnpe2V">
+                </vue-recaptcha>
                 <div class="flex items-center justify-start mt-4">
-                    <button :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                        Enviar
-                    </button>
+                  <jet-button :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
+                    Enviar
+                  </jet-button>
                 </div>
+                <alert class="mt-4" v-if="errorRobot != false" value="Falta seleccionar el ReCaptcha"/>
             </form>
           </div>
           <div v-else>
@@ -55,15 +53,16 @@
         </div>
         <div v-for="comment in comments" :key="comment.id" class="flex flex-col gap-5">
           <!-- Comment -->
-          <div :class="`flex flex-col p-4 gap-4 bg-yellow-50 rounded-xl`">
-            <div class="flex items-center gap-4">
+          <div :class="`flex flex-col p-4 gap-2 rounded-xl bg-zinc-100`">
+            <div class="flex items-center">
               <div class="flex items-center gap-2">
-                <span class="text-2xl font-bold">{{comment.username}}</span>
-                <span v-if="comment.user_role" v-text="selectRole(comment.username)" :class="`p-1 text-md font-semibold bg-yellow-300 rounded leading-none`" />
+                <span class="text-xl font-bold">{{comment.username}}</span>
+                <span :style="`background-color: ${settings.main_color}`" :class="`p-1 text-md font-semibold rounded leading-none`">{{comment.user_role}}</span>
+                <div v-if="$page.props.user.role_id == 3 || $page.props.user.role_id == 4"><a class="cursor-pointer"  v-on:click="destroy(comment.id)"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg></a></div>
               </div>
             </div>
 
-            <p v-html="comment.content" class="text-xl leading-7" />
+            <p v-html="comment.content" class="text-md leading-2" />
           </div>
         </div>
       </div>
@@ -71,13 +70,19 @@
 </template>
 
 <script>
-  import { defineComponent } from 'vue'
-  import { Link } from '@inertiajs/inertia-vue3'
-  import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-  import { library } from '@fortawesome/fontawesome-svg-core'
-  import Input from '../../Shared/ACP/FormInput.vue'
-  import Textarea from '../../Shared/ACP/Form/TextArea.vue'
-  import { fas } from '@fortawesome/free-solid-svg-icons'
+  import { defineComponent } from "vue"
+  import { Link } from "@inertiajs/inertia-vue3"
+  import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome"
+  import { library } from "@fortawesome/fontawesome-svg-core"
+  import JetInput from "@/Jetstream/Input.vue"
+  import JetLabel from "@/Jetstream/Label.vue"
+  import JetButton from "@/Jetstream/Button.vue"
+  import { fas } from "@fortawesome/free-solid-svg-icons"
+  import Layout from "../../Shared/Layouts/Public";
+  import { VueRecaptcha } from "vue-recaptcha";
+  import alert from "../../Shared/Public/Alert.vue"
+  import { Inertia } from "@inertiajs/inertia";
+
   library.add(fas)
 
   export default defineComponent({
@@ -86,7 +91,13 @@
       FontAwesomeIcon,
       Input,
       Textarea
+      JetInput,
+      JetLabel,
+      JetButton,
+      VueRecaptcha,
+      alert
     },
+    layout: Layout,
     props: {
       article: Object,
       comments: Object,
@@ -98,35 +109,36 @@
     data() {
       return {
         form: this.$inertia.form({
+            robot: false,
             user_id: '',
             content: ''
         }),
         fav: this.$inertia.form({
             user_id: '',
         }),
+        errorRobot: false,
       }
     },
     methods: {
-      selectRole(roleInt) {
-        switch(roleInt) {
-        case 1:
-            return "Usuari";
-            break;
-        case 2:
-            return "Admin";
-            break;
-        case 3:
-            return "Gestor";
-            break;
-        default:
-            return "Usuari";
+      submitComment() {
+        if (this.form.robot) {
+          this.form.user_id = this.$page.props.user.id;
+          this.form.post(this.route('comment.store', this.article.id), {
+            onFinish: () => {
+              this.form.content = '';
+            },
+          });
+        } else {
+          this.errorRobot = true
         }
       },
-      submitComment() {
-        this.form.user_id = this.$page.props.user.id;
-        this.form.post(this.route('comment.store', this.article.id), {
-          onFinish: () => this.form.reset('content'),
-        });
+      onVerify(response) {
+        if (response) {
+          this.form.robot = true
+          this.errorRobot = false
+        } else {
+          this.errorRobot = true
+        }
       },
       addFavorite() {
         this.fav.user_id = this.$page.props.user.id;
@@ -136,7 +148,11 @@
         this.fav.user_id = this.$page.props.user.id;
         this.fav.post(this.route('favorite.rem', this.article.id));
       },
-    }
+      destroy(id) {
+        Inertia.delete(`/deleteComment/${id}`);
+      }
+    },
+    
   })
 </script>
 

@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\URL;
 use Illuminate\Validation\Rule;
 use Inertia\Inertia;
 use App\Models\Favorite;
-use App\Models\Article;
+use App\Models\Setting;
 
 class FavoriteController extends Controller
 {
@@ -31,11 +31,16 @@ class FavoriteController extends Controller
             'article_slug' => $favorite->article->slug,
             'article_title' => $favorite->article->title,
             'article_category' => $favorite->article->category->slug,
+            'readingTime' => $favorite->article->readerTime($favorite->article->content),
+            'ncomments' => $favorite->article->comments->count(),
+            'nfavorites' => $favorite->article->favorites->count(),
         ]);
+        
+        $settings = Setting::first();
 
-
-        return Inertia::render('Favorites', [
-            "favorites" => $favorites
+        return Inertia::render('Public/Favorites', [
+            "favorites" => $favorites,
+            "settings" => $settings
         ]);
     }
     
@@ -59,7 +64,7 @@ class FavoriteController extends Controller
             'article_id' => $article_id
         ]);
 
-        return Redirect::back()->with('success', 'Favorit eliminat');
+        return Redirect::back()->with('success', 'Favorit afegit');
     }
 
     /**
