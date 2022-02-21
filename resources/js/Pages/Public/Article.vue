@@ -66,7 +66,7 @@
               <div class="flex items-center gap-2">
                 <span class="text-xl font-bold">{{comment.username}}</span>
                 <span :style="`background-color: ${settings.main_color}`" :class="`p-1 text-md font-semibold rounded leading-none`">{{comment.user_role}}</span>
-                <div v-if="$page.props.user.role_id == 3 || $page.props.user.role_id == 4"><a class="cursor-pointer"  v-on:click="destroy(comment.id)"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg></a></div>
+                <template v-if="$page.props.user"><div v-if="$page.props.user.role_id == 3 || $page.props.user.role_id == 4"><a class="cursor-pointer"  v-on:click="destroy(comment.id)"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg></a></div></template>
               </div>
             </div>
 
@@ -89,6 +89,7 @@
   import { VueRecaptcha } from "vue-recaptcha"
   import alert from "../../Shared/Public/Alert.vue"
   import { Inertia } from "@inertiajs/inertia"
+  import Layout from "../../Shared/Layouts/Public.vue"
 
   library.add(fas)
 
@@ -96,8 +97,6 @@
     components: {
       Link,
       FontAwesomeIcon,
-      Input,
-      Textarea,
       JetInput,
       JetLabel,
       JetButton,
@@ -161,13 +160,13 @@
     },
     
 
-      UpdatedDate() {
-        
-        var fullDate = new Date(this.$page.props.article.updated_at);
-        
-        return fullDate.getDate() + '/' + (fullDate.getMonth() + 1) + '/' + fullDate.getFullYear()
+    UpdatedDate() {
+      
+      var fullDate = new Date(this.$page.props.article.updated_at);
+      
+      return fullDate.getDate() + '/' + (fullDate.getMonth() + 1) + '/' + fullDate.getFullYear()
 
-      },
+    },
 
     }
   )

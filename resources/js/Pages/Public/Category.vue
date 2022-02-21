@@ -12,7 +12,7 @@
           </span>
         </div>
 
-        <img class="h-80" src="/img/salut.svg">
+        <img class="h-80" src="/images/salud.svg">
       </div>
     </section>
 
@@ -43,6 +43,7 @@
                   <span>{{article.nfavorites}}</span>
                 </div>
               </div>
+              <img class="w-full rounded-b-xl mt-4" src="/images/default.jpg">
             </div>
           </Link>
         </section>

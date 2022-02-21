@@ -57,6 +57,7 @@
                   <span>{{article.nfavorites}}</span>
                 </div>
               </div>
+              <img class="w-full rounded-b-xl self-end mt-4" src="/images/default.jpg">
             </div>
         </Link>
       </div>

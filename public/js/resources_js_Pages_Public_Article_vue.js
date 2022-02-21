@@ -15131,10 +15131,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Jetstream_Label_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/Jetstream/Label.vue */ "./resources/js/Jetstream/Label.vue");
 /* harmony import */ var _Jetstream_Button_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/Jetstream/Button.vue */ "./resources/js/Jetstream/Button.vue");
 /* harmony import */ var _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @fortawesome/free-solid-svg-icons */ "./node_modules/@fortawesome/free-solid-svg-icons/index.es.js");
-/* harmony import */ var _Shared_Layouts_Public__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../Shared/Layouts/Public */ "./resources/js/Shared/Layouts/Public.vue");
-/* harmony import */ var vue_recaptcha__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! vue-recaptcha */ "./node_modules/vue-recaptcha/dist/vue-recaptcha.es.js");
-/* harmony import */ var _Shared_Public_Alert_vue__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../Shared/Public/Alert.vue */ "./resources/js/Shared/Public/Alert.vue");
-/* harmony import */ var _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @inertiajs/inertia */ "./node_modules/@inertiajs/inertia/dist/index.js");
+/* harmony import */ var vue_recaptcha__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vue-recaptcha */ "./node_modules/vue-recaptcha/dist/vue-recaptcha.es.js");
+/* harmony import */ var _Shared_Public_Alert_vue__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../Shared/Public/Alert.vue */ "./resources/js/Shared/Public/Alert.vue");
+/* harmony import */ var _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @inertiajs/inertia */ "./node_modules/@inertiajs/inertia/dist/index.js");
+/* harmony import */ var _Shared_Layouts_Public_vue__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../Shared/Layouts/Public.vue */ "./resources/js/Shared/Layouts/Public.vue");
 var _defineComponent;
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -15156,15 +15156,13 @@ _fortawesome_fontawesome_svg_core__WEBPACK_IMPORTED_MODULE_3__.library.add(_fort
   components: {
     Link: _inertiajs_inertia_vue3__WEBPACK_IMPORTED_MODULE_1__.Link,
     FontAwesomeIcon: _fortawesome_vue_fontawesome__WEBPACK_IMPORTED_MODULE_2__.FontAwesomeIcon,
-    Input: Input,
-    Textarea: Textarea,
     JetInput: _Jetstream_Input_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
     JetLabel: _Jetstream_Label_vue__WEBPACK_IMPORTED_MODULE_5__["default"],
     JetButton: _Jetstream_Button_vue__WEBPACK_IMPORTED_MODULE_6__["default"],
-    VueRecaptcha: vue_recaptcha__WEBPACK_IMPORTED_MODULE_8__.VueRecaptcha,
-    alert: _Shared_Public_Alert_vue__WEBPACK_IMPORTED_MODULE_9__["default"]
+    VueRecaptcha: vue_recaptcha__WEBPACK_IMPORTED_MODULE_7__.VueRecaptcha,
+    alert: _Shared_Public_Alert_vue__WEBPACK_IMPORTED_MODULE_8__["default"]
   },
-  layout: _Shared_Layouts_Public__WEBPACK_IMPORTED_MODULE_7__["default"],
+  layout: _Shared_Layouts_Public_vue__WEBPACK_IMPORTED_MODULE_10__["default"],
   props: {
     article: Object,
     comments: Object,
@@ -15172,7 +15170,7 @@ _fortawesome_fontawesome_svg_core__WEBPACK_IMPORTED_MODULE_3__.library.add(_fort
     added: Number,
     settings: Object
   }
-}, _defineProperty(_defineComponent, "layout", _Shared_Layouts_Public__WEBPACK_IMPORTED_MODULE_7__["default"]), _defineProperty(_defineComponent, "data", function data() {
+}, _defineProperty(_defineComponent, "layout", _Shared_Layouts_Public_vue__WEBPACK_IMPORTED_MODULE_10__["default"]), _defineProperty(_defineComponent, "data", function data() {
   return {
     form: this.$inertia.form({
       robot: false,
@@ -15216,7 +15214,7 @@ _fortawesome_fontawesome_svg_core__WEBPACK_IMPORTED_MODULE_3__.library.add(_fort
     this.fav.post(this.route('favorite.rem', this.article.id));
   },
   destroy: function destroy(id) {
-    _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_10__.Inertia["delete"]("/deleteComment/".concat(id));
+    _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_9__.Inertia["delete"]("/deleteComment/".concat(id));
   }
 }), _defineProperty(_defineComponent, "UpdatedDate", function UpdatedDate() {
   var fullDate = new Date(this.$page.props.article.updated_at);
@@ -15738,14 +15736,18 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)("p-1 text-md font-semibold rounded leading-none")
     }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(comment.user_role), 5
     /* TEXT, STYLE */
-    ), _ctx.$page.props.user.role_id == 3 || _ctx.$page.props.user.role_id == 4 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_25, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
+    ), _ctx.$page.props.user ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
+      key: 0
+    }, [_ctx.$page.props.user.role_id == 3 || _ctx.$page.props.user.role_id == 4 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_25, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
       "class": "cursor-pointer",
       onClick: function onClick($event) {
         return _ctx.destroy(comment.id);
       }
     }, _hoisted_28, 8
     /* PROPS */
-    , _hoisted_26)])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", {
+    , _hoisted_26)])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)], 2112
+    /* STABLE_FRAGMENT, DEV_ROOT_FRAGMENT */
+    )) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", {
       innerHTML: comment.content,
       "class": "text-md leading-2"
     }, null, 8

@@ -1,7 +1,7 @@
 <template>
     <jet-action-section>
         <template #title>
-            Borrar compte
+            Esborrar compte
         </template>
 
         <template #description>
@@ -15,14 +15,14 @@
 
             <div class="mt-5">
                 <jet-danger-button @click="confirmUserDeletion">
-                    Borrar compte
+                    Esborrar compte
                 </jet-danger-button>
             </div>
 
             <!-- Delete Account Confirmation Modal -->
             <jet-dialog-modal :show="confirmingUserDeletion" @close="closeModal">
                 <template #title>
-                    Borrar compte
+                    Esborrar compte
                 </template>
 
                 <template #content>
@@ -44,7 +44,7 @@
                     </jet-secondary-button>
 
                     <jet-danger-button class="ml-3" @click="deleteUser" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                        Borrar compte
+                        Esborrar compte
                     </jet-danger-button>
                 </template>
             </jet-dialog-modal>

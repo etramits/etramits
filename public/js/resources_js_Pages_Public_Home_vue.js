@@ -15367,6 +15367,14 @@ var _hoisted_22 = {
 var _hoisted_23 = {
   "class": "px-2 py-1 text-sm text-gray-500 bg-gray-100 rounded leading-none"
 };
+
+var _hoisted_24 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
+  "class": "w-full rounded-b-xl self-end mt-4",
+  src: "/images/default.jpg"
+}, null, -1
+/* HOISTED */
+);
+
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("section", {
     style: (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeStyle)("background-color: ".concat($props.settings.main_color))
@@ -15445,7 +15453,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
           "class": "mr-1"
         }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(article.nfavorites), 1
         /* TEXT */
-        )])])])];
+        )])]), _hoisted_24])];
       }),
       _: 2
       /* DYNAMIC */
