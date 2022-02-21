@@ -2,63 +2,61 @@
   <FormError :errors="form.errors" />
 
   <h1 class="mb-8 font-bold text-3xl text-zinc-700">
-    <Link as="span" href="/acp/usuaris" class="text-zinc-900 cursor-pointer">Usuaris</Link> / Crear
+    <Link as="span" href="/acp/usuaris" class="text-zinc-900 cursor-pointer">Categories</Link> / Crear
   </h1>
 
   <div class="bg-white rounded-md shadow overflow-hidden max-w-3xl">
-    <form @submit.prevent="store">
+    <form @submit.prevent="update">
       <div class="p-8 -mr-6 flex flex-wrap gap-y-6">
-        <div class="pr-6 w-1/2">
+        <div class="pr-6 w-full">
           <FormInput
-            v-model="form.email"
-            :error="form.errors.email"
-            type="email"
-            label="Correu electrònic"
-            autofocus
-          />
-        </div>
-
-        <div class="pr-6 w-1/2">
-          <FormInput
-            v-model="form.password"
-            :error="form.errors.password"
-            type="password"
-            label="Contrasenya"
-          />
-        </div>
-        
-        <div class="pr-6 w-1/2">
-          <FormInput
-            v-model="form.username"
-            :error="form.errors.username"
+            v-model="form.name"
+            :error="form.errors.name"
             type="text"
-            label="Usuari"
+            label="Nom"
+          />
+        </div>
+
+        <div class="pr-6 w-2/3">
+          <FormInput
+            v-model="form.slug"
+            :error="form.errors.slug"
+            type="text"
+            label="Enllaç"
+          />
+        </div>
+
+        <div class="pr-6 w-1/3">
+          <FormInput
+            v-model="form.icon"
+            :error="form.errors.icon"
+            type="text"
+            label="Icona"
+          />
+        </div>
+
+        <div class="pr-6 w-full">
+          <FormTextArea
+            v-model="form.description"
+            :error="form.errors.description"
+            rows="2"
+            label="Descripció"
           />
         </div>
 
         <div class="pr-6 w-1/2">
           <FormSelect
-            v-model="form.role_id"
-            :error="form.errors.role_id"
-            label="Rol"
+            v-model="form.parent"
+            :error="form.errors.parent"
+            label="Categoria pare"
           >
+            <option value="">-</option>
             <option
-              v-for="role in roles"
-              :key="role.id"
-              :value="role.id"
-              v-text="role.label"
+              v-for="category in categories"
+              :key="category.id"
+              :value="category.id"
+              v-text="category.name"
             />
-          </FormSelect>
-        </div>    
-
-        <div class="pr-6 w-1/2">
-          <FormSelect
-            v-model="form.verified"
-            :error="form.errors.verified"
-            label="Verificat"
-          >
-            <option :value="true">Si</option>
-            <option :value="false">No</option>
           </FormSelect>
         </div>
 
@@ -72,11 +70,16 @@
             <option :value="false">No</option>
           </FormSelect>
         </div>
+
+        <div class="pr-6 w-1/2 text-zinc-700 inline">
+          <a href="https://fontawesome.com/v5.15/icons?d=gallery&p=2&s=solid&m=free" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>Llibreria Icones</a>
+        </div>
+
       </div>
 
       <div class="px-8 py-4 bg-gray-50 border-t border-gray-100 flex justify-end">
         <button class="flex items-center px-6 py-3 rounded bg-zinc-700 text-white text-sm leading-4 font-bold whitespace-nowrap hover:bg-zinc-800 focus:bg-zinc-900" type="submit">
-          Crear Usuari
+          Crear Categoria
         </button>
       </div>
     </form>
@@ -106,11 +109,11 @@
   });
 
   let form = useForm({
-    username: "",
-    email: "",
-    password: "",
-    role_id: 1,
-    verified: false,
+    name: '',
+    slug: '',
+    icon: '',
+    description: '',
+    parent: '',
     active: false,
   });
 
