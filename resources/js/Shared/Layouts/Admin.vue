@@ -56,7 +56,7 @@
             Categories
           </Link>
 
-          <Link href="/acp/comentaris" class="flex items-center gap-2 group" :class="$page.component === 'ACP/Licenses/Index' ? 'text-white' : 'text-zinc-300'">
+          <Link v-if="$page.props.user.role_id != 2" href="/acp/comentaris" class="flex items-center gap-2 group" :class="$page.component === 'ACP/Licenses/Index' ? 'text-white' : 'text-zinc-300'">
             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-messages" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
               <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
               <path d="M21 14l-3 -3h-7a1 1 0 0 1 -1 -1v-6a1 1 0 0 1 1 -1h9a1 1 0 0 1 1 1v10"/>
@@ -67,10 +67,10 @@
           </Link>
         </div>
 
-        <div class="md:flex md:flex-col md:gap-4">
+        <div v-if="$page.props.user.role_id != 2" class="md:flex md:flex-col md:gap-4">
           <div class="text-zinc-500 text-sm font-semibold uppercase mb-2 leading-none">Administració</div>
 
-          <Link href="/acp/usuaris" class="flex items-center gap-2 group" :class="$page.component === 'ACP/Users/Index' ? 'text-white' : 'text-zinc-300'">
+          <Link v-if="$page.props.user.role_id != 2" href="/acp/usuaris" class="flex items-center gap-2 group" :class="$page.component === 'ACP/Users/Index' ? 'text-white' : 'text-zinc-300'">
             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-users" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
               <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
               <circle cx="9" cy="7" r="4"></circle>
@@ -82,7 +82,7 @@
             Usuaris
           </Link>
 
-          <Link href="/acp/rols" class="flex items-center gap-2 group" :class="$page.component === 'ACP/Roles/Index' ? 'text-white' : 'text-zinc-300'">
+          <Link v-if="$page.props.user.role_id == 4" href="/acp/rols" class="flex items-center gap-2 group" :class="$page.component === 'ACP/Roles/Index' ? 'text-white' : 'text-zinc-300'">
             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-users" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
               <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
               <circle cx="9" cy="7" r="4"></circle>
@@ -94,7 +94,7 @@
             Rols
           </Link>
 
-          <Link href="/acp/configuracio/" class="flex items-center gap-2 group" :class="$page.component === 'ACP/Settings/1/Edit' ? 'text-white' : 'text-zinc-300'">
+          <Link v-if="$page.props.user.role_id == 4" href="/acp/configuracio/" class="flex items-center gap-2 group" :class="$page.component === 'ACP/Settings/1/Edit' ? 'text-white' : 'text-zinc-300'">
             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-settings" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
               <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
               <path d="M10.325 4.317c.426 -1.756 2.924 -1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543 -.94 3.31 .826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.756 .426 1.756 2.924 0 3.35a1.724 1.724 0 0 0 -1.066 2.573c.94 1.543 -.826 3.31 -2.37 2.37a1.724 1.724 0 0 0 -2.572 1.065c-.426 1.756 -2.924 1.756 -3.35 0a1.724 1.724 0 0 0 -2.573 -1.066c-1.543 .94 -3.31 -.826 -2.37 -2.37a1.724 1.724 0 0 0 -1.065 -2.572c-1.756 -.426 -1.756 -2.924 0 -3.35a1.724 1.724 0 0 0 1.066 -2.573c-.94 -1.543 .826 -3.31 2.37 -2.37c1 .608 2.296 .07 2.572 -1.065z" />
