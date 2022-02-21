@@ -33,7 +33,7 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 })->name('dashboard');
 
 //ACP
-Route::middleware("auth")->group(function ()
+Route::middleware("editor")->group(function ()
 {
 
   // ACP
@@ -83,67 +83,72 @@ Route::middleware("auth")->group(function ()
   Route::delete("acp/categories/{category}", [CategoryController::class, "destroy"])
     ->name("acp.categories.destroy");
 
+  Route::middleware("moderator")->group(function () 
+  {
+    // ACP > Comentaris
 
-  // ACP > Comentaris
-
-  Route::get("acp/comentaris", [AdminController::class, "comments"])
+    Route::get("acp/comentaris", [AdminController::class, "comments"])
     ->name("acp.comments");
 
-  Route::get("/acp/comentaris/{id}/validate", [CommentController::class, "updateState"])
-    ->name("acp.comments.validate");
+    Route::get("/acp/comentaris/{id}/validate", [CommentController::class, "updateState"])
+      ->name("acp.comments.validate");
 
-  Route::delete('/deleteComment/{id}', [CommentController::class, 'destroy'])
-  ->name('comment.destroy');
-
-
-  // ACP > Usuaris
-
-  Route::get("acp/usuaris", [AdminController::class, "users"])
-  ->name("acp.users");
-
-  Route::get("acp/usuaris/crear", [UserController::class, "create"])
-  ->name("acp.users.create");
-
-  Route::post("/acp/usuaris", [UserController::class, "store"])
-  ->name("acp.users.store");
-
-  Route::get("acp/usuaris/{user}/editar", [UserController::class, "edit"])
-  ->name("acp.users.edit");
-
-  Route::put("/acp/usuaris/{user}", [UserController::class, "update"])
-  ->name("acp.users.update");
-
-  Route::delete("/acp/usuaris/{user}", [UserController::class, "destroy"])
-  ->name("acp.users.destroy");
+    Route::delete('/deleteComment/{id}', [CommentController::class, 'destroy'])
+    ->name('comment.destroy');
 
 
-  // ACP > Rols
+    // ACP > Usuaris
 
-  Route::get("acp/rols", [AdminController::class, "roles"])
-  ->name("acp.roles");
+    Route::get("acp/usuaris", [AdminController::class, "users"])
+    ->name("acp.users");
 
-  Route::get("acp/rols/crear", [RoleController::class, "create"])
-  ->name("acp.roles.create");
+    Route::get("acp/usuaris/crear", [UserController::class, "create"])
+    ->name("acp.users.create");
 
-  Route::post("/acp/rols", [RoleController::class, "store"])
-  ->name("acp.roles.store");
+    Route::post("/acp/usuaris", [UserController::class, "store"])
+    ->name("acp.users.store");
 
-  Route::get("acp/rols/{role}/editar", [RoleController::class, "edit"])
-  ->name("acp.roles.edit");
+    Route::get("acp/usuaris/{user}/editar", [UserController::class, "edit"])
+    ->name("acp.users.edit");
 
-  Route::put("/acp/rols/{role}", [RoleController::class, "update"])
-  ->name("acp.roles.update");
+    Route::put("/acp/usuaris/{user}", [UserController::class, "update"])
+    ->name("acp.users.update");
 
-  Route::delete("/acp/rols/{role}", [RoleController::class, "destroy"])
-  ->name("acp.roles.destroy");
+    Route::delete("/acp/usuaris/{user}", [UserController::class, "destroy"])
+    ->name("acp.users.destroy");
+  });
+  
+  Route::middleware("admin")->group(function () 
+  {
 
-   // ACP > Configuració
+    // ACP > Rols
 
-   Route::get("acp/configuracio/", [SettingController::class, "edit"])
-   ->name("acp.settings.edit");
- 
-   Route::put("/acp/configuracio/{setting}", [SettingController::class, "update"])
-   ->name("acp.settings.update");
+    Route::get("acp/rols", [AdminController::class, "roles"])
+    ->name("acp.roles");
+
+    Route::get("acp/rols/crear", [RoleController::class, "create"])
+    ->name("acp.roles.create");
+
+    Route::post("/acp/rols", [RoleController::class, "store"])
+    ->name("acp.roles.store");
+
+    Route::get("acp/rols/{role}/editar", [RoleController::class, "edit"])
+    ->name("acp.roles.edit");
+
+    Route::put("/acp/rols/{role}", [RoleController::class, "update"])
+    ->name("acp.roles.update");
+
+    Route::delete("/acp/rols/{role}", [RoleController::class, "destroy"])
+    ->name("acp.roles.destroy");
+
+    // ACP > Configuració
+
+    Route::get("acp/configuracio/", [SettingController::class, "edit"])
+    ->name("acp.settings.edit");
+  
+    Route::put("/acp/configuracio/{setting}", [SettingController::class, "update"])
+    ->name("acp.settings.update");
+  });
  
 });
 
