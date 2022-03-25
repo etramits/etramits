@@ -24,19 +24,20 @@
     <slot />
 
     <section class="bg-white container mx-auto max-w-7xl">
-        <div class="container flex flex-row mx-auto py-12 justify-center">
-             <img class="w-2/6" src="/images/logo.png" draggable="false">
+        <div class="container grid grid-cols-3 mx-auto py-12 justify-center">
+            <a href="https://www.altemporda.org/portal/" class="hover:opacity-80" target="blank" ><img  src="/images/logo.png"></a>
+            <a href="https://ca.dinahosting.com/" class="hover:opacity-80" target="blank"><img  src="/images/dinahosting.png"></a>
+            <a href="https://wapps.cat/"  class="hover:opacity-80" target="blank" ><img  src="/images/wapps.png" ></a>
+
         </div>   
     </section>
 
     <section class="bg-gray-800 text-gray-200">
         <div class="flex justify-between container mx-auto max-w-7xl py-2">
-            <div v-if="year != 2022" class="inline-block align-middle">
-                © 2022 - {{ year }} TicTac ® Tots els drets reservats.
+            <div class="inline-block align-middle">
+                Tots els drets reservats <a href="https://opensource.org/licenses/mit-license.php" target="blank">MIT</a>. Aquest Lloc Web està autoritzat per <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="blank">CC BY NC SA 4.0</a>.
             </div>
-            <div v-else class="inline-block align-middle">
-                © 2022 TicTac ® Tots els drets reservats.
-            </div>
+           
             <div>
                 Aplicació Web creada pels alumnes de l'Institut Cendrassos.
             </div>
