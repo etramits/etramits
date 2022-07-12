@@ -154,9 +154,8 @@ Route::middleware("editor")->group(function ()
 
 // Favorites and comments
 Route::middleware(['auth:sanctum'])->group(function () {
-  // Perfil d'Usuari
-  Route::get('/perfil', [UserProfileController::class, 'show'])
-    ->name('profile');
+  // User profile
+  Route::get('/profile', [UserProfileController::class, 'show'])->name('profile');
     
   // Favorites
   Route::get('favorites/index', [FavoriteController::class, 'index'])
