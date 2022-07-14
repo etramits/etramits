@@ -5,7 +5,7 @@ Open Source Project
 
 ##  Installation Guide 🚀
 
-1. The first step is to download the latest version of the project and verify that we have php7.4.2 installed.
+1. The first step is to download the latest version of the project and verify that we have php8.0 installed.
 
 2. Next we will create a database and configure the variables in a `.env` file
 
